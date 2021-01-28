@@ -24,6 +24,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Join"/>
     public class JoinActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JoinActivity"/> class.
+        /// </summary>
         public JoinActivity() : base(type: "Join") { }
     }
 }

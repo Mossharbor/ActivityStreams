@@ -16,6 +16,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Person"/>
     public class PersonActor : BaseActor
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PersonActor"/> class.
+        /// </summary>
         public PersonActor() : base(type: "Person") { }
     }
 }

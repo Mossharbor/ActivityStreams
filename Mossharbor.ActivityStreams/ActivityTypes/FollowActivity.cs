@@ -27,6 +27,9 @@ namespace Mossharbor.ActivityStreams
     /// </example>
     public class FollowActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FollowActivity"/> class.
+        /// </summary>
         public FollowActivity() : base(type: "Follow") { }
     }
 }

@@ -26,6 +26,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Delete"/>
     public class DeleteActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeleteActivity"/> class.
+        /// </summary>
         public DeleteActivity() : base(type: "Delete") { }
     }
 }

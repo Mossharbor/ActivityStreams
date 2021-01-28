@@ -16,6 +16,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Group"/>
     public class GroupActor : BaseActor
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GroupActor"/> class.
+        /// </summary>
         public GroupActor() : base(type: "Group") { }
     }
 }

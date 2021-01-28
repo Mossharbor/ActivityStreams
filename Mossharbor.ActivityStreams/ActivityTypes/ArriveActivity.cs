@@ -30,6 +30,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Arrive"/>
     public class ArriveActivity : IntransitiveActivity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArriveActivity"/> class.
+        /// </summary>
         public ArriveActivity() : base(type: "Arrive") { }
     }
 }

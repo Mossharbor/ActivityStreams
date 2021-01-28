@@ -31,6 +31,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Announce"/>
     public class AnnounceActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnnounceActivity"/> class.
+        /// </summary>
         public AnnounceActivity() : base(type: "Announce") { }
     }
 }

@@ -16,6 +16,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Service"/>
     public class ServiceActor : BaseActor
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServiceActor"/> class.
+        /// </summary>
         public ServiceActor() : base(type: "Service") { }
     }
 }

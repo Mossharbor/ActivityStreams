@@ -16,6 +16,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Organization"/>
     public class OrganizationActor : BaseActor
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrganizationActor"/> class.
+        /// </summary>
         public OrganizationActor() : base(type: "Organization") { }
     }
 }

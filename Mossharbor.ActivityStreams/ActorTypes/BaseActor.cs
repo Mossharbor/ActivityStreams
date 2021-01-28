@@ -9,6 +9,9 @@ namespace Mossharbor.ActivityStreams
     /// </summary>
     public class BaseActor : ActivityObject
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseActor"/> class.
+        /// </summary>
         internal BaseActor(string type) : base(type) { }
     }
 }

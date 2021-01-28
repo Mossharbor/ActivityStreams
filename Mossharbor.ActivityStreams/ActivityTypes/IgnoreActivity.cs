@@ -22,6 +22,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Ignore"/>
     public class IgnoreActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IgnoreActivity"/> class.
+        /// </summary>
         public IgnoreActivity() : base(type: "Ignore") { }
     }
 }

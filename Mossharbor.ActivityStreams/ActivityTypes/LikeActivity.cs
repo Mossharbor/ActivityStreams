@@ -22,6 +22,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Like"/>
     public class LikeActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LikeActivity"/> class.
+        /// </summary>
         public LikeActivity() : base(type: "Like") { }
     }
 }

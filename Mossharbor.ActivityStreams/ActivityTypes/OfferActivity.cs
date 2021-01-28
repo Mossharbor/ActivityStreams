@@ -28,6 +28,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Offer"/>
     public class OfferActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OfferActivity"/> class.
+        /// </summary>
         public OfferActivity() : base(type: "Offer") { }
     }
 }

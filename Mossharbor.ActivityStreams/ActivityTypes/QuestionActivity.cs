@@ -37,6 +37,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Question"/>
     public class QuestionActivity : IntransitiveActivity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuestionActivity"/> class.
+        /// </summary>
         public QuestionActivity() : base(type: "Question") { }
     }
 }

@@ -31,6 +31,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Travel"/>
     public class TravelActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TravelActivity"/> class.
+        /// </summary>
         public TravelActivity() : base(type: "Travel") { }
     }
 }

@@ -30,6 +30,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Move"/>
     public class MoveActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MoveActivity"/> class.
+        /// </summary>
         public MoveActivity() : base(type: "Move") { }
     }
 }

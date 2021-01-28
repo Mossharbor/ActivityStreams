@@ -24,6 +24,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Leave"/>
     public class LeaveActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnnounceActivity"/> class.
+        /// </summary>
         public LeaveActivity() : base(type: "Leave") { }
     }
 }

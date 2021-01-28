@@ -36,6 +36,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Add"/>
     public class AddActivity :Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddActivity"/> class.
+        /// </summary>
         public AddActivity() : base(type: "Add") { }
     }
 }

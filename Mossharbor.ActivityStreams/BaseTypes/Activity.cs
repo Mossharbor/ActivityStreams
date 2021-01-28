@@ -3,11 +3,21 @@ using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
 {
+    /// <summary>
+    /// the base activity
+    /// </summary>
     public class Activity : IntransitiveActivity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Activity"/> class.
+        /// </summary>
         public Activity()
         { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Activity"/> class.
+        /// </summary>
+        /// <param name="type">the type of the activity</param>
         public Activity(string type)
         {
             this.Type = type;

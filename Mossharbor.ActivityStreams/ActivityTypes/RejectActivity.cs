@@ -28,8 +28,15 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Reject"/>
     public class RejectActivity : Activity
     {
-        internal RejectActivity(string type) : base(type) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RejectActivity"/> class.
+        /// </summary>
+        /// <param name="type">the type of the activity</param>
+        protected RejectActivity(string type) : base(type) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RejectActivity"/> class.
+        /// </summary>
         public RejectActivity() : base(type: "Reject") { }
     }
 }

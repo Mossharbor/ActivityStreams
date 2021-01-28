@@ -27,6 +27,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Undo"/>
     public class UndoActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UndoActivity"/> class.
+        /// </summary>
         public UndoActivity() : base(type: "Undo") { }
     }
 }

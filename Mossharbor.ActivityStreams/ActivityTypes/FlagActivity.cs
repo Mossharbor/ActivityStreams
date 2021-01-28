@@ -22,6 +22,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Flag"/>
     public class FlagActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FlagActivity"/> class.
+        /// </summary>
         public FlagActivity() : base(type: "Flag") { }
     }
 }

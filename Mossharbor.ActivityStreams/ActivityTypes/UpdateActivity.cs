@@ -24,6 +24,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Update"/>
     public class UpdateActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UpdateActivity"/> class.
+        /// </summary>
         public UpdateActivity() : base(type: "Update") { }
     }
 }

@@ -16,6 +16,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Application"/>
     public class ApplicationActor : BaseActor
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationActor"/> class.
+        /// </summary>
         public ApplicationActor() : base(type: "Application") { }
     }
 }

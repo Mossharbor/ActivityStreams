@@ -22,6 +22,9 @@
     /// <see cref="https://www.w3.org/ns/activitystreams#Remove"/>
     public class RemoveActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RemoveActivity"/> class.
+        /// </summary>
         public RemoveActivity() : base(type: "Remove") { }
     }
 }

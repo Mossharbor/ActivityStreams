@@ -21,6 +21,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Block"/>
     public class BlockActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BlockActivity"/> class.
+        /// </summary>
         public BlockActivity() : base(type: "Block") { }
     }
 }

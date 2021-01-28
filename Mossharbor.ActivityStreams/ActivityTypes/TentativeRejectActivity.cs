@@ -29,6 +29,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#TentativeReject"/>
     public class TentativeRejectActivity : RejectActivity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TentativeRejectActivity"/> class.
+        /// </summary>
         public TentativeRejectActivity() : base(type: "TentativeReject") { }
     }
 }

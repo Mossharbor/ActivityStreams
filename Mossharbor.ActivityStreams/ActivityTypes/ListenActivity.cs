@@ -22,6 +22,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Listen"/>
     public class ListenActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListenActivity"/> class.
+        /// </summary>
         public ListenActivity() : base(type: "Listen") { }
     }
 }

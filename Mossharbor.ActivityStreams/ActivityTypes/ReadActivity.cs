@@ -22,6 +22,9 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Read"/>
     public class ReadActivity : Activity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadActivity"/> class.
+        /// </summary>
         public ReadActivity() : base(type: "Read") { }
     }
 }
