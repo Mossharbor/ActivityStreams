@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mossharbor.ActivityStreams", "Mossharbor.ActivityStreams\Mossharbor.ActivityStreams.csproj", "{22930502-098D-4BD6-89E9-530A7914847B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mossharbor.ActivityStreams", "Mossharbor.ActivityStreams\Mossharbor.ActivityStreams.csproj", "{22930502-098D-4BD6-89E9-530A7914847B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{69807D10-F83A-405C-ACFE-7F7120A2D077}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Testing\UnitTests\UnitTests.csproj", "{8D141E28-9821-4883-B7BA-D806A5D3178D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{22930502-098D-4BD6-89E9-530A7914847B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22930502-098D-4BD6-89E9-530A7914847B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22930502-098D-4BD6-89E9-530A7914847B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D141E28-9821-4883-B7BA-D806A5D3178D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D141E28-9821-4883-B7BA-D806A5D3178D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D141E28-9821-4883-B7BA-D806A5D3178D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D141E28-9821-4883-B7BA-D806A5D3178D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8D141E28-9821-4883-B7BA-D806A5D3178D} = {69807D10-F83A-405C-ACFE-7F7120A2D077}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E0B94E8-380B-4A09-AB09-9895FA89D631}
