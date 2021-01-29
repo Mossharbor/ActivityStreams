@@ -17,6 +17,11 @@ namespace Mossharbor.ActivityStreams
     public class GroupActor : BaseActor
     {
         /// <summary>
+        /// the type constant for this actor
+        /// </summary>
+        public const string GroupActorType = "Group";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GroupActor"/> class.
         /// </summary>
         public GroupActor() : base(type: "Group") { }

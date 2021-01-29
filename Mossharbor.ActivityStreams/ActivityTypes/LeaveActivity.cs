@@ -25,8 +25,13 @@ namespace Mossharbor.ActivityStreams
     public class LeaveActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Leave";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AnnounceActivity"/> class.
         /// </summary>
-        public LeaveActivity() : base(type: "Leave") { }
+        public LeaveActivity() : base(type: TypeString) { }
     }
 }

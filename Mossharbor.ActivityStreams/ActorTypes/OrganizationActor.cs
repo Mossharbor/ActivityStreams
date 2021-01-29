@@ -17,6 +17,11 @@ namespace Mossharbor.ActivityStreams
     public class OrganizationActor : BaseActor
     {
         /// <summary>
+        /// the type constant for this actor
+        /// </summary>
+        public const string OrganizationActorType = "Organization";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="OrganizationActor"/> class.
         /// </summary>
         public OrganizationActor() : base(type: "Organization") { }

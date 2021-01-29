@@ -25,8 +25,13 @@ namespace Mossharbor.ActivityStreams
     public class JoinActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Join";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="JoinActivity"/> class.
         /// </summary>
-        public JoinActivity() : base(type: "Join") { }
+        public JoinActivity() : base(type: TypeString) { }
     }
 }

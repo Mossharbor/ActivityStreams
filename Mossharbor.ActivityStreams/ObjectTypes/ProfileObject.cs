@@ -21,6 +21,11 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Profile"/>
     public class ProfileObject : ActivityObject
     {
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string ProfileType = "Profile";
+
         public ProfileObject() : base(type: "Profile") { }
     }
 }

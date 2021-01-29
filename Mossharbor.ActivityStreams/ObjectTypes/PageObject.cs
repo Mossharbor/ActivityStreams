@@ -18,6 +18,11 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Page"/>
     public class PageObject : ActivityObject
     {
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string PageType = "Page";
+
         public PageObject() : base(type: "Page") { }
     }
 }

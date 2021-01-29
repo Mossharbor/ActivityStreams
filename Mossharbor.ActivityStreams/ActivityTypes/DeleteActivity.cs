@@ -27,8 +27,13 @@ namespace Mossharbor.ActivityStreams
     public class DeleteActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Delete";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DeleteActivity"/> class.
         /// </summary>
-        public DeleteActivity() : base(type: "Delete") { }
+        public DeleteActivity() : base(type: TypeString) { }
     }
 }

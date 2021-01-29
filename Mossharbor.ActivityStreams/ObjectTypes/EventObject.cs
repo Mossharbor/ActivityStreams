@@ -19,6 +19,11 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Event"/>
     public class EventObject : ActivityObject
     {
-        public EventObject() : base(type: "Event") { }
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string EventType = "Event";
+
+        public EventObject() : base(type: "EventType") { }
     }
 }

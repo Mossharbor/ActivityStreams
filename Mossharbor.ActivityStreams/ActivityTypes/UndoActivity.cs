@@ -28,8 +28,13 @@ namespace Mossharbor.ActivityStreams
     public class UndoActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Undo";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="UndoActivity"/> class.
         /// </summary>
-        public UndoActivity() : base(type: "Undo") { }
+        public UndoActivity() : base(type: TypeString) { }
     }
 }

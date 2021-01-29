@@ -9,6 +9,11 @@ namespace Mossharbor.ActivityStreams
     public class Activity : IntransitiveActivity
     {
         /// <summary>
+        /// the type constant for this actor
+        /// </summary>
+        public const string ActivityType = "Activity";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Activity"/> class.
         /// </summary>
         public Activity()

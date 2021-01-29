@@ -32,8 +32,13 @@ namespace Mossharbor.ActivityStreams
     public class AnnounceActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Announce";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AnnounceActivity"/> class.
         /// </summary>
-        public AnnounceActivity() : base(type: "Announce") { }
+        public AnnounceActivity() : base(type: TypeString) { }
     }
 }

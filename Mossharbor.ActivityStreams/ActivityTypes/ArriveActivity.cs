@@ -31,8 +31,13 @@ namespace Mossharbor.ActivityStreams
     public class ArriveActivity : IntransitiveActivity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Arrive";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ArriveActivity"/> class.
         /// </summary>
-        public ArriveActivity() : base(type: "Arrive") { }
+        public ArriveActivity() : base(type: TypeString) { }
     }
 }

@@ -23,8 +23,13 @@ namespace Mossharbor.ActivityStreams
     public class FlagActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Flag";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FlagActivity"/> class.
         /// </summary>
-        public FlagActivity() : base(type: "Flag") { }
+        public FlagActivity() : base(type: TypeString) { }
     }
 }

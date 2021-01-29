@@ -29,6 +29,11 @@ namespace Mossharbor.ActivityStreams
     public class RejectActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Reject";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="RejectActivity"/> class.
         /// </summary>
         /// <param name="type">the type of the activity</param>
@@ -37,6 +42,6 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// Initializes a new instance of the <see cref="RejectActivity"/> class.
         /// </summary>
-        public RejectActivity() : base(type: "Reject") { }
+        public RejectActivity() : base(type: TypeString) { }
     }
 }

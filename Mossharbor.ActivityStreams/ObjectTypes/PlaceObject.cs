@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
 {
@@ -23,6 +21,23 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Place"/>
     public class PlaceObject : ActivityObject
     {
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string PlaceType = "Place";
+
         public PlaceObject() : base(type: "Place") { }
+
+        [JsonPropertyName("longitude")]
+        public double Longitude { get; set; }
+
+        [JsonPropertyName("latitude")]
+        public double Latitude { get; set; }
+
+        [JsonPropertyName("altitude")]
+        public double Altitude { get; set; }
+
+        [JsonPropertyName("units")]
+        public string Units { get; set; }
     }
 }

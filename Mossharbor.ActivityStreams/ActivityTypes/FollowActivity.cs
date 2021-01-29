@@ -28,8 +28,13 @@ namespace Mossharbor.ActivityStreams
     public class FollowActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Follow";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FollowActivity"/> class.
         /// </summary>
-        public FollowActivity() : base(type: "Follow") { }
+        public FollowActivity() : base(type: TypeString) { }
     }
 }

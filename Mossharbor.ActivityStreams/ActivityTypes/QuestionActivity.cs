@@ -38,8 +38,13 @@ namespace Mossharbor.ActivityStreams
     public class QuestionActivity : IntransitiveActivity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Question";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="QuestionActivity"/> class.
         /// </summary>
-        public QuestionActivity() : base(type: "Question") { }
+        public QuestionActivity() : base(type: TypeString) { }
     }
 }

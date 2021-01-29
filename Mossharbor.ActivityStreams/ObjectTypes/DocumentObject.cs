@@ -18,6 +18,11 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Document"/>
     public class DocumentObject : ActivityObject
     {
-        public DocumentObject() : base(type: "Document") { }
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string DocumentType = "Document";
+
+        public DocumentObject() : base(type: DocumentType) { }
     }
 }

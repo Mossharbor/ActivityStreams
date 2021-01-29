@@ -30,6 +30,11 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="	https://www.w3.org/ns/activitystreams#Tombstone"/>
     public class TombstoneObject : ActivityObject
     {
-        public TombstoneObject() : base(type: "Tombstone") { }
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string TombstoneType = "Tombstone";
+
+        public TombstoneObject() : base(type: TombstoneType) { }
     }
 }

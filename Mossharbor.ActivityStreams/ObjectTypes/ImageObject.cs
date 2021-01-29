@@ -29,6 +29,11 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Image"/>
     public class ImageObject : ActivityObject
     {
-        public ImageObject() : base(type: "Image") { }
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string ImageType = "Image";
+
+        public ImageObject() : base(type: ImageType) { }
     }
 }

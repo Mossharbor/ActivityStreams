@@ -22,8 +22,13 @@ namespace Mossharbor.ActivityStreams
     public class BlockActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Block";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="BlockActivity"/> class.
         /// </summary>
-        public BlockActivity() : base(type: "Block") { }
+        public BlockActivity() : base(type: TypeString) { }
     }
 }

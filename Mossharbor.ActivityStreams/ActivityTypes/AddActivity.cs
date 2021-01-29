@@ -37,8 +37,13 @@ namespace Mossharbor.ActivityStreams
     public class AddActivity :Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Add";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AddActivity"/> class.
         /// </summary>
-        public AddActivity() : base(type: "Add") { }
+        public AddActivity() : base(type: TypeString) { }
     }
 }

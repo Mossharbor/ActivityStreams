@@ -20,8 +20,13 @@ namespace Mossharbor.ActivityStreams
     public class DislikeActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Dislike";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DislikeActivity"/> class.
         /// </summary>
-        public DislikeActivity() : base(type: "Dislike") { }
+        public DislikeActivity() : base(type: TypeString) { }
     }
 }

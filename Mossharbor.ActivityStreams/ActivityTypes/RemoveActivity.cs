@@ -23,8 +23,13 @@
     public class RemoveActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Remove";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="RemoveActivity"/> class.
         /// </summary>
-        public RemoveActivity() : base(type: "Remove") { }
+        public RemoveActivity() : base(type: TypeString) { }
     }
 }

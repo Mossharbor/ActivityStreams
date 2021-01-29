@@ -374,7 +374,7 @@ namespace Mossharbor.ActivityStreams
         /// Indicates one or more physical or logical locations associated with the object.
         /// </summary>
         [JsonPropertyName("location")]
-        public Location Location { get; set; }
+        public PlaceObject Location { get; set; }
 
         /// <summary>
         /// A natural language summarization of the object encoded as HTML. Multiple language tagged summaries may be provided.

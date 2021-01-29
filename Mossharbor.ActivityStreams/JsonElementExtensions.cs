@@ -53,5 +53,50 @@ namespace Mossharbor.ActivityStreams
 
             return found.GetString();
         }
+
+        /// <summary>
+        /// this returns the found property or null if not found
+        /// </summary>
+        /// <param name="el">the json element root we are searching under</param>
+        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <returns>the found json property or null.</returns>
+        public static double GetDoubleOrDefault(this JsonElement el, string propertyName)
+        {
+            JsonElement found;
+            if (!el.TryGetProperty(propertyName, out found) || found.ValueKind != JsonValueKind.Number)
+                return double.NaN;
+
+            return found.GetDouble();
+        }
+
+        /// <summary>
+        /// this returns the found property or null if not found
+        /// </summary>
+        /// <param name="el">the json element root we are searching under</param>
+        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <returns>the found json property or null.</returns>
+        public static long GetLongOrDefault(this JsonElement el, string propertyName)
+        {
+            JsonElement found;
+            if (!el.TryGetProperty(propertyName, out found) || (found.ValueKind != JsonValueKind.String && found.ValueKind != JsonValueKind.Number))
+                return 0;
+
+            return found.GetInt64();
+        }
+
+        /// <summary>
+        /// returns true if the property exists, false otherwise
+        /// </summary>
+        /// <param name="el">the json element root we are searching under</param>
+        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <returns>true if the element exists otherwise false</returns>
+        public static bool ContainsElement(this JsonElement el, string propertyName)
+        {
+            JsonElement found;
+            if (!el.TryGetProperty(propertyName, out found) || found.ValueKind == JsonValueKind.Undefined)
+                return false;
+
+            return true;
+        }
     }
 }

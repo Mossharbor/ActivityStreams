@@ -18,6 +18,11 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Note"/>
     public class NoteObject : ActivityObject
     {
-        public NoteObject() : base(type: "Note") { }
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string NoteType = "Note";
+
+        public NoteObject() : base(type: NoteType) { }
     }
 }

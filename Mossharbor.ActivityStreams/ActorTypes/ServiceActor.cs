@@ -17,8 +17,13 @@ namespace Mossharbor.ActivityStreams
     public class ServiceActor : BaseActor
     {
         /// <summary>
+        /// the type constant for this actor
+        /// </summary>
+        public const string ServiceActorType = "Service";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ServiceActor"/> class.
         /// </summary>
-        public ServiceActor() : base(type: "Service") { }
+        public ServiceActor() : base(type: ServiceActorType) { }
     }
 }

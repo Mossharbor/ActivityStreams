@@ -19,6 +19,11 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Video"/>
     public class VideoObject : ActivityObject
     {
-        public VideoObject() : base(type: "Video") { }
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string VideoType = "Video";
+
+        public VideoObject() : base(type: VideoType) { }
     }
 }

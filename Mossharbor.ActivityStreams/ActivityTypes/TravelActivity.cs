@@ -32,8 +32,13 @@ namespace Mossharbor.ActivityStreams
     public class TravelActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Travel";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TravelActivity"/> class.
         /// </summary>
-        public TravelActivity() : base(type: "Travel") { }
+        public TravelActivity() : base(type: TypeString) { }
     }
 }

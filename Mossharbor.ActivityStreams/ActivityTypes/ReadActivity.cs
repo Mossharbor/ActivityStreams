@@ -23,8 +23,13 @@ namespace Mossharbor.ActivityStreams
     public class ReadActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Read";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ReadActivity"/> class.
         /// </summary>
-        public ReadActivity() : base(type: "Read") { }
+        public ReadActivity() : base(type: TypeString) { }
     }
 }

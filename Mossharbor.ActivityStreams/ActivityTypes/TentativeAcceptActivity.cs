@@ -28,8 +28,13 @@ namespace Mossharbor.ActivityStreams
     public class TentativeAcceptActivity : AcceptActivity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "TentativeAccept";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TentativeAcceptActivity"/> class.
         /// </summary>
-        public TentativeAcceptActivity() : base(type: "TentativeAccept") { }
+        public TentativeAcceptActivity() : base(type: TypeString) { }
     }
 }

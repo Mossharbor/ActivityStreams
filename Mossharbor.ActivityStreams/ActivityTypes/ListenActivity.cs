@@ -23,8 +23,13 @@ namespace Mossharbor.ActivityStreams
     public class ListenActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Listen";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ListenActivity"/> class.
         /// </summary>
-        public ListenActivity() : base(type: "Listen") { }
+        public ListenActivity() : base(type: TypeString) { }
     }
 }

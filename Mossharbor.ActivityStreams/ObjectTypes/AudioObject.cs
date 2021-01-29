@@ -22,6 +22,11 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="	https://www.w3.org/ns/activitystreams#Audio"/>
     public class AudioObject : ActivityObject
     {
-        public AudioObject() : base(type: "Audio") { }
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string AudioType = "Audio";
+
+        public AudioObject() : base(type: "AudioType") { }
     }
 }

@@ -23,8 +23,13 @@ namespace Mossharbor.ActivityStreams
     public class IgnoreActivity : Activity
     {
         /// <summary>
+        /// the type constant for this Activity
+        /// </summary>
+        public const string TypeString = "Ignore";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="IgnoreActivity"/> class.
         /// </summary>
-        public IgnoreActivity() : base(type: "Ignore") { }
+        public IgnoreActivity() : base(type: TypeString) { }
     }
 }

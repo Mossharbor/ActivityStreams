@@ -17,6 +17,11 @@ namespace Mossharbor.ActivityStreams
     public class PersonActor : BaseActor
     {
         /// <summary>
+        /// the type constant for this actor
+        /// </summary>
+        public const string PersonActorType = "Person";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PersonActor"/> class.
         /// </summary>
         public PersonActor() : base(type: "Person") { }

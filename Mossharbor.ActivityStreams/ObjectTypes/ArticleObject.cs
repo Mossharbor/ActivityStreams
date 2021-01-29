@@ -19,6 +19,11 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Article"/>
     public class ArticleObject : ActivityObject
     {
-        public ArticleObject() : base(type: "Article") { }
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string ArticleType = "Article";
+
+        public ArticleObject() : base(type: ArticleType) { }
     }
 }

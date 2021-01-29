@@ -21,7 +21,7 @@ namespace Mossharbor.ActivityStreams
         Uri Id { get; set; }
         ImageObject[] Images { get; set; }
         IActivityObjectOrLink InReplyTo { get; set; }
-        Location Location { get; set; }
+        PlaceObject Location { get; set; }
         string MediaType { get; set; }
         string Name { get; set; }
         ContentMap NameMap { get; set; }

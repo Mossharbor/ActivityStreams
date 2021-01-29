@@ -17,8 +17,13 @@ namespace Mossharbor.ActivityStreams
     public class ApplicationActor : BaseActor
     {
         /// <summary>
+        /// the type constant for this actor
+        /// </summary>
+        public const string ApplicationActorType = "Application";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationActor"/> class.
         /// </summary>
-        public ApplicationActor() : base(type: "Application") { }
+        public ApplicationActor() : base(type: ApplicationActorType) { }
     }
 }

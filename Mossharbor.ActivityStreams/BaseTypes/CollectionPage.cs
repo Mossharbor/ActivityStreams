@@ -5,13 +5,49 @@ namespace Mossharbor.ActivityStreams
 {
     public class CollectionPage : Collection
     {
-        [JsonPropertyName("partOf")]//TODO The Items may be a object or a link combo
-        public ActivityObject PartOf { get; set; }
+        public CollectionPage(): base(CollectionPageType)
+        {
+        }
+        
+        private string type;
 
-        [JsonPropertyName("next")]//TODO The Next may be a string or a link combo
-        public CollectionPage Next { get; set; }
+        public override string Type
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(type))
+                {
+                    if (Items != null && Items.Length != 0)
+                        type = CollectionPageType;
+                    else
+                        type = OrderedCollectionPageType;
+                }
 
-        [JsonPropertyName("prev")]//TODO The Prev may be a string or a link combo
-        public CollectionPage Prev { get; set; }
+                return type;
+            }
+            set
+            {
+                type = value;
+            }
+        }
+
+        /// <summary>
+        /// the type constant for this colletion
+        /// </summary>
+        public const string CollectionPageType = "CollectionPage";
+
+        /// <summary>
+        /// the type constant for this collection
+        /// </summary>
+        public const string OrderedCollectionPageType = "OrderedCollectionPage";
+
+        [JsonPropertyName("partOf")]
+        public IActivityObjectOrLink PartOf { get; set; }
+
+        [JsonPropertyName("next")]
+        public IActivityLink Next { get; set; }
+
+        [JsonPropertyName("prev")]
+        public IActivityLink Prev { get; set; }
     }
 }

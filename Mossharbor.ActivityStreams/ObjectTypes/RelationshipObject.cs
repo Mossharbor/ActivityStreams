@@ -26,7 +26,12 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Relationship"/>
     public class RelationshipObject : ActivityObject
     {
-        public RelationshipObject() : base(type: "Relationship") { }
+        /// <summary>
+        /// the type constant for this Object
+        /// </summary>
+        public const string RelationshipType = "Relationship";
+
+        public RelationshipObject() : base(type: RelationshipType) { }
 
         [JsonPropertyName("subject")]
         public ActivityObject Subject { get; set; } //TODO this can be an object or a link
