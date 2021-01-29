@@ -4,11 +4,15 @@ using System.Text.Json.Serialization;
 namespace Mossharbor.ActivityStreams
 {
     public class ActivityLink : IActivityLink
-    //TODO implment parsing so items can be links or objects.
     {
+        /// <summary>
+        /// the type constant for this actor
+        /// </summary>
+        public const string ActivityLinkType = "Link";
+
         public ActivityLink()
         {
-            this.Type = "Link";
+            this.Type = ActivityLinkType;
         }
         protected ActivityLink(string type)
         {
