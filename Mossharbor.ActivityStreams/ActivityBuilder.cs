@@ -196,7 +196,7 @@ namespace Mossharbor.ActivityStreams
         {
             if (el.ValueKind == JsonValueKind.String)
             {
-                return new Activity() { Url = ParseOutActivityLinks(el)  };
+                return new Activity() { Url = ParseOutActivityLinks(el), Type = ActivityLink.ActivityLinkType };
             }
 
             ActivityObject activity = CreateCorrectActivityFrom(el);
