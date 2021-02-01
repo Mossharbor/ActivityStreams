@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
 {
@@ -46,5 +47,57 @@ namespace Mossharbor.ActivityStreams
         /// Initializes a new instance of the <see cref="QuestionActivity"/> class.
         /// </summary>
         public QuestionActivity() : base(type: TypeString) { }
+
+        /// <summary>
+        /// Identifies an exclusive option for a Question. 
+        /// Use of oneOf implies that the Question can have only a single answer.
+        /// To indicate that a Question can have multiple answers, use anyOf.
+        /// </summary>
+        /// <example>
+        ///{
+        ///  "@context": "https://www.w3.org/ns/activitystreams",
+        ///  "type": "Question",
+        ///  "name": "What is the answer?",
+        ///  "oneOf": [
+        ///    {
+        ///      "type": "Note",
+        ///      "name": "Option A"
+        ///    },
+        ///    {
+        ///      "type": "Note",
+        ///      "name": "Option B"
+        ///    }
+        ///  ]
+        ///}
+        /// </example>
+        /// <see cref="https://www.w3.org/ns/activitystreams#oneOf"/>
+        [JsonPropertyName("oneOf")]
+        public IActivityObjectOrLink[] OneOf { get; set; }
+
+        /// <summary>
+        /// Identifies an inclusive option for a Question. 
+        /// Use of anyOf implies that the Question can have multiple answers. 
+        /// To indicate that a Question can have only one answer, use oneOf.
+        /// </summary>
+        /// <example>
+        ///{
+        ///  "@context": "https://www.w3.org/ns/activitystreams",
+        ///  "type": "Question",
+        ///  "name": "What is the answer?",
+        ///  "anyOf": [
+        ///    {
+        ///      "type": "Note",
+        ///      "name": "Option A"
+        ///    },
+        ///    {
+        ///      "type": "Note",
+        ///      "name": "Option B"
+        ///    }
+        ///  ]
+        ///}
+        /// </example>
+        /// <see cref="https://www.w3.org/ns/activitystreams#anyOf"/>
+        [JsonPropertyName("anyOf")]
+        public IActivityObjectOrLink[] AnyOf { get; set; }
     }
 }
