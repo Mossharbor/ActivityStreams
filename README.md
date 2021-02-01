@@ -1,27 +1,27 @@
-# Mossharbor.AzureWorkArounds.QnaMaker
-.net wrapper around Microsofts QnaMaker REST api for managing knowledge bases.
+# Mossharbor.ActivityStreams
+.net implementation for the W3C spec for Activity Streams
 
-Install the nuget package:  [Install-Package Mossharbor.AzureWorkArounds.QnaMaker -Version 1.0.1](https://www.nuget.org/packages/Mossharbor.AzureWorkArounds.QnaMaker/1.0.1#)
+Please Note that this is a brand new library and is still a work in progress, we are currently working on testing the parsing and implmenting Activity Creation.
 
 *Example:*
 ```cs
-using Mossharbor.AzureWorkArounds.QnaMaker;
+using Mossharbor.ActivityStreams;
 
-// Ask a question
-QnAMaker maker =new QnAMaker("", "", "", ""); // TODO enter your credentials in here!!
-var answers = maker.GenerateAnswer("hi");
+// Parse a Question Activity
+ActivityBuilder builder = new ActivityBuilder();
+var activity = builder
+               .FromJson(System.IO.File.OpenRead(@".\TestFiles\example040.json"))
+               .Build();
 
-// Building/Modifying existing QnA information
-QnaUpdateBuilder builder = new QnaUpdateBuilder();
+Console.WriteLine((activity as QuestionActivity).OneOf[0].Obj.Name);
 
-// add new answer and questions to your qna knowledgebase
-builder
-    .Begin(maker)
-    .AddQuestionAndAnswer("Hello", new string[] {"Hello", "There"})
-    .Update();
+// Parse a More Complicated Activity
+var activity = builder
+               .FromJson(System.IO.File.OpenRead(@".\TestFiles\example36.json"))
+               .Build();
+Console.WriteLine(activity.Summary);
 
-List<string> answers = maker.GetAnswerStrings();
-List<string> questions = maker.GetQuestionsFor("Hello");
-maker.DeleteQuestion("Hello", "There");
-
+PersonObject personAnnouncing =  (activity as AnnounceActivity).Actor[0].Obj;
+Console.WriteLine("Announcing" + (personAnnouncing.Name) + " has id " + activity.Id);
+                        
 ```
