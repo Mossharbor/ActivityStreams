@@ -147,6 +147,45 @@ namespace Mossharbor.ActivityStreams
             return loc;
         }
 
+        private static void UpdateActivityForQuestion(JsonElement el, QuestionActivity question)
+        {
+            if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
+                return;
+
+            bool isOneOf = true;
+            JsonElement ofEl = el.GetPropertyOrDefault("oneOf");
+
+            if (ofEl.ValueKind != JsonValueKind.Array || ofEl.ValueKind == JsonValueKind.Null || ofEl.ValueKind == JsonValueKind.Undefined)
+            {
+                ofEl = el.GetPropertyOrDefault("anyOf");
+
+                if (ofEl.ValueKind != JsonValueKind.Array || ofEl.ValueKind == JsonValueKind.Null || ofEl.ValueKind == JsonValueKind.Undefined)
+                    return;
+
+                isOneOf = false;
+            }
+
+            JsonElement[] elementArray = ofEl.ValueKind == JsonValueKind.Array ? ofEl.EnumerateArray().ToArray() : new JsonElement[] { el };
+            var parsed = new IActivityObjectOrLink[elementArray.Length];
+
+            for (int i = 0; i < elementArray.Length; ++i)
+            {
+                IActivityObjectOrLink aOrI = new ActivityObjectOrLink();
+                parsed[i] = aOrI;
+                var toParse = elementArray[i];
+
+                if (ActivityLinkBuilder.IsLinkElment(toParse))
+                    aOrI.Link = new ActivityLinkBuilder().FromJsonElement(toParse).Build();
+                else
+                    aOrI.Obj = ParseActivityObject(toParse);
+            }
+
+            if (isOneOf)
+                question.OneOf = parsed;
+            else
+                question.AnyOf = parsed;
+        }
+
         private static IActivityObjectOrLink[] ParseActivityObjectOrLink(JsonElement el)
         {
             if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
@@ -238,6 +277,11 @@ namespace Mossharbor.ActivityStreams
             if (el.TryGetProperty("location", out JsonElement localEl))
             {
                 (activity as IntransitiveActivity).Location = ParseLocation(localEl);
+            }
+
+            if (activity is QuestionActivity)
+            {
+                UpdateActivityForQuestion(el, activity as QuestionActivity);
             }
 
             if (el.TryGetProperty("url", out JsonElement urlEl))
