@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Text.Json;
+using System.Xml;
 
 namespace Mossharbor.ActivityStreams
 {
@@ -97,6 +98,23 @@ namespace Mossharbor.ActivityStreams
                 return null;
 
             return found.GetDateTime();
+        }
+
+        /// <summary>
+        /// this returns the found property or null if not found
+        /// </summary>
+        /// <param name="el">the json element root we are searching under</param>
+        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <returns>the found json property or null.</returns>
+        public static TimeSpan? GetTimeSpanOrDefault(this JsonElement el, string propertyName)
+        {
+            string durationString = el.GetStringOrDefault(propertyName);
+
+            if (String.IsNullOrEmpty(durationString))
+                return null;
+
+            // NOTE negative durations has issues here: Parsing a valid ISO duration PT-5H fails as it expects negative durations to be formatted as -PT5H.
+            return XmlConvert.ToTimeSpan(durationString);
         }
 
         /// <summary>

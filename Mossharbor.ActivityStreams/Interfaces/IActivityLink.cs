@@ -4,6 +4,7 @@ namespace Mossharbor.ActivityStreams
 {
     public interface IActivityLink
     {
+        Uri Context { get; set; }
         long Height { get; set; }
         string Href { get; set; }
         string HrefLang { get; set; }

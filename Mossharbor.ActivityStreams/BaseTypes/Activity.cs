@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
@@ -6,7 +7,7 @@ namespace Mossharbor.ActivityStreams
     /// <summary>
     /// the base activity
     /// </summary>
-    public class Activity : IntransitiveActivity
+    public class Activity : IntransitiveActivity, IParsesChildObjects
     {
         /// <summary>
         /// the type constant for this actor
@@ -35,5 +36,14 @@ namespace Mossharbor.ActivityStreams
         /// <see cref="https://www.w3.org/ns/activitystreams#Object"/>
         [JsonPropertyName("object")]
         public IActivityObject Object { get; set; }
+
+        /// <inheritdoc/>
+        public void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
+        {
+            if (el.TryGetProperty("object", out JsonElement objectEl))
+            {
+                this.Object = activtyObjectParser(objectEl);
+            }
+        }
     }
 }

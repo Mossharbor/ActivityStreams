@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
 {
-    public class IntransitiveActivity : ActivityObject
+    public class IntransitiveActivity : ActivityObject, IParsesChildObjectOrLinks
     {
         public IntransitiveActivity() { }
 
@@ -156,5 +158,33 @@ namespace Mossharbor.ActivityStreams
         /// <see cref="https://www.w3.org/ns/activitystreams#instrument"/>
         [JsonPropertyName("instrument")]
         public IActivityObjectOrLink Instrument { get; set; }
+
+        public void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        {
+            if (el.TryGetProperty("actor", out JsonElement actorEl))
+            {
+                this.Actor = activtyOrLinkObjectParser(actorEl);
+            }
+
+            if (el.TryGetProperty("origin", out JsonElement originEl))
+            {
+                this.Origin = activtyOrLinkObjectParser(originEl).FirstOrDefault();
+            }
+
+            if (el.TryGetProperty("target", out JsonElement targetEl))
+            {
+                this.Target = activtyOrLinkObjectParser(targetEl);
+            }
+
+            if (el.TryGetProperty("result", out JsonElement resultEl))
+            {
+                this.Result = activtyOrLinkObjectParser(resultEl).FirstOrDefault();
+            }
+
+            if (el.TryGetProperty("instrument", out JsonElement instrumentEl))
+            {
+                this.Instrument = activtyOrLinkObjectParser(instrumentEl).FirstOrDefault();
+            }
+        }
     }
 }

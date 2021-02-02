@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text.Json;
 
@@ -6,6 +7,15 @@ namespace Mossharbor.ActivityStreams
 {
     public class ActivityLinkBuilder
     {
+        /// <summary>
+        /// this is the mapping from a type to an implementation
+        /// </summary>
+        protected static Dictionary<string, Func<ActivityLink>> TypeToObjectMap = new Dictionary<string, Func<ActivityLink>>()
+        {
+            {ActivityLink.ActivityLinkType, () => new ActivityLink() },
+            {MentionLink.LinkType, () => new MentionLink() },
+        };
+
         internal static JsonDocumentOptions options = new JsonDocumentOptions
         {
             AllowTrailingCommas = true
@@ -67,7 +77,13 @@ namespace Mossharbor.ActivityStreams
 
         private static ActivityLink ParseLink(JsonElement el)
         {
+            var type = el.GetStringOrDefault("type");
             ActivityLink link = new ActivityLink();
+
+            if (!String.IsNullOrEmpty(type) && TypeToObjectMap.ContainsKey(type))
+            {
+                link = TypeToObjectMap[type]();
+            }
 
             if (el.ValueKind == JsonValueKind.String)
             {
@@ -75,9 +91,9 @@ namespace Mossharbor.ActivityStreams
                 return link;
             }
 
+            var context = el.GetUriOrDefault("@context");
             var hrefElement = el.GetStringOrDefault("href");
             var hrefLang = el.GetStringOrDefault("hreflang");
-            var type = el.GetStringOrDefault("type");
             var mediaType = el.GetStringOrDefault("mediaType");
             var height = el.GetLongOrDefault("height");
             var width = el.GetLongOrDefault("width");
@@ -85,6 +101,7 @@ namespace Mossharbor.ActivityStreams
             var name = el.GetStringOrDefault("name");
             var url = el.GetUriOrDefault("url");
 
+            link.Context = context;
             link.Href = hrefElement;
             link.HrefLang = hrefLang;
             link.Type = type;
@@ -149,7 +166,7 @@ namespace Mossharbor.ActivityStreams
             {
                 // catch and new exceptions to the protocol during developement and testing
                 // every activity we build or modify should meet the spec
-                string violation = null;
+                // string violation = null;
                 // TODO System.Diagnostics.Debug.Assert(ValidateActivityMeetsSpec(ac, serverGeneratedActivity, out violation));
             }
 #endif

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
@@ -36,7 +38,7 @@ namespace Mossharbor.ActivityStreams
     ///}
     /// </example>
     /// <see cref="https://www.w3.org/ns/activitystreams#Question"/>
-    public class QuestionActivity : IntransitiveActivity
+    public class QuestionActivity : IntransitiveActivity, ICustomParser, IParsesChildObjects
     {
         /// <summary>
         /// the type constant for this Activity
@@ -114,5 +116,57 @@ namespace Mossharbor.ActivityStreams
         /// <see cref="https://www.w3.org/ns/activitystreams#closed"/>
         [JsonPropertyName("anyOf")]
         public DateTime? Closed { get; set; }
+
+        /// <inheritdoc/>
+        public void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
+        {
+            if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
+                return;
+
+            bool isOneOf = true;
+            JsonElement ofEl = el.GetPropertyOrDefault("oneOf");
+
+            if (ofEl.ValueKind != JsonValueKind.Array || ofEl.ValueKind == JsonValueKind.Null || ofEl.ValueKind == JsonValueKind.Undefined)
+            {
+                ofEl = el.GetPropertyOrDefault("anyOf");
+
+                if (ofEl.ValueKind != JsonValueKind.Array || ofEl.ValueKind == JsonValueKind.Null || ofEl.ValueKind == JsonValueKind.Undefined)
+                    return;
+
+                isOneOf = false;
+            }
+
+            JsonElement[] elementArray = ofEl.ValueKind == JsonValueKind.Array ? ofEl.EnumerateArray().ToArray() : new JsonElement[] { el };
+            var parsed = new IActivityObjectOrLink[elementArray.Length];
+
+            for (int i = 0; i < elementArray.Length; ++i)
+            {
+                IActivityObjectOrLink aOrI = new ActivityObjectOrLink();
+                parsed[i] = aOrI;
+                var toParse = elementArray[i];
+
+                if (ActivityLinkBuilder.IsLinkElment(toParse))
+                    aOrI.Link = new ActivityLinkBuilder().FromJsonElement(toParse).Build();
+                else
+                    aOrI.Obj = activtyObjectParser(toParse);
+            }
+
+            if (isOneOf)
+                this.OneOf = parsed;
+            else
+                this.AnyOf = parsed;
+        }
+
+            /// <inheritdoc/>
+        public override void PerformCustomParsing(JsonElement el)
+        {
+            base.PerformCustomParsing(el);
+
+            if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
+                return;
+
+            this.Closed = el.GetDateTimeOrDefault("closed");
+
+        }
     }
 }

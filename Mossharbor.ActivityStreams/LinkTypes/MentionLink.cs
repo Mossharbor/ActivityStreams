@@ -19,6 +19,11 @@ namespace Mossharbor.ActivityStreams
     /// <see cref="https://www.w3.org/ns/activitystreams#Mention"/>
     public class MentionLink : ActivityLink
     {
-        public MentionLink() : base(type: "Mention") { }
+        /// <summary>
+        /// the type constant for this actor
+        /// </summary>
+        public const string LinkType = "Mention";
+
+        public MentionLink() : base(type: LinkType) { }
     }
 }

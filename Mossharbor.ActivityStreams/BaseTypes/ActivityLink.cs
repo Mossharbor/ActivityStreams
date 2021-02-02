@@ -20,6 +20,16 @@ namespace Mossharbor.ActivityStreams
         }
 
         /// <summary>
+        /// Identifies the context within which the object exists or an activity was performed.
+        /// The notion of "context" used is intentionally vague.The intended function is to serve as a 
+        /// means of grouping objects and activities that share a common originating context or purpose.
+        /// An example could be all activities relating to a common project or event.
+        /// </summary>
+        /// <see cref="	https://www.w3.org/ns/activitystreams#context"/>
+        [JsonPropertyName("@context")]
+        public Uri Context { get; set; }
+
+        /// <summary>
         /// Hints as to the language used by the target resource. Value must be a [BCP47] Language-Tag.
         /// </summary>
         /// <example>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
@@ -24,7 +25,7 @@ namespace Mossharbor.ActivityStreams
     ///}
     /// </example>
     /// <see cref="https://www.w3.org/ns/activitystreams#Relationship"/>
-    public class RelationshipObject : ActivityObject
+    public class RelationshipObject : ActivityObject, ICustomParser, IParsesChildObjects, IParsesChildObjectOrLinks
     {
         /// <summary>
         /// the type constant for this Object
@@ -52,5 +53,38 @@ namespace Mossharbor.ActivityStreams
         /// <see cref="https://www.w3.org/ns/activitystreams#Object"/>
         [JsonPropertyName("object")]
         public IActivityObject Object { get; set; }
+
+        /// <inheritdoc/>
+        public void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        {
+            if (el.ContainsElement("subject"))
+            {
+                this.Subject = activtyOrLinkObjectParser(el.GetProperty("subject"));
+            }
+        }
+
+            /// <inheritdoc/>
+        public void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
+        {
+            if (el.ContainsElement("object"))
+            {
+                this.Object = activtyObjectParser(el.GetProperty("object"));
+            }
+        }
+
+        /// <summary>
+        /// Parses out the details specific to the Place Object
+        /// </summary>
+        /// <param name="el"></param>
+        public void PerformCustomParsing(JsonElement el)
+        {
+            base.PerformCustomParsing(el);
+
+            if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
+                return;
+
+            this.Relationship = el.GetStringOrDefault("relationship");
+
+        }
     }
 }

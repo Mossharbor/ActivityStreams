@@ -14,8 +14,8 @@ namespace Mossharbor.ActivityStreams
         string Content { get; set; }
         ContentMap ContentMap { get; set; }
         Uri Context { get; set; }
-        string Duration { get; set; }
-        DateTime EndTime { get; set; }
+        TimeSpan? Duration { get; set; }
+        DateTime? EndTime { get; set; }
         IActivityObjectOrLink Generator { get; set; }
         Icon[] Icons { get; set; }
         Uri Id { get; set; }
@@ -26,14 +26,14 @@ namespace Mossharbor.ActivityStreams
         string Name { get; set; }
         ContentMap NameMap { get; set; }
         IActivityObjectOrLink Preview { get; set; }
-        DateTime Published { get; set; }
+        DateTime? Published { get; set; }
         Collection Replies { get; set; }
-        DateTime StartTime { get; set; }
+        DateTime? StartTime { get; set; }
         string Summary { get; set; }
         ContentMap SummaryMap { get; set; }
         IActivityObjectOrLink[] To { get; set; }
         string Type { get; set; }
-        DateTime Updated { get; set; }
+        DateTime? Updated { get; set; }
         IActivityLink[] Url { get; set; }
     }
 }

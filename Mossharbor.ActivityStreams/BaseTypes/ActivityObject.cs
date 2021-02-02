@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
 {
-    public class ActivityObject : IActivityObject
+    public class ActivityObject : IActivityObject, ICustomParser
     {
         internal ActivityObject() { }
 
@@ -207,7 +208,7 @@ namespace Mossharbor.ActivityStreams
         /// <example>2014-12-12T12:12:12Z</example>
         /// <see cref="https://www.w3.org/ns/activitystreams#endTime"/>
         [JsonPropertyName("endTime")]
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
 
         /// <summary>
         /// The date and time describing the actual or expected starting time of the object.
@@ -217,7 +218,7 @@ namespace Mossharbor.ActivityStreams
         /// <example>2014-12-12T12:12:12Z</example>
         /// <see cref="https://www.w3.org/ns/activitystreams#startTime"/>
         [JsonPropertyName("startime")]
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
 
         /// <summary>
         /// The date and time at which the object was updated
@@ -226,7 +227,7 @@ namespace Mossharbor.ActivityStreams
         /// <example>2014-12-12T12:12:12Z</example>
         /// <see cref="https://www.w3.org/ns/activitystreams#updated"/>
         [JsonPropertyName("updated")]
-        public DateTime Updated { get; set; }
+        public DateTime? Updated { get; set; }
 
         /// <summary>
         /// The date and time at which the object was published
@@ -235,7 +236,7 @@ namespace Mossharbor.ActivityStreams
         /// <example>2014-12-12T12:12:12Z</example>
         /// <see cref="https://www.w3.org/ns/activitystreams#published"/>
         [JsonPropertyName("published")]
-        public DateTime Published { get; set; }
+        public DateTime? Published { get; set; }
 
         /// <summary>
         /// Identifies one or more links to representations of the object
@@ -395,12 +396,40 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <see cref="https://www.w3.org/ns/activitystreams#duration"/>
         [JsonPropertyName("duration")]
-        public string Duration { get; set; } //TODO must be expressed as xsd:duration https://www.w3.org/TR/activitystreams-vocabulary/#bib-xmlschema11-2 (e.g. a period of 5 seconds is represented as "PT5S")
+        public TimeSpan? Duration { get; set; }
 
         /// <summary>
         /// Identifies an entity that provides a preview of this object.
         /// </summary>
         [JsonPropertyName("preview")]
         public IActivityObjectOrLink Preview { get; set; }
+
+        /// <inheritdoc/>
+        public virtual void PerformCustomParsing(JsonElement el)
+        {
+            string typeString = el.GetStringOrDefault("type");
+            var idElement = el.GetUriOrDefault("id");
+            var summary = el.GetStringOrDefault("summary");
+            var name = el.GetStringOrDefault("name");
+            var content = el.GetStringOrDefault("content");
+            var context = el.GetUriOrDefault("@context");
+            DateTime? start = el.GetDateTimeOrDefault("startTime");
+            DateTime? end = el.GetDateTimeOrDefault("endTime");
+            DateTime? updated = el.GetDateTimeOrDefault("updated");
+            DateTime? published = el.GetDateTimeOrDefault("published");
+            TimeSpan? duration = el.GetTimeSpanOrDefault("duration");  // NOTE to write  var duration = (TimeSpan) value; writer.WriteValue(XmlConvert.ToString(duration));
+
+            this.Id = idElement;
+            this.Summary = summary;
+            this.Context = context;
+            this.Type = typeString;
+            this.Name = name;
+            this.Content = content;
+            this.Duration = duration;
+            this.StartTime = start;
+            this.EndTime = end;
+            this.Published = published;
+            this.Updated = updated;
+        }
     }
 }

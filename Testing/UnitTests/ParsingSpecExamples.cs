@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using System.Xml;
 
 namespace Mossharbor.ActivityStreams.UnitTests
 {
@@ -1310,6 +1311,11 @@ namespace Mossharbor.ActivityStreams.UnitTests
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.AreEqual(activity.Type, "Video");
+            Assert.IsInstanceOfType(activity, typeof(VideoObject));
+            Assert.AreEqual(activity.Name, "Puppy Plays With Ball");
+            Assert.AreEqual(activity.Url[0].Href, "http://example.org/video.mkv");
+            Assert.AreEqual(activity.Duration, XmlConvert.ToTimeSpan("PT2H"));
         }
 
         /// <summary>
@@ -1323,6 +1329,10 @@ namespace Mossharbor.ActivityStreams.UnitTests
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.AreEqual(activity.Type, "Note");
+            Assert.IsInstanceOfType(activity, typeof(NoteObject));
+            Assert.AreEqual(activity.Name, "A Word of Warning");
+            Assert.AreEqual(activity.Content, "Looks like it is going to rain today. Bring an umbrella!");
         }
 
         /// <summary>
@@ -1336,6 +1346,10 @@ namespace Mossharbor.ActivityStreams.UnitTests
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.AreEqual(activity.Type, "Page");
+            Assert.IsInstanceOfType(activity, typeof(PageObject));
+            Assert.AreEqual(activity.Name, "Omaha Weather Report");
+            Assert.AreEqual(activity.Url[0].Href, "http://example.org/weather-in-omaha.html");
         }
 
         /// <summary>
@@ -1349,6 +1363,11 @@ namespace Mossharbor.ActivityStreams.UnitTests
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.AreEqual(activity.Type, "Event");
+            Assert.IsInstanceOfType(activity, typeof(EventObject));
+            Assert.AreEqual(activity.Name, "Going-Away Party for Jim");
+            Assert.AreEqual(activity.StartTime, DateTime.Parse("2014-12-31T23:00:00-08:00"));
+            Assert.AreEqual(activity.EndTime, DateTime.Parse("2015-01-01T06:00:00-08:00"));
         }
 
         /// <summary>
@@ -1362,6 +1381,9 @@ namespace Mossharbor.ActivityStreams.UnitTests
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.AreEqual(activity.Type, "Place");
+            Assert.IsInstanceOfType(activity, typeof(PlaceObject));
+            Assert.AreEqual(activity.Name, "Work");
         }
 
         /// <summary>
@@ -1375,6 +1397,13 @@ namespace Mossharbor.ActivityStreams.UnitTests
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.AreEqual(activity.Type, "Place");
+            Assert.IsInstanceOfType(activity, typeof(PlaceObject));
+            Assert.AreEqual(activity.Name, "Fresno Area");
+            Assert.AreEqual((activity as PlaceObject).Latitude, 36.75);
+            Assert.AreEqual((activity as PlaceObject).Longitude, 119.7667);
+            Assert.AreEqual((activity as PlaceObject).Radius, 15);
+            Assert.AreEqual((activity as PlaceObject).Units, "miles");
         }
 
         /// <summary>
@@ -1383,11 +1412,15 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample058()
         {
-            ActivityBuilder builder = new ActivityBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example058.json"))
+            ActivityLinkBuilder builder = new ActivityLinkBuilder();
+            var activityLink = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example058.json"))
                             .Build();
 
-            Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.IsNotNull(activityLink.Context, "the activity stream context was null");
+            Assert.AreEqual(activityLink.Type, "Mention");
+            Assert.IsInstanceOfType(activityLink, typeof(MentionLink));
+            Assert.AreEqual(activityLink.Name, "Joe");
+            Assert.AreEqual((activityLink as MentionLink).Href, "http://example.org/joe");
         }
 
         /// <summary>
@@ -1401,6 +1434,12 @@ namespace Mossharbor.ActivityStreams.UnitTests
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.AreEqual(activity.Type, "Profile");
+            Assert.IsInstanceOfType(activity, typeof(ProfileObject));
+            Assert.AreEqual(activity.Summary, "Sally's Profile");
+            Assert.AreEqual((activity as ProfileObject).Describes.Type, "Person");
+            Assert.AreEqual((activity as ProfileObject).Describes.Name, "Sally Smith");
+            Assert.IsInstanceOfType((activity as ProfileObject).Describes, typeof(PersonActor));
         }
 
         /// <summary>
@@ -1413,7 +1452,24 @@ namespace Mossharbor.ActivityStreams.UnitTests
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example060.json"))
                             .Build();
 
-            Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.IsNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
+            Assert.AreEqual((uint)3, (activity as Collection).TotalItems, "the total items were incorrect");
+            Assert.IsNull((activity as Collection).Items, "the Items were not empty");
+            Assert.AreEqual(Collection.OrderedCollectionType, (activity as Collection).Type, "The type in the collectio was wrong");
+            Assert.AreEqual((int)(activity as Collection).TotalItems, (activity as Collection).OrderedItems.Length, "the item count was incorrect");
+            Assert.AreEqual("Image", (activity as Collection).OrderedItems[0].Obj.Type, "the sub object type was incorrect");
+            Assert.AreEqual("Tombstone", (activity as Collection).OrderedItems[1].Obj.Type, "the sub object type was incorrect");
+            Assert.AreEqual("Image", (activity as Collection).OrderedItems[2].Obj.Type, "the sub object type was incorrect");
+            Assert.AreEqual(new Uri("http://image.example/1"), (activity as Collection).OrderedItems[0].Obj.Id, "the sub object id was incorrect");
+            Assert.AreEqual(new Uri("http://image.example/2"), (activity as Collection).OrderedItems[1].Obj.Id, "the sub object id was incorrect");
+            Assert.AreEqual(new Uri("http://image.example/3"), (activity as Collection).OrderedItems[2].Obj.Id, "the sub object id was incorrect");
+            Assert.IsInstanceOfType((activity as Collection).OrderedItems[0].Obj, typeof(ImageObject));
+            Assert.IsInstanceOfType((activity as Collection).OrderedItems[1].Obj, typeof(TombstoneObject));
+            Assert.IsInstanceOfType((activity as Collection).OrderedItems[2].Obj, typeof(ImageObject));
+
+            Assert.AreEqual(DateTimeKind.Utc, ((activity as Collection).OrderedItems[1].Obj as TombstoneObject).Deleted.Value.Kind, "the tombstone deleted was incorrect");
+            Assert.AreEqual(DateTime.Parse("2016-03-17T00:00:00Z").ToUniversalTime(), ((activity as Collection).OrderedItems[1].Obj as TombstoneObject).Deleted.Value, "the tombstone deleted was incorrect");
+            Assert.AreEqual("Image", ((activity as Collection).OrderedItems[1].Obj as TombstoneObject).FormerType, "the tombstone FormerType was incorrect");
         }
 
         /// <summary>

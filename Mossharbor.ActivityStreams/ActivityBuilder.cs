@@ -46,7 +46,7 @@ namespace Mossharbor.ActivityStreams
             {RelationshipObject.RelationshipType, () => new RelationshipObject()},
             {TombstoneObject.TombstoneType, () => new TombstoneObject()},
             {VideoObject.VideoType, () => new VideoObject()},
-            {AcceptActivity.TypeString, () => new AcceptActivity()},
+            {AcceptActivity.AcceptActivtyTypeString, () => new AcceptActivity()},
             {AddActivity.TypeString, () => new AddActivity()},
             {AnnounceActivity.TypeString, () => new AnnounceActivity()},
             {ArriveActivity.TypeString, () => new ArriveActivity()},
@@ -66,7 +66,7 @@ namespace Mossharbor.ActivityStreams
             {OfferActivity.TypeString, () => new OfferActivity()},
             {QuestionActivity.TypeString, () => new QuestionActivity()},
             {ReadActivity.TypeString, () => new ReadActivity()},
-            {RejectActivity.TypeString, () => new RejectActivity()},
+            {RejectActivity.RejectActivityTypeString, () => new RejectActivity()},
             {RemoveActivity.TypeString, () => new RemoveActivity()},
             {TentativeRejectActivity.TypeString, () => new TentativeRejectActivity()},
             {TentativeAcceptActivity.TypeString, () => new TentativeAcceptActivity()},
@@ -135,68 +135,21 @@ namespace Mossharbor.ActivityStreams
             return this;
         }
 
-        private static PlaceObject ParseLocation(JsonElement el)
+        /// <summary>
+        /// this parses an object from a JsonElement
+        /// </summary>
+        /// <param name="je">the json element</param>
+        /// <returns>an ActivityBuilder</returns>
+        public ActivityBuilder FromJsonElement(JsonElement je)
         {
-            PlaceObject loc = ParseActivityObject(el) as PlaceObject;
-
-            loc.Longitude = el.GetDoubleOrDefault("longitude");
-            loc.Latitude = el.GetDoubleOrDefault("latitude");
-            loc.Altitude = el.GetDoubleOrDefault("altitude");
-            loc.Units = el.GetStringOrDefault("units");
-
-            return loc;
-        }
-
-        private static void UpdateActivityForRelationship(JsonElement el, RelationshipObject relationship)
-        {
-            if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
-                return;
-
-            relationship.Relationship = el.GetStringOrDefault("relationship");
-
-            if (el.ContainsElement("subject"))
-                relationship.Subject = ParseActivityObjectOrLink(el.GetProperty("subject"));
-        }
-
-        private static void UpdateActivityForQuestion(JsonElement el, QuestionActivity question)
-        {
-            if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
-                return;
-
-            question.Closed = el.GetDateTimeOrDefault("closed");
-
-            bool isOneOf = true;
-            JsonElement ofEl = el.GetPropertyOrDefault("oneOf");
-
-            if (ofEl.ValueKind != JsonValueKind.Array || ofEl.ValueKind == JsonValueKind.Null || ofEl.ValueKind == JsonValueKind.Undefined)
+            this.fn = (ignored) =>
             {
-                ofEl = el.GetPropertyOrDefault("anyOf");
+                ActivityObject activity =  ParseActivityObject(je);
 
-                if (ofEl.ValueKind != JsonValueKind.Array || ofEl.ValueKind == JsonValueKind.Null || ofEl.ValueKind == JsonValueKind.Undefined)
-                    return;
+                return activity;
+            };
 
-                isOneOf = false;
-            }
-
-            JsonElement[] elementArray = ofEl.ValueKind == JsonValueKind.Array ? ofEl.EnumerateArray().ToArray() : new JsonElement[] { el };
-            var parsed = new IActivityObjectOrLink[elementArray.Length];
-
-            for (int i = 0; i < elementArray.Length; ++i)
-            {
-                IActivityObjectOrLink aOrI = new ActivityObjectOrLink();
-                parsed[i] = aOrI;
-                var toParse = elementArray[i];
-
-                if (ActivityLinkBuilder.IsLinkElment(toParse))
-                    aOrI.Link = new ActivityLinkBuilder().FromJsonElement(toParse).Build();
-                else
-                    aOrI.Obj = ParseActivityObject(toParse);
-            }
-
-            if (isOneOf)
-                question.OneOf = parsed;
-            else
-                question.AnyOf = parsed;
+            return this;
         }
 
         private static IActivityObjectOrLink[] ParseActivityObjectOrLink(JsonElement el)
@@ -253,61 +206,34 @@ namespace Mossharbor.ActivityStreams
 
             ActivityObject activity = CreateCorrectActivityFrom(el);
 
-            string typeString = el.GetStringOrDefault("type");
-            var idElement = el.GetUriOrDefault("id");
-            var summary = el.GetStringOrDefault("summary");
-            var name = el.GetStringOrDefault("name");
-            var content = el.GetStringOrDefault("content");
-            var context = el.GetUriOrDefault("@context");
+            if (activity is ICustomParser)
+            {
+                (activity as ICustomParser).PerformCustomParsing(el);
+            }
 
-            activity.Id = idElement;
-            activity.Summary = summary;
-            activity.Context = context;
-            activity.Type = typeString;
-            activity.Name = name;
-            activity.Content = content;
+            if (activity is IParsesChildObjects)
+            {
+                (activity as IParsesChildObjects).PerformCustomObjectParsing(el, ParseActivityObject);
+            }
+
+            if (activity is IParsesChildObjectOrLinks)
+            {
+                (activity as IParsesChildObjectOrLinks).PerformCustomObjectOrLinkParsing(el, ParseActivityObjectOrLink);
+            }
+
+            if (activity is IParsesChildLinks)
+            {
+                (activity as IParsesChildLinks).PerformCustomLinkParsing(el, ParseOutActivityLink);
+            }
 
             if (el.TryGetProperty("attributedTo", out JsonElement attributeTo))
             {
                 activity.AttributedTo = ParseActivityObjectOrLink(attributeTo);
             }
 
-            if (el.TryGetProperty("actor", out JsonElement actorEl))
-            {
-                (activity as IntransitiveActivity).Actor = ParseActivityObjectOrLink(actorEl);
-            }
-
-            if (el.TryGetProperty("object", out JsonElement objectEl))
-            {
-                if (activity is RelationshipObject)
-                    (activity as RelationshipObject).Object = ParseActivityObject(objectEl);
-                else
-                    (activity as Activity).Object = ParseActivityObject(objectEl);
-            }
-
-            if (el.TryGetProperty("origin", out JsonElement originEl))
-            {
-                (activity as IntransitiveActivity).Origin = ParseActivityObjectOrLink(originEl).FirstOrDefault();
-            }
-
-            if (el.TryGetProperty("target", out JsonElement targetEl))
-            {
-                (activity as IntransitiveActivity).Target = ParseActivityObjectOrLink(targetEl);
-            }
-
             if (el.TryGetProperty("location", out JsonElement localEl))
             {
-                (activity as IntransitiveActivity).Location = ParseLocation(localEl);
-            }
-
-            if (activity is RelationshipObject)
-            {
-                UpdateActivityForRelationship(el, activity as RelationshipObject);
-            }
-
-            if (activity is QuestionActivity)
-            {
-                UpdateActivityForQuestion(el, activity as QuestionActivity);
+                (activity as IntransitiveActivity).Location = ParseActivityObject(localEl) as PlaceObject;
             }
 
             if (el.TryGetProperty("url", out JsonElement urlEl))
