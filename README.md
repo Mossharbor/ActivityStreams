@@ -21,7 +21,7 @@ var activity = builder
                .Build();
 Console.WriteLine(activity.Summary);
 
-PersonObject personAnnouncing =  (activity as AnnounceActivity).Actor[0].Obj;
+PersonObject personAnnouncing =  (PersonObject)(activity as AnnounceActivity).Actor[0].Obj;
 Console.WriteLine("Announcing" + (personAnnouncing.Name) + " has id " + activity.Id);
                         
 ```

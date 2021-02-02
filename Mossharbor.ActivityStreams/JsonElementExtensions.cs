@@ -85,6 +85,21 @@ namespace Mossharbor.ActivityStreams
         }
 
         /// <summary>
+        /// this returns the found property or null if not found
+        /// </summary>
+        /// <param name="el">the json element root we are searching under</param>
+        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <returns>the found json property or null.</returns>
+        public static DateTime? GetDateTimeOrDefault(this JsonElement el, string propertyName)
+        {
+            JsonElement found;
+            if (!el.TryGetProperty(propertyName, out found) || (found.ValueKind != JsonValueKind.String && found.ValueKind != JsonValueKind.Number))
+                return null;
+
+            return found.GetDateTime();
+        }
+
+        /// <summary>
         /// returns true if the property exists, false otherwise
         /// </summary>
         /// <param name="el">the json element root we are searching under</param>
@@ -98,5 +113,6 @@ namespace Mossharbor.ActivityStreams
 
             return true;
         }
+
     }
 }

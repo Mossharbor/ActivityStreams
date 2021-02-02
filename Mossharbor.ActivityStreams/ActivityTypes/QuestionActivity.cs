@@ -99,5 +99,20 @@ namespace Mossharbor.ActivityStreams
         /// <see cref="https://www.w3.org/ns/activitystreams#anyOf"/>
         [JsonPropertyName("anyOf")]
         public IActivityObjectOrLink[] AnyOf { get; set; }
+
+        /// <summary>
+        /// Indicates that a question has been closed, and answers are no longer accepted.
+        /// </summary>
+        /// <example>
+        ///{
+        ///  "@context": "https://www.w3.org/ns/activitystreams",
+        ///  "type": "Question",
+        ///  "name": "What is the answer?",
+        ///  "closed": "2016-05-10T00:00:00Z"
+        ///}
+        /// </example>
+        /// <see cref="https://www.w3.org/ns/activitystreams#closed"/>
+        [JsonPropertyName("anyOf")]
+        public DateTime? Closed { get; set; }
     }
 }

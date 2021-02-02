@@ -147,10 +147,23 @@ namespace Mossharbor.ActivityStreams
             return loc;
         }
 
+        private static void UpdateActivityForRelationship(JsonElement el, RelationshipObject relationship)
+        {
+            if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
+                return;
+
+            relationship.Relationship = el.GetStringOrDefault("relationship");
+
+            if (el.ContainsElement("subject"))
+                relationship.Subject = ParseActivityObjectOrLink(el.GetProperty("subject"));
+        }
+
         private static void UpdateActivityForQuestion(JsonElement el, QuestionActivity question)
         {
             if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
                 return;
+
+            question.Closed = el.GetDateTimeOrDefault("closed");
 
             bool isOneOf = true;
             JsonElement ofEl = el.GetPropertyOrDefault("oneOf");
@@ -254,6 +267,11 @@ namespace Mossharbor.ActivityStreams
             activity.Name = name;
             activity.Content = content;
 
+            if (el.TryGetProperty("attributedTo", out JsonElement attributeTo))
+            {
+                activity.AttributedTo = ParseActivityObjectOrLink(attributeTo);
+            }
+
             if (el.TryGetProperty("actor", out JsonElement actorEl))
             {
                 (activity as IntransitiveActivity).Actor = ParseActivityObjectOrLink(actorEl);
@@ -261,7 +279,10 @@ namespace Mossharbor.ActivityStreams
 
             if (el.TryGetProperty("object", out JsonElement objectEl))
             {
-                (activity as Activity).Object = ParseActivityObject(objectEl);
+                if (activity is RelationshipObject)
+                    (activity as RelationshipObject).Object = ParseActivityObject(objectEl);
+                else
+                    (activity as Activity).Object = ParseActivityObject(objectEl);
             }
 
             if (el.TryGetProperty("origin", out JsonElement originEl))
@@ -277,6 +298,11 @@ namespace Mossharbor.ActivityStreams
             if (el.TryGetProperty("location", out JsonElement localEl))
             {
                 (activity as IntransitiveActivity).Location = ParseLocation(localEl);
+            }
+
+            if (activity is RelationshipObject)
+            {
+                UpdateActivityForRelationship(el, activity as RelationshipObject);
             }
 
             if (activity is QuestionActivity)

@@ -33,13 +33,24 @@ namespace Mossharbor.ActivityStreams
 
         public RelationshipObject() : base(type: RelationshipType) { }
 
+        /// <summary>
+        /// 	On a Relationship object, the subject property identifies one of the connected individuals. For instance, for a Relationship object describing "John is related to Sally", subject would refer to John.
+        /// </summary>
         [JsonPropertyName("subject")]
-        public ActivityObject Subject { get; set; } //TODO this can be an object or a link
+        public IActivityObjectOrLink[] Subject { get; set; } //TODO this can be an object or a link
 
+        /// <summary>
+        /// On a Relationship object, the relationship property identifies the kind of relationship that exists between subject and object.
+        /// </summary>
         [JsonPropertyName("relationship")]
         public string Relationship { get; set; }
 
+        /// <summary>
+        /// Describes an object of any kind. The Object type serves as the base type for most of the other kinds of objects defined in the Activity Vocabulary,
+        /// including other Core types such as Activity, IntransitiveActivity, Collection and OrderedCollection.
+        /// </summary>
+        /// <see cref="https://www.w3.org/ns/activitystreams#Object"/>
         [JsonPropertyName("object")]
-        public ActivityObject Object { get; set; } 
+        public IActivityObject Object { get; set; }
     }
 }
