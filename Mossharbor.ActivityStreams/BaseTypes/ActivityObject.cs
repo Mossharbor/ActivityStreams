@@ -58,7 +58,7 @@ namespace Mossharbor.ActivityStreams
         ///}
         /// </example>
         /// <see cref="https://www.w3.org/ns/activitystreams#attachment"/>
-        [JsonPropertyName("object")]
+        [JsonPropertyName("attachment")]
         public IActivityObjectOrLink[] Attachment { get; set; }
 
         /// <summary>

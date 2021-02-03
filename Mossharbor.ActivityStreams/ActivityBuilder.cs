@@ -241,6 +241,21 @@ namespace Mossharbor.ActivityStreams
                 activity.Url = ParseOutActivityLinks(urlEl);
             }
 
+            if (el.TryGetProperty("attachment", out JsonElement attachmentEl))
+            {
+                activity.Attachment = ParseActivityObjectOrLink(attachmentEl);
+            }
+
+            if (el.TryGetProperty("audience", out JsonElement audienceEl))
+            {
+                activity.Audience = ParseActivityObjectOrLink(audienceEl);
+            }
+
+            if (el.ContainsElement("bcc"))
+            {
+                activity.bcc = ParseActivityObjectOrLink(el.GetProperty("bcc"));
+            }
+
             if (activity is Collection)
             {
                 (activity as Collection).TotalItems = (uint)el.GetLongOrDefault("totalItems");

@@ -48,6 +48,9 @@ namespace Mossharbor.ActivityStreams
         /// <returns>the found json property or null.</returns>
         public static string GetStringOrDefault(this JsonElement el, string propertyName)
         {
+            if (el.ValueKind != JsonValueKind.Object)
+                return null;
+
             JsonElement found;
             if (!el.TryGetProperty(propertyName, out found) || found.ValueKind != JsonValueKind.String)
                 return null;
