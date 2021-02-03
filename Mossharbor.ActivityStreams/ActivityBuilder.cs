@@ -256,6 +256,16 @@ namespace Mossharbor.ActivityStreams
                 activity.bcc = ParseActivityObjectOrLink(el.GetProperty("bcc"));
             }
 
+            if (el.ContainsElement("bto"))
+            {
+                activity.Bto = ParseActivityObjectOrLink(el.GetProperty("bto"));
+            }
+
+            if (el.ContainsElement("cc"))
+            {
+                activity.CC = ParseActivityObjectOrLink(el.GetProperty("cc"));
+            }
+
             if (activity is Collection)
             {
                 (activity as Collection).TotalItems = (uint)el.GetLongOrDefault("totalItems");

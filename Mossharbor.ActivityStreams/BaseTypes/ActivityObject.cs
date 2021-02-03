@@ -413,6 +413,7 @@ namespace Mossharbor.ActivityStreams
             var name = el.GetStringOrDefault("name");
             var content = el.GetStringOrDefault("content");
             var context = el.GetUriOrDefault("@context");
+            var context2 = el.GetUriOrDefault("context");
             DateTime? start = el.GetDateTimeOrDefault("startTime");
             DateTime? end = el.GetDateTimeOrDefault("endTime");
             DateTime? updated = el.GetDateTimeOrDefault("updated");
@@ -421,7 +422,7 @@ namespace Mossharbor.ActivityStreams
 
             this.Id = idElement;
             this.Summary = summary;
-            this.Context = context;
+            this.Context = context ?? context2;
             this.Type = typeString;
             this.Name = name;
             this.Content = content;

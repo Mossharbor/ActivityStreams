@@ -1709,7 +1709,18 @@ namespace Mossharbor.ActivityStreams.UnitTests
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example071.json"))
                             .Build();
 
-            Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.IsNotNull(activity.Type);
+            Assert.AreEqual("Offer", activity.Type);
+            Assert.AreEqual("Sally offered a post to John", activity.Summary);
+            Assert.IsInstanceOfType(activity, typeof(OfferActivity));
+            Assert.AreEqual("http://sally.example.org", (activity as OfferActivity).Actor[0].Link.Href);
+            Assert.AreEqual(ActivityLink.ActivityLinkType, (activity as OfferActivity).Actor[0].Link.Type);
+            Assert.AreEqual("http://example.org/posts/1", (activity as OfferActivity).Object.Url[0].Href);
+            Assert.AreEqual(ActivityLink.ActivityLinkType, (activity as OfferActivity).Object.Type);
+            Assert.AreEqual("http://john.example.org", (activity as OfferActivity).Target[0].Link.Href);
+            Assert.AreEqual(ActivityLink.ActivityLinkType, (activity as OfferActivity).Target[0].Link.Type);
+            Assert.AreEqual("http://joe.example.org", (activity as OfferActivity).Bto[0].Link.Href);
+            Assert.AreEqual(ActivityLink.ActivityLinkType, (activity as OfferActivity).Bto[0].Link.Type);
         }
 
         /// <summary>
@@ -1722,7 +1733,18 @@ namespace Mossharbor.ActivityStreams.UnitTests
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example072.json"))
                             .Build();
 
-            Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.IsNotNull(activity.Type);
+            Assert.AreEqual("Offer", activity.Type);
+            Assert.AreEqual("Sally offered a post to John", activity.Summary);
+            Assert.IsInstanceOfType(activity, typeof(OfferActivity));
+            Assert.AreEqual("http://sally.example.org", (activity as OfferActivity).Actor[0].Link.Href);
+            Assert.AreEqual(ActivityLink.ActivityLinkType, (activity as OfferActivity).Actor[0].Link.Type);
+            Assert.AreEqual("http://example.org/posts/1", (activity as OfferActivity).Object.Url[0].Href);
+            Assert.AreEqual(ActivityLink.ActivityLinkType, (activity as OfferActivity).Object.Type);
+            Assert.AreEqual("http://john.example.org", (activity as OfferActivity).Target[0].Link.Href);
+            Assert.AreEqual(ActivityLink.ActivityLinkType, (activity as OfferActivity).Target[0].Link.Type);
+            Assert.AreEqual("http://joe.example.org", (activity as OfferActivity).CC[0].Link.Href);
+            Assert.AreEqual(ActivityLink.ActivityLinkType, (activity as OfferActivity).CC[0].Link.Type);
         }
 
         /// <summary>
@@ -1735,7 +1757,24 @@ namespace Mossharbor.ActivityStreams.UnitTests
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example073.json"))
                             .Build();
 
-            Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
+            Assert.IsNotNull(activity.Summary, "Activities in context 1");
+            Assert.AreEqual((uint)2, (activity as Collection).TotalItems, "the total items were incorrect");
+            Assert.IsNull((activity as Collection).OrderedItems, "the Items were not empty");
+            Assert.AreEqual(Collection.CollectionType, (activity as Collection).Type, "The type in the collectio was wrong");
+            Assert.AreEqual((int)(activity as Collection).TotalItems, (activity as Collection).Items.Length, "the item count was incorrect");
+            Assert.AreEqual("Offer", (activity as Collection).Items[0].Obj.Type, "the sub object type was incorrect");
+            Assert.AreEqual("Like", (activity as Collection).Items[1].Obj.Type, "the sub object type was incorrect");
+            Assert.AreEqual("Link", ((activity as Collection).Items[0].Obj as OfferActivity).Actor[0].Link.Type, "the sub object id was incorrect");
+
+            Assert.AreEqual("http://sally.example.org", ((activity as Collection).Items[0].Obj as OfferActivity).Actor[0].Link.Href, "the sub object id was incorrect");
+            Assert.AreEqual("http://example.org/posts/1", ((activity as Collection).Items[0].Obj as OfferActivity).Object.Url[0].Href, "the sub object id was incorrect");
+            Assert.AreEqual("http://john.example.org", ((activity as Collection).Items[0].Obj as OfferActivity).Target[0].Link.Href, "the sub object id was incorrect");
+            Assert.AreEqual(new Uri("http://example.org/contexts/1"), ((activity as Collection).Items[0].Obj as OfferActivity).Context, "the sub object id was incorrect");
+
+            Assert.AreEqual("http://joe.example.org", ((activity as Collection).Items[1].Obj as LikeActivity).Actor[0].Link.Href, "the sub object id was incorrect");
+            Assert.AreEqual("http://example.org/posts/2", ((activity as Collection).Items[1].Obj as LikeActivity).Object.Url[0].Href, "the sub object id was incorrect");
+            Assert.AreEqual(new Uri("http://example.org/contexts/1"), ((activity as Collection).Items[1].Obj as LikeActivity).Context, "the sub object id was incorrect");
         }
 
         /// <summary>
