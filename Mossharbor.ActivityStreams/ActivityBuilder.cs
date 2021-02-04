@@ -38,6 +38,7 @@ namespace Mossharbor.ActivityStreams
             {AudioObject.AudioType, () => new AudioObject()},
             {DocumentObject.DocumentType, () => new DocumentObject()},
             {EventObject.EventType, () => new EventObject()},
+            {Icon.IconType, () => new Icon()},
             {ImageObject.ImageType, () => new ImageObject()},
             {NoteObject.NoteType, () => new NoteObject()},
             {PageObject.PageType, () => new PageObject()},
@@ -197,10 +198,28 @@ namespace Mossharbor.ActivityStreams
             return links.ToArray();
         }
 
+        private static IActivityObject[] ParseActivityObjects(JsonElement el)
+        {
+            if (el.ValueKind != JsonValueKind.Array)
+            {
+                return new IActivityObject[] { ParseActivityObject(el) };
+            }
+
+            List<IActivityObject> objects = new List<IActivityObject>();
+
+            foreach (var t in el.EnumerateArray())
+            {
+                objects.Add(ParseActivityObject(t));
+            }
+
+            return objects.ToArray();
+        }
+
         private static ActivityObject ParseActivityObject(JsonElement el)
         {
             if (el.ValueKind == JsonValueKind.String)
             {
+                // TODO this should be a reference link
                 return new Activity() { Url = ParseOutActivityLinks(el), Type = ActivityLink.ActivityLinkType };
             }
 
@@ -211,9 +230,14 @@ namespace Mossharbor.ActivityStreams
                 (activity as ICustomParser).PerformCustomParsing(el);
             }
 
+            if (activity is IParsesChildObject)
+            {
+                (activity as IParsesChildObject).PerformCustomObjectParsing(el, ParseActivityObject);
+            }
+
             if (activity is IParsesChildObjects)
             {
-                (activity as IParsesChildObjects).PerformCustomObjectParsing(el, ParseActivityObject);
+                (activity as IParsesChildObjects).PerformCustomObjectParsing(el, ParseActivityObjects);
             }
 
             if (activity is IParsesChildObjectOrLinks)
@@ -233,7 +257,7 @@ namespace Mossharbor.ActivityStreams
 
             if (el.TryGetProperty("location", out JsonElement localEl))
             {
-                (activity as IntransitiveActivity).Location = ParseActivityObject(localEl) as PlaceObject;
+                activity.Location = ParseActivityObject(localEl) as PlaceObject;
             }
 
             if (el.TryGetProperty("url", out JsonElement urlEl))
@@ -251,6 +275,21 @@ namespace Mossharbor.ActivityStreams
                 activity.Audience = ParseActivityObjectOrLink(audienceEl);
             }
 
+            if (el.TryGetProperty("icon", out JsonElement iconEl))
+            {
+                activity.Icons = ParseActivityObjectOrLink(iconEl);
+            }
+
+            if (el.TryGetProperty("image", out JsonElement imageEl))
+            {
+                activity.Images = ParseActivityObjectOrLink(imageEl);
+            }
+
+            if (el.TryGetProperty("inReplyTo", out JsonElement inReplyToEl))
+            {
+                activity.InReplyTo = ParseActivityObjectOrLink(inReplyToEl);
+            }
+
             if (el.ContainsElement("bcc"))
             {
                 activity.bcc = ParseActivityObjectOrLink(el.GetProperty("bcc"));
@@ -266,6 +305,11 @@ namespace Mossharbor.ActivityStreams
                 activity.CC = ParseActivityObjectOrLink(el.GetProperty("cc"));
             }
 
+            if (el.ContainsElement("generator"))
+            {
+                activity.Generator = ParseActivityObjectOrLink(el.GetProperty("generator"));
+            }
+
             if (activity is Collection)
             {
                 (activity as Collection).TotalItems = (uint)el.GetLongOrDefault("totalItems");
@@ -276,6 +320,21 @@ namespace Mossharbor.ActivityStreams
                 else if (el.ContainsElement("orderedItems"))
                 {
                     (activity as Collection).OrderedItems = ParseActivityObjectOrLink(el.GetProperty("orderedItems"));
+                }
+
+                if (el.ContainsElement("current"))
+                {
+                    (activity as Collection).Current = ParseActivityObjectOrLink(el.GetProperty("current")).FirstOrDefault();
+                }
+
+                if (el.ContainsElement("first"))
+                {
+                    (activity as Collection).First = ParseActivityObjectOrLink(el.GetProperty("first")).FirstOrDefault();
+                }
+
+                if (el.ContainsElement("last"))
+                {
+                    (activity as Collection).Last = ParseActivityObjectOrLink(el.GetProperty("last")).FirstOrDefault();
                 }
 
                 if (activity is CollectionPage)
@@ -297,6 +356,26 @@ namespace Mossharbor.ActivityStreams
             string typeString = el.GetStringOrDefault("type");
 
             ActivityObject activity = null;
+
+            if (typeString != null && typeString.Equals(Collection.CollectionType))
+            {
+                if (el.ContainsElement("partOf") || el.ContainsElement("next") || el.ContainsElement("prev"))
+                {
+                    return TypeToObjectMap[CollectionPage.CollectionPageType]();
+                }
+            }
+            else if (typeString != null && typeString.Equals(Collection.OrderedCollectionType))
+            {
+                if (el.ContainsElement("partOf") || el.ContainsElement("next") || el.ContainsElement("prev"))
+                {
+                    return TypeToObjectMap[CollectionPage.OrderedCollectionPageType]();
+                }
+            }
+
+            if (typeString == ImageObject.ImageType && el.ContainsElement("width") || el.ContainsElement("height"))
+            {
+                return TypeToObjectMap[Icon.IconType]();
+            }
 
             if (!String.IsNullOrEmpty(typeString) && TypeToObjectMap.ContainsKey(typeString))
             {

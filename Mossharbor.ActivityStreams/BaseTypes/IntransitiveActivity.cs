@@ -157,7 +157,7 @@ namespace Mossharbor.ActivityStreams
         /// </example>
         /// <see cref="https://www.w3.org/ns/activitystreams#instrument"/>
         [JsonPropertyName("instrument")]
-        public IActivityObjectOrLink Instrument { get; set; }
+        public IActivityObjectOrLink[] Instrument { get; set; }
 
         public void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
         {
@@ -183,7 +183,7 @@ namespace Mossharbor.ActivityStreams
 
             if (el.TryGetProperty("instrument", out JsonElement instrumentEl))
             {
-                this.Instrument = activtyOrLinkObjectParser(instrumentEl).FirstOrDefault();
+                this.Instrument = activtyOrLinkObjectParser(instrumentEl);
             }
         }
     }

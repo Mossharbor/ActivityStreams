@@ -38,7 +38,7 @@ namespace Mossharbor.ActivityStreams
     ///}
     /// </example>
     /// <see cref="https://www.w3.org/ns/activitystreams#Question"/>
-    public class QuestionActivity : IntransitiveActivity, ICustomParser, IParsesChildObjects
+    public class QuestionActivity : IntransitiveActivity, ICustomParser, IParsesChildObject
     {
         /// <summary>
         /// the type constant for this Activity

@@ -21,7 +21,7 @@ namespace Mossharbor.ActivityStreams
     ///}
     /// </example>
     /// <see cref="https://www.w3.org/ns/activitystreams#Profile"/>
-    public class ProfileObject : ActivityObject, IParsesChildObjects
+    public class ProfileObject : ActivityObject, IParsesChildObject
     {
         /// <summary>
         /// the type constant for this Object

@@ -316,7 +316,7 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <see cref="https://www.w3.org/ns/activitystreams#generator"/>
         [JsonPropertyName("generator")]
-        public IActivityObjectOrLink Generator { get; set; }
+        public IActivityObjectOrLink[] Generator { get; set; }
 
         /// <summary>
         /// Indicates an entity that describes an icon for this object. 
@@ -348,21 +348,21 @@ namespace Mossharbor.ActivityStreams
         /// </example>
         /// <see cref="https://www.w3.org/ns/activitystreams#icon"/>
         [JsonPropertyName("icon")]
-        public Icon[] Icons { get; set; }
+        public IActivityObjectOrLink[] Icons { get; set; }
 
         /// <summary>
         /// Indicates an entity that describes an image for this object. Unlike the icon property, there are no aspect ratio or display size limitations assumed.
         /// </summary>
         /// <see cref="https://www.w3.org/ns/activitystreams#image"/>
         [JsonPropertyName("image")]
-        public ImageObject[] Images { get; set; }
+        public IActivityObjectOrLink[] Images { get; set; }
 
         /// <summary>
         /// Indicates one or more entities for which this object is considered a response.
         /// </summary>
         /// <see cref="https://www.w3.org/ns/activitystreams#inReplyTo"/>
         [JsonPropertyName("inReplyTo")]
-        public IActivityObjectOrLink InReplyTo { get; set; }
+        public IActivityObjectOrLink[] InReplyTo { get; set; }
 
         /// <summary>
         /// Identifies a Collection containing objects considered to be responses to this object.
@@ -402,7 +402,7 @@ namespace Mossharbor.ActivityStreams
         /// Identifies an entity that provides a preview of this object.
         /// </summary>
         [JsonPropertyName("preview")]
-        public IActivityObjectOrLink Preview { get; set; }
+        public IActivityObjectOrLink[] Preview { get; set; }
 
         /// <inheritdoc/>
         public virtual void PerformCustomParsing(JsonElement el)

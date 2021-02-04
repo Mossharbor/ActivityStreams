@@ -16,16 +16,16 @@ namespace Mossharbor.ActivityStreams
         Uri Context { get; set; }
         TimeSpan? Duration { get; set; }
         DateTime? EndTime { get; set; }
-        IActivityObjectOrLink Generator { get; set; }
-        Icon[] Icons { get; set; }
+        IActivityObjectOrLink[] Generator { get; set; }
+        IActivityObjectOrLink[] Icons { get; set; }
         Uri Id { get; set; }
-        ImageObject[] Images { get; set; }
-        IActivityObjectOrLink InReplyTo { get; set; }
+        IActivityObjectOrLink[] Images { get; set; }
+        IActivityObjectOrLink[] InReplyTo { get; set; }
         PlaceObject Location { get; set; }
         string MediaType { get; set; }
         string Name { get; set; }
         ContentMap NameMap { get; set; }
-        IActivityObjectOrLink Preview { get; set; }
+        IActivityObjectOrLink[] Preview { get; set; }
         DateTime? Published { get; set; }
         Collection Replies { get; set; }
         DateTime? StartTime { get; set; }

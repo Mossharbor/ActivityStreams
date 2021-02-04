@@ -25,7 +25,7 @@ namespace Mossharbor.ActivityStreams
     ///}
     /// </example>
     /// <see cref="https://www.w3.org/ns/activitystreams#Relationship"/>
-    public class RelationshipObject : ActivityObject, ICustomParser, IParsesChildObjects, IParsesChildObjectOrLinks
+    public class RelationshipObject : ActivityObject, ICustomParser, IParsesChildObject, IParsesChildObjectOrLinks
     {
         /// <summary>
         /// the type constant for this Object
