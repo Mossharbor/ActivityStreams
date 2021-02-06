@@ -19,12 +19,35 @@ namespace Mossharbor.ActivityStreams
         };
 
         /// <summary>
+        /// This function composes the builder function
+        /// </summary>
+        /// <typeparam name="TA">input type to f1</typeparam>
+        /// <typeparam name="TB">output type to f1 and input type to f2</typeparam>
+        /// <typeparam name="TC">output type of f2</typeparam>
+        /// <param name="f1">first function in the chain to call</param>
+        /// <param name="f2">second function in the chain to call</param>
+        /// <returns>The function chain</returns>
+        protected static Func<TA, TC> Compose<TA, TB, TC>(Func<TA, TB> f1, Func<TB, TC> f2)
+        {
+            return (a) => f2(f1(a));
+        }
+
+        /// <summary>
         /// This is the function that modifies the Activity we are trying to build
         /// </summary>
-        private Func<Activity, IActivityObject> fn = null;
+        protected Func<IActivityObject, IActivityObject> fn = null;
 
         public ActivityBuilder()
         {
+        }
+
+
+        public ActivityBuilder(IActivityObject activity)
+        {
+            this.fn = (ignored) =>
+            {
+                return activity;
+            };
         }
 
         /// <summary>
@@ -48,6 +71,20 @@ namespace Mossharbor.ActivityStreams
                 }
 
                 return activity;
+            };
+
+            return this;
+        }
+
+        public ActivityBuilder BuildMultipleChoiceQuestion(string question, QuestionBuilder.AnswerType answerType, Action<QuestionBuilder> builder)
+        {
+            this.fn = (ignored) =>
+            {
+                QuestionActivity activity = new QuestionActivity();
+                QuestionBuilder qBuilder = new QuestionBuilder(answerType, activity);
+                qBuilder.Name(question);
+                builder(qBuilder);
+                return qBuilder.Build();
             };
 
             return this;
@@ -97,20 +134,6 @@ namespace Mossharbor.ActivityStreams
         }
 
         /// <summary>
-        /// This function composes the builder function
-        /// </summary>
-        /// <typeparam name="TA">input type to f1</typeparam>
-        /// <typeparam name="TB">output type to f1 and input type to f2</typeparam>
-        /// <typeparam name="TC">output type of f2</typeparam>
-        /// <param name="f1">first function in the chain to call</param>
-        /// <param name="f2">second function in the chain to call</param>
-        /// <returns>The function chain</returns>
-        private static Func<TA, TC> Compose<TA, TB, TC>(Func<TA, TB> f1, Func<TB, TC> f2)
-        {
-            return (a) => f2(f1(a));
-        }
-
-        /// <summary>
         /// This sets the id for the activity <see cref="IActivityObject.Id"/>
         /// </summary>
         /// <param name="activityId">the id that we are going to use for the activity id if nothing is currently set</param>
@@ -126,14 +149,49 @@ namespace Mossharbor.ActivityStreams
         }
 
         /// <summary>
+        /// This sets the name for the activity <see cref="IActivityObject.Name"/>
+        /// </summary>
+        /// <param name="activityName">the name of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder Name(string activityName)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.Name = activityName;
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This sets the context for the activity <see cref="IActivityObject.Context"/>
+        /// </summary>
+        /// <param name="context">the context of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder Context(string context = "https://www.w3.org/ns/activitystreams")
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.Context = new Uri(context);
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
         /// Run through the function chain and actually build the IActivity.
         /// </summary>
         /// <returns>the activity that we built</returns>
-        public IActivityObject Build(BuildValidationLevel validationLevel = BuildValidationLevel.Off)
+        public virtual IActivityObject Build(BuildValidationLevel validationLevel = BuildValidationLevel.Off)
+        {
+            IActivityObject ac = this.fn(null);
+            return ValidateActivity(ac, validationLevel);
+        }
+
+        protected IActivityObject ValidateActivity(IActivityObject ac, BuildValidationLevel validationLevel = BuildValidationLevel.Off)
         {
             List<string> violations = new List<string>();
 
-            IActivityObject ac = this.fn(null);
             if (validationLevel == BuildValidationLevel.Off)
                 return ac;
 
@@ -155,12 +213,12 @@ namespace Mossharbor.ActivityStreams
             }
 
 #if DEBUG
-                if (System.Diagnostics.Debugger.IsAttached)
+            if (System.Diagnostics.Debugger.IsAttached)
             {
                 // catch and new exceptions to the protocol during developement and testing
                 // every activity we build or modify should meet the spec
                 // string violation = null;
-                 // TODO System.Diagnostics.Debug.Assert(ValidateActivityMeetsSpec(ac, serverGeneratedActivity, out violation));
+                // TODO System.Diagnostics.Debug.Assert(ValidateActivityMeetsSpec(ac, serverGeneratedActivity, out violation));
             }
 #endif
             if (violations.Any())

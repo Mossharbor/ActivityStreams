@@ -11,7 +11,7 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// this is the mapping from a type to an implementation
         /// </summary>
-        protected static Dictionary<string, Func<ActivityObject>> TypeToObjectMap = new Dictionary<string, Func<ActivityObject>>()
+        public static Dictionary<string, Func<ActivityObject>> TypeToObjectMap = new Dictionary<string, Func<ActivityObject>>()
         {
             {Activity.ActivityType, () => new Activity() },
             {ServiceActor.ServiceActorType, () => new ServiceActor() },
