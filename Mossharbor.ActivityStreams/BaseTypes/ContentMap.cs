@@ -26,6 +26,26 @@ namespace Mossharbor.ActivityStreams
         }
 
         /// <summary>
+        /// add a piece of content to the content map
+        /// </summary>
+        /// <param name="cu">the culture info we are adding</param>
+        /// <param name="content">the conetnt we are adding</param>
+        public void Add(CultureInfo cu, string content)
+        {
+            this.contentMap.Add(cu.TwoLetterISOLanguageName, content);
+        }
+
+        /// <summary>
+        /// add a piece of content to the content map
+        /// </summary>
+        /// <param name="languageCode">the language of the conetent we are adding</param>
+        /// <param name="content">the conetnt we are adding</param>
+        public void Add(string languageCode, string content)
+        {
+            this.contentMap.Add(languageCode, content);
+        }
+
+        /// <summary>
         /// Gets the content for the language one passed in
         /// </summary>
         /// <param name="twoLetterLanguageName">the culture info</param>

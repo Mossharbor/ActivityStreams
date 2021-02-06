@@ -87,7 +87,7 @@ namespace Mossharbor.ActivityStreams
         public IActivityObjectOrLink[] AttributedTo { get; set; }
 
         /// <summary>
-        /// 
+        /// the audience this activity is for
         /// </summary>
         /// <example>
         ///{
@@ -301,7 +301,6 @@ namespace Mossharbor.ActivityStreams
         /// <see cref="https://www.w3.org/ns/activitystreams#tag"/>
         [JsonPropertyName("tag")]
         public IActivityObjectOrLink[] Tag { get; set; }
-
 
         /// <summary>
         /// Identifies one or more links to representations of the object

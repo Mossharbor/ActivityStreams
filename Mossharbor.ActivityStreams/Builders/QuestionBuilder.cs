@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mossharbor.ActivityStreams
 {
-    public class QuestionBuilder : ActivityBuilder
+    public class QuestionBuilder : IntransitiveActivityBuilder
     {
         public enum AnswerType { AnyOf, OneOf };
 
@@ -19,7 +19,7 @@ namespace Mossharbor.ActivityStreams
             this.answerType = answerType;
         }
 
-        public QuestionBuilder AddAnswer(string answer, string type = Activity.ActivityType)
+        public QuestionBuilder AddAnswer(string answer, string type = Mossharbor.ActivityStreams.Activity.ActivityType)
         {
             if (!ActivityStreamsParser.TypeToObjectMap.ContainsKey(type))
                 throw new UnknownActivityTypeException(type);
@@ -36,13 +36,13 @@ namespace Mossharbor.ActivityStreams
                             (activity as QuestionActivity).AnyOf = new IActivityObjectOrLink[answerCount];
 
                         (activity as QuestionActivity).AnyOf[addedCount]= new ActivityObjectOrLink();
-                        (activity as QuestionActivity).AnyOf[addedCount++].Obj = new ActivityBuilder(answerActivity).Name(answer).Build();
+                        (activity as QuestionActivity).AnyOf[addedCount++].Obj = new ActivityObjectBuilder(answerActivity).Name(answer).Build();
                         break;
                     case AnswerType.OneOf:
                         if ((activity as QuestionActivity).OneOf == null)
                             (activity as QuestionActivity).OneOf = new IActivityObjectOrLink[answerCount];
                         (activity as QuestionActivity).OneOf[addedCount] = new ActivityObjectOrLink();
-                        (activity as QuestionActivity).OneOf[addedCount++].Obj = new ActivityBuilder(answerActivity).Name(answer).Build();
+                        (activity as QuestionActivity).OneOf[addedCount++].Obj = new ActivityObjectBuilder(answerActivity).Name(answer).Build();
                         break;
                 }
                 return activity;

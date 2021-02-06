@@ -12,7 +12,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void BuildSimpleQuestion()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             QuestionActivity activity = (QuestionActivity)builder
                 .Question(
                     "What is the answer?",
@@ -42,7 +42,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void BuildNoteWithAttachments()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             NoteObject activity = (NoteObject)builder
                 .Note("Have you seen my cat?",
                       i => i.Attachment(

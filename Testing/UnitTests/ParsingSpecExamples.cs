@@ -16,7 +16,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseBasicObjectWithType62()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(@"
                 {
                   ""@context"": ""https://www.w3.org/ns/activitystreams"",
@@ -38,7 +38,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample001()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example001.json"))
                             .Build();
 
@@ -74,7 +74,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample003()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example003.json"))
                             .Build();
 
@@ -102,7 +102,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample004()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example004.json")).Build();
             
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -123,7 +123,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample005()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example005.json"))
                             .Build();
 
@@ -147,7 +147,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample006()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example006.json"))
                             .Build();
 
@@ -171,7 +171,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample007()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example007.json"))
                             .Build();
 
@@ -202,7 +202,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample008()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example008.json"))
                             .Build();
 
@@ -234,7 +234,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample009()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example009.json"))
                             .Build();
 
@@ -260,7 +260,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample010()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example010.json"))
                             .Build();
 
@@ -286,7 +286,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample011()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example011.json"))
                             .Build();
 
@@ -313,7 +313,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample012()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example012.json"))
                             .Build();
 
@@ -335,7 +335,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample013()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example013.json"))
                             .Build();
 
@@ -370,7 +370,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample014()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example014.json"))
                             .Build();
 
@@ -400,7 +400,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample015()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example015.json"))
                             .Build();
 
@@ -428,7 +428,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample016()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example016.json"))
                             .Build();
 
@@ -458,7 +458,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample017()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example017.json"))
                             .Build();
 
@@ -484,7 +484,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample018()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example018.json"))
                             .Build();
 
@@ -509,7 +509,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample019()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example019.json"))
                             .Build();
 
@@ -535,7 +535,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample020()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example020.json"))
                             .Build();
 
@@ -561,7 +561,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample021()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example021.json"))
                             .Build();
 
@@ -587,7 +587,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample022()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example022.json"))
                             .Build();
 
@@ -612,7 +612,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample023()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example023.json"))
                             .Build();
 
@@ -642,7 +642,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample024()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example024.json"))
                             .Build();
 
@@ -676,7 +676,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample025()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example025.json"))
                             .Build();
 
@@ -705,7 +705,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample026()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example026.json"))
                             .Build();
 
@@ -734,7 +734,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample027()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example027.json"))
                             .Build();
 
@@ -763,7 +763,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample028()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example028.json"))
                             .Build();
 
@@ -793,7 +793,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample029()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example029.json"))
                             .Build();
 
@@ -824,7 +824,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample030()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example030.json"))
                             .Build();
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -844,7 +844,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample031()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example031.json"))
                             .Build();
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -865,7 +865,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample032()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example032.json"))
                             .Build();
 
@@ -886,7 +886,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample033()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example033.json"))
                             .Build();
 
@@ -911,7 +911,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample034()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example034.json"))
                             .Build();
 
@@ -946,7 +946,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample035()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example035.json"))
                             .Build();
 
@@ -976,7 +976,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample036()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example036.json"))
                             .Build();
 
@@ -1009,7 +1009,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample037()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example037.json"))
                             .Build();
 
@@ -1034,7 +1034,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample038()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example038.json"))
                             .Build();
 
@@ -1057,7 +1057,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample039()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example039.json"))
                             .Build();
 
@@ -1079,7 +1079,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample040()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example040.json"))
                             .Build();
 
@@ -1106,7 +1106,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample041()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example041.json"))
                             .Build();
 
@@ -1125,7 +1125,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample042()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example042.json"))
                             .Build();
 
@@ -1141,7 +1141,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample043()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example043.json"))
                             .Build();
 
@@ -1157,7 +1157,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample044()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example044.json"))
                             .Build();
 
@@ -1173,7 +1173,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample045()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example045.json"))
                             .Build();
 
@@ -1189,7 +1189,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample046()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example046.json"))
                             .Build();
 
@@ -1205,7 +1205,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample047()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example047.json"))
                             .Build();
 
@@ -1230,7 +1230,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample048()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example048.json"))
                             .Build();
 
@@ -1249,7 +1249,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample049()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example049.json"))
                             .Build();
 
@@ -1266,7 +1266,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample050()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example050.json"))
                             .Build();
 
@@ -1285,7 +1285,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample051()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example051.json"))
                             .Build();
 
@@ -1307,7 +1307,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample052()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example052.json"))
                             .Build();
 
@@ -1325,7 +1325,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample053()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example053.json"))
                             .Build();
 
@@ -1342,7 +1342,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample054()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example054.json"))
                             .Build();
 
@@ -1359,7 +1359,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample055()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example055.json"))
                             .Build();
 
@@ -1377,7 +1377,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample056()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example056.json"))
                             .Build();
 
@@ -1393,7 +1393,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample057()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example057.json"))
                             .Build();
 
@@ -1430,7 +1430,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample059()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example059.json"))
                             .Build();
 
@@ -1449,7 +1449,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample060()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example060.json"))
                             .Build();
 
@@ -1479,7 +1479,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample061()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example061.json"))
                             .Build();
 
@@ -1494,7 +1494,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample062()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example062.json"))
                             .Build();
 
@@ -1509,7 +1509,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample063()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example063.json"))
                             .Build();
 
@@ -1530,7 +1530,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample064()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example064.json"))
                             .Build();
 
@@ -1557,7 +1557,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample065()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example065.json"))
                             .Build();
 
@@ -1586,7 +1586,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample066()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example066.json"))
                             .Build();
 
@@ -1611,7 +1611,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample067()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example067.json"))
                             .Build();
 
@@ -1633,7 +1633,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample068()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example068.json"))
                             .Build();
 
@@ -1656,7 +1656,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample069()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example069.json"))
                             .Build();
 
@@ -1680,7 +1680,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample070()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example070.json"))
                             .Build();
 
@@ -1706,7 +1706,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample071()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example071.json"))
                             .Build();
 
@@ -1730,7 +1730,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample072()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example072.json"))
                             .Build();
 
@@ -1754,7 +1754,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample073()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example073.json"))
                             .Build();
 
@@ -1784,7 +1784,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample074()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example074.json"))
                             .Build();
 
@@ -1814,7 +1814,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample075()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example075.json"))
                             .Build();
 
@@ -1845,7 +1845,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample076()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example076.json"))
                             .Build();
 
@@ -1867,7 +1867,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample077()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example077.json"))
                             .Build();
 
@@ -1889,7 +1889,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample078()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example078.json"))
                             .Build();
 
@@ -1909,7 +1909,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample079()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example079.json"))
                             .Build();
 
@@ -1933,7 +1933,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample080()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example080.json"))
                             .Build();
 
@@ -1964,7 +1964,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample081()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example081.json"))
                             .Build();
 
@@ -1986,7 +1986,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample082()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example082.json"))
                             .Build();
 
@@ -2013,7 +2013,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample083()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example083.json"))
                             .Build();
 
@@ -2036,7 +2036,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample084()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example084.json"))
                             .Build();
 
@@ -2057,7 +2057,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample085()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example085.json"))
                             .Build();
 
@@ -2087,7 +2087,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample086()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example086.json"))
                             .Build();
 
@@ -2109,7 +2109,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample087()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example087.json"))
                             .Build();
 
@@ -2131,7 +2131,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample088()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example088.json"))
                             .Build();
 
@@ -2151,7 +2151,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample089()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example089.json"))
                             .Build();
 
@@ -2176,7 +2176,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample090()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example090.json"))
                             .Build();
 
@@ -2201,7 +2201,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample091()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example091.json"))
                             .Build();
 
@@ -2228,7 +2228,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample092()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example092.json"))
                             .Build();
 
@@ -2255,7 +2255,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample093()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example093.json"))
                             .Build();
 
@@ -2274,7 +2274,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample094()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example094.json"))
                             .Build();
 
@@ -2307,7 +2307,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample095()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example095.json"))
                             .Build();
 
@@ -2336,7 +2336,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample096()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example096.json"))
                             .Build();
 
@@ -2366,7 +2366,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample097()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example097.json"))
                             .Build();
 
@@ -2386,7 +2386,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample098()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example098.json"))
                             .Build();
 
@@ -2407,7 +2407,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample099()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example099.json"))
                             .Build();
 
@@ -2433,7 +2433,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample100()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example100.json"))
                             .Build();
 
@@ -2462,7 +2462,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample101()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example101.json"))
                             .Build();
 
@@ -2492,7 +2492,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample102()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example102.json"))
                             .Build();
 
@@ -2515,7 +2515,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample103()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example103.json"))
                             .Build();
 
@@ -2542,7 +2542,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample104()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example104.json"))
                             .Build(); 
             
@@ -2571,7 +2571,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample105()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example105.json"))
                             .Build();
 
@@ -2591,7 +2591,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample106()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example106.json"))
                             .Build();
 
@@ -2616,7 +2616,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample107()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example107.json"))
                             .Build();
 
@@ -2643,7 +2643,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample108()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example108.json"))
                             .Build();
 
@@ -2671,7 +2671,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample109()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example109.json"))
                             .Build();
 
@@ -2688,7 +2688,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample110()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example110.json"))
                             .Build();
 
@@ -2705,7 +2705,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample111()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example111.json"))
                             .Build();
 
@@ -2725,7 +2725,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample112()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example112.json"))
                             .Build();
 
@@ -2745,7 +2745,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample113()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example113.json"))
                             .Build();
 
@@ -2765,7 +2765,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample114()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example114.json"))
                             .Build();
 
@@ -2782,7 +2782,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample115()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example115.json"))
                             .Build();
 
@@ -2802,7 +2802,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample116()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example116.json"))
                             .Build();
 
@@ -2821,7 +2821,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample117()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example117.json"))
                             .Build();
 
@@ -2837,7 +2837,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample118()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example118.json"))
                             .Build();
 
@@ -2856,7 +2856,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample119()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example119.json"))
                             .Build();
 
@@ -2929,7 +2929,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample123()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example123.json"))
                             .Build();
 
@@ -2963,7 +2963,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample124()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example124.json"))
                             .Build();
 
@@ -2983,7 +2983,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample125()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example125.json"))
                             .Build();
 
@@ -3026,7 +3026,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample127()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example127.json"))
                             .Build();
 
@@ -3044,7 +3044,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample128()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example128.json"))
                             .Build();
 
@@ -3061,7 +3061,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample129()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example129.json"))
                             .Build();
 
@@ -3079,7 +3079,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample130()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example130.json"))
                             .Build();
 
@@ -3123,7 +3123,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample132()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example132.json"))
                             .Build();
 
@@ -3151,7 +3151,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample133()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example133.json"))
                             .Build();
             Assert.AreEqual(activity.Type, "Note");
@@ -3166,7 +3166,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample134()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example134.json"))
                             .Build();
 
@@ -3186,7 +3186,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample135()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example135.json"))
                             .Build();
 
@@ -3210,7 +3210,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample136()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example136.json"))
                             .Build();
 
@@ -3230,7 +3230,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample137()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example137.json"))
                             .Build();
 
@@ -3266,7 +3266,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample139()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example139.json"))
                             .Build();
 
@@ -3291,7 +3291,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample140()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example140.json"))
                             .Build();
 
@@ -3316,7 +3316,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample141()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example141.json"))
                             .Build();
 
@@ -3336,7 +3336,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample142()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example142.json"))
                             .Build();
 
@@ -3354,7 +3354,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample143()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example143.json"))
                             .Build();
 
@@ -3371,7 +3371,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample144()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example144.json"))
                             .Build();
 
@@ -3422,7 +3422,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample145()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example145.json"))
                             .Build();
 
@@ -3462,7 +3462,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample146()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example146.json"))
                             .Build();
 
@@ -3485,7 +3485,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample147()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example147.json"))
                             .Build();
 
@@ -3511,7 +3511,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample148()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example148.json"))
                             .Build();
 
@@ -3575,7 +3575,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample149()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example149.json"))
                             .Build();
 
@@ -3590,7 +3590,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample150()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example150.json"))
                             .Build();
 
@@ -3608,7 +3608,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample151()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example151.json"))
                             .Build();
 
@@ -3626,7 +3626,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample152()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example152.json"))
                             .Build();
 
@@ -3643,7 +3643,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample153()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example153.json"))
                             .Build();
 
@@ -3659,7 +3659,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample154()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example154.json"))
                             .Build();
 
@@ -3697,7 +3697,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample155()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example155.json"))
                             .Build();
 
@@ -3729,7 +3729,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample156()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example156.json"))
                             .Build();
 
@@ -3760,7 +3760,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample157()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example157.json"))
                             .Build();
 
@@ -3780,7 +3780,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample158()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example158.json"))
                             .Build();
 
@@ -3801,7 +3801,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void ParseActivityStreamSpecExample159()
         {
-            ActivityBuilder builder = new ActivityBuilder();
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example159.json"))
                             .Build();
 
