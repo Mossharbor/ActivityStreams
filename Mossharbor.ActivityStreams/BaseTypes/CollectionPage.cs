@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Linq;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
 {
-    public class CollectionPage : Collection
+    public class CollectionPage : Collection, IParsesChildObjectOrLinks
     {
-        public CollectionPage(): base(CollectionPageType)
+        public CollectionPage() : base(CollectionPageType)
         {
         }
-        
+
         private string type;
 
         public override string Type
@@ -49,5 +51,13 @@ namespace Mossharbor.ActivityStreams
 
         [JsonPropertyName("prev")]
         public IActivityLink Prev { get; set; }
+        /// <inheritdoc/>
+        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        {
+            base.PerformCustomObjectOrLinkParsing(el, activtyOrLinkObjectParser);
+
+            if (el.ContainsElement("partOf"))
+                this.PartOf = activtyOrLinkObjectParser(el.GetProperty("partOf")).FirstOrDefault();
+        }
     }
 }

@@ -269,10 +269,6 @@ namespace Mossharbor.ActivityStreams
                 (activity as IParsesChildLinks).PerformCustomLinkParsing(el, ParseOutActivityLink);
             }
 
-            if (el.TryGetProperty("attributedTo", out JsonElement attributeTo))
-            {
-                activity.AttributedTo = ParseActivityObjectOrLink(attributeTo);
-            }
 
             if (el.TryGetProperty("location", out JsonElement localEl))
             {
@@ -284,69 +280,10 @@ namespace Mossharbor.ActivityStreams
                 activity.Url = ParseOutActivityLinks(urlEl);
             }
 
-            if (el.TryGetProperty("attachment", out JsonElement attachmentEl))
-            {
-                activity.Attachment = ParseActivityObjectOrLink(attachmentEl);
-            }
-
-            if (el.TryGetProperty("audience", out JsonElement audienceEl))
-            {
-                activity.Audience = ParseActivityObjectOrLink(audienceEl);
-            }
-
-            if (el.TryGetProperty("icon", out JsonElement iconEl))
-            {
-                activity.Icons = ParseActivityObjectOrLink(iconEl);
-            }
-
-            if (el.TryGetProperty("image", out JsonElement imageEl))
-            {
-                activity.Images = ParseActivityObjectOrLink(imageEl);
-            }
-
-            if (el.TryGetProperty("inReplyTo", out JsonElement inReplyToEl))
-            {
-                activity.InReplyTo = ParseActivityObjectOrLink(inReplyToEl);
-            }
-
-            if (el.ContainsElement("bcc"))
-            {
-                activity.bcc = ParseActivityObjectOrLink(el.GetProperty("bcc"));
-            }
-
-            if (el.ContainsElement("bto"))
-            {
-                activity.Bto = ParseActivityObjectOrLink(el.GetProperty("bto"));
-            }
-
-            if (el.ContainsElement("cc"))
-            {
-                activity.CC = ParseActivityObjectOrLink(el.GetProperty("cc"));
-            }
-
-            if (el.ContainsElement("to"))
-            {
-                activity.To = ParseActivityObjectOrLink(el.GetProperty("to"));
-            }
-
-            if (el.ContainsElement("generator"))
-            {
-                activity.Generator = ParseActivityObjectOrLink(el.GetProperty("generator"));
-            }
-
-            if (el.ContainsElement("preview"))
-            {
-                activity.Preview = ParseActivityObjectOrLink(el.GetProperty("preview"));
-            }
-
+            
             if (el.ContainsElement("replies"))
             {
                 activity.Replies = (ParseActivityObject(el.GetProperty("replies")) as Collection);
-            }
-
-            if (el.ContainsElement("tag"))
-            {
-                activity.Tag = ParseActivityObjectOrLink(el.GetProperty("tag"));
             }
 
             if (el.ContainsElement("contentMap"))
@@ -366,35 +303,8 @@ namespace Mossharbor.ActivityStreams
 
             if (activity is Collection)
             {
-                (activity as Collection).TotalItems = (uint)el.GetLongOrDefault("totalItems");
-                if (el.ContainsElement("items"))
-                {
-                    (activity as Collection).Items = ParseActivityObjectOrLink(el.GetProperty("items"));
-                }
-                else if (el.ContainsElement("orderedItems"))
-                {
-                    (activity as Collection).OrderedItems = ParseActivityObjectOrLink(el.GetProperty("orderedItems"));
-                }
-
-                if (el.ContainsElement("current"))
-                {
-                    (activity as Collection).Current = ParseActivityObjectOrLink(el.GetProperty("current")).FirstOrDefault();
-                }
-
-                if (el.ContainsElement("first"))
-                {
-                    (activity as Collection).First = ParseActivityObjectOrLink(el.GetProperty("first")).FirstOrDefault();
-                }
-
-                if (el.ContainsElement("last"))
-                {
-                    (activity as Collection).Last = ParseActivityObjectOrLink(el.GetProperty("last")).FirstOrDefault();
-                }
-
                 if (activity is CollectionPage)
                 {
-                    if (el.ContainsElement("partOf"))
-                        (activity as CollectionPage).PartOf = ParseActivityObjectOrLink(el.GetProperty("partOf")).FirstOrDefault();
                     if (el.ContainsElement("next"))
                         (activity as CollectionPage).Next = ParseOutActivityLink(el.GetProperty("next"));
                     if (el.ContainsElement("prev"))

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
 {
-    public class ActivityObject : IActivityObject, ICustomParser
+    public class ActivityObject : IActivityObject, ICustomParser, IParsesChildObjectOrLinks
     {
         internal ActivityObject() { }
 
@@ -513,6 +513,75 @@ namespace Mossharbor.ActivityStreams
             this.Published = published;
             this.Updated = updated;
             this.MediaType = mediaType;
+        }
+
+        /// <inheritdoc/>
+        public virtual void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        {
+            if (el.TryGetProperty("attributedTo", out JsonElement attributeTo))
+            {
+                this.AttributedTo = activtyOrLinkObjectParser(attributeTo);
+            }
+
+            if (el.TryGetProperty("attachment", out JsonElement attachmentEl))
+            {
+                this.Attachment = activtyOrLinkObjectParser(attachmentEl);
+            }
+
+            if (el.TryGetProperty("audience", out JsonElement audienceEl))
+            {
+                this.Audience = activtyOrLinkObjectParser(audienceEl);
+            }
+
+            if (el.TryGetProperty("inReplyTo", out JsonElement inReplyToEl))
+            {
+                this.InReplyTo = activtyOrLinkObjectParser(inReplyToEl);
+            }
+
+            if (el.ContainsElement("bcc"))
+            {
+                this.bcc = activtyOrLinkObjectParser(el.GetProperty("bcc"));
+            }
+
+            if (el.ContainsElement("bto"))
+            {
+                this.Bto = activtyOrLinkObjectParser(el.GetProperty("bto"));
+            }
+
+            if (el.ContainsElement("cc"))
+            {
+                this.CC = activtyOrLinkObjectParser(el.GetProperty("cc"));
+            }
+
+            if (el.ContainsElement("to"))
+            {
+                this.To = activtyOrLinkObjectParser(el.GetProperty("to"));
+            }
+
+            if (el.ContainsElement("generator"))
+            {
+                this.Generator = activtyOrLinkObjectParser(el.GetProperty("generator"));
+            }
+
+            if (el.ContainsElement("preview"))
+            {
+                this.Preview = activtyOrLinkObjectParser(el.GetProperty("preview"));
+            }
+
+            if (el.ContainsElement("tag"))
+            {
+                this.Tag = activtyOrLinkObjectParser(el.GetProperty("tag"));
+            }
+
+            if (el.TryGetProperty("image", out JsonElement imageEl))
+            {
+                this.Images = activtyOrLinkObjectParser(imageEl);
+            }
+
+            if (el.TryGetProperty("icon", out JsonElement iconEl))
+            {
+                this.Icons = activtyOrLinkObjectParser(iconEl);
+            }
         }
     }
 }

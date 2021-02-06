@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 
@@ -8,7 +10,7 @@ namespace Mossharbor.ActivityStreams
     /// A Collection is a subtype of Object that represents ordered or unordered sets of Object or Link instances.
     /// Refer to the Activity Streams 2.0 Core specification for a complete description of the Collection type.
     /// </summary>
-    public class Collection : ActivityObject
+    public class Collection : ActivityObject, ICustomParser, IParsesChildObjectOrLinks
     {
         /// <summary>
         /// the type constant for this actor
@@ -106,5 +108,44 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         [JsonPropertyName("orderedItems")]
         public IActivityObjectOrLink[] OrderedItems { get; set; }
+
+        /// <inheritdoc/>
+        public override void PerformCustomParsing(JsonElement el)
+        {
+            base.PerformCustomParsing(el);
+
+            (this as Collection).TotalItems = (uint)el.GetLongOrDefault("totalItems");
+        }
+
+        /// <inheritdoc/>
+        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        {
+            base.PerformCustomObjectOrLinkParsing(el, activtyOrLinkObjectParser);
+
+            (this as Collection).TotalItems = (uint)el.GetLongOrDefault("totalItems");
+            if (el.ContainsElement("items"))
+            {
+                (this as Collection).Items = activtyOrLinkObjectParser(el.GetProperty("items"));
+            }
+            else if (el.ContainsElement("orderedItems"))
+            {
+                (this as Collection).OrderedItems = activtyOrLinkObjectParser(el.GetProperty("orderedItems"));
+            }
+
+            if (el.ContainsElement("current"))
+            {
+                (this as Collection).Current = activtyOrLinkObjectParser(el.GetProperty("current")).FirstOrDefault();
+            }
+
+            if (el.ContainsElement("first"))
+            {
+                (this as Collection).First = activtyOrLinkObjectParser(el.GetProperty("first")).FirstOrDefault();
+            }
+
+            if (el.ContainsElement("last"))
+            {
+                (this as Collection).Last = activtyOrLinkObjectParser(el.GetProperty("last")).FirstOrDefault();
+            }
+        }
     }
 }

@@ -159,8 +159,11 @@ namespace Mossharbor.ActivityStreams
         [JsonPropertyName("instrument")]
         public IActivityObjectOrLink[] Instrument { get; set; }
 
-        public void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        /// <inheritdoc/>
+        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
         {
+            base.PerformCustomObjectOrLinkParsing(el, activtyOrLinkObjectParser);
+
             if (el.TryGetProperty("actor", out JsonElement actorEl))
             {
                 this.Actor = activtyOrLinkObjectParser(actorEl);
