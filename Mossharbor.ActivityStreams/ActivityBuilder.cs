@@ -11,6 +11,8 @@ namespace Mossharbor.ActivityStreams
     /// </summary>
     public class ActivityBuilder
     {
+        public enum BuildValidationLevel { Off, Basic, Strict };
+
         internal static JsonDocumentOptions options = new JsonDocumentOptions
         {
             AllowTrailingCommas = true
@@ -127,11 +129,33 @@ namespace Mossharbor.ActivityStreams
         /// Run through the function chain and actually build the IActivity.
         /// </summary>
         /// <returns>the activity that we built</returns>
-        public IActivityObject Build()
+        public IActivityObject Build(BuildValidationLevel validationLevel = BuildValidationLevel.Off)
         {
+            List<string> violations = new List<string>();
+
             IActivityObject ac = this.fn(null);
+            if (validationLevel == BuildValidationLevel.Off)
+                return ac;
+
+            if (validationLevel >= BuildValidationLevel.Basic)
+            {
+                if (ac.Id == null)
+                    violations.Add("id is null");
+
+                if (string.IsNullOrEmpty(ac.Type))
+                    violations.Add("type is null or empty");
+
+                if (ac.Context == null)
+                    violations.Add("context is null or empty");
+
+                if (violations.Any())
+                    throw new BuildViolationsException(violations);
+
+                return ac;
+            }
+
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
+                if (System.Diagnostics.Debugger.IsAttached)
             {
                 // catch and new exceptions to the protocol during developement and testing
                 // every activity we build or modify should meet the spec
@@ -139,6 +163,9 @@ namespace Mossharbor.ActivityStreams
                  // TODO System.Diagnostics.Debug.Assert(ValidateActivityMeetsSpec(ac, serverGeneratedActivity, out violation));
             }
 #endif
+            if (violations.Any())
+                throw new BuildViolationsException(violations);
+
             return ac;
         }
     }
