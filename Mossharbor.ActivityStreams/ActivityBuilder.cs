@@ -76,14 +76,28 @@ namespace Mossharbor.ActivityStreams
             return this;
         }
 
-        public ActivityBuilder BuildMultipleChoiceQuestion(string question, QuestionBuilder.AnswerType answerType, Action<QuestionBuilder> builder)
+        public ActivityBuilder Question(string question, QuestionBuilder.AnswerType answerType, Action<QuestionBuilder> modifier)
         {
             this.fn = (ignored) =>
             {
                 QuestionActivity activity = new QuestionActivity();
                 QuestionBuilder qBuilder = new QuestionBuilder(answerType, activity);
                 qBuilder.Name(question);
-                builder(qBuilder);
+                modifier(qBuilder);
+                return qBuilder.Build();
+            };
+
+            return this;
+        }
+
+        public ActivityBuilder Note(string content, Action<ActivityBuilder> modifier = null)
+        {
+            this.fn = (ignored) =>
+            {
+                NoteObject activity = new NoteObject();
+                ActivityBuilder qBuilder = new ActivityBuilder(activity);
+                qBuilder.Content(content);
+                modifier(qBuilder);
                 return qBuilder.Build();
             };
 
@@ -176,6 +190,203 @@ namespace Mossharbor.ActivityStreams
                 return activity;
             });
             return this;
+        }
+
+        /// <summary>
+        /// This sets the <see cref="IActivityObject.Summary"/> for the activity
+        /// </summary>
+        /// <param name="summary">the content of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder Summary(string summary)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.Summary = summary;
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This sets the <see cref="IActivityObject.Content"/> for the activity
+        /// </summary>
+        /// <param name="content">the content of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder Content(string content)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.Content = content;
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This sets the <see cref="IActivityObject.MediaType"/> for the activity
+        /// </summary>
+        /// <param name="mediaType">the content of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder MediaType(string mediaType)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.MediaType = mediaType;
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This sets the <see cref="IActivityObject.StartTime"/> for the activity
+        /// </summary>
+        /// <param name="start">the content of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder StartTime(DateTime? start)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.StartTime = start;
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This sets the <see cref="IActivityObject.EndTime"/> for the activity
+        /// </summary>
+        /// <param name="end">the content of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder EndTime(DateTime? end)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.EndTime = end;
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This sets the <see cref="IActivityObject.Published"/> for the activity
+        /// </summary>
+        /// <param name="published">the content of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder Published(DateTime? published)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.Published = published;
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This sets the <see cref="IActivityObject.Updated"/> for the activity
+        /// </summary>
+        /// <param name="updated">the content of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder Updated(DateTime? updated)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.Updated = updated;
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This sets the <see cref="IActivityObject.Duration"/> for the activity
+        /// </summary>
+        /// <param name="duration">the content of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder Duration(TimeSpan? duration)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.Duration = duration;
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This sets the <see cref="IActivityObject.Type"/> for the activity
+        /// </summary>
+        /// <param name="type">the content of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder Type(string type)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.Type = type;
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This appends the <see cref="IActivityObject"/> to the <see cref="IActivityObject.AttributedTo"/>
+        /// </summary>
+        /// <param name="modifier">the builder for this type</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder AttributedTo(Action<ActivityBuilder> modifier)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.AttributedTo = ExpandArray(activity.AttributedTo, out int index);
+                activity.AttributedTo[index].Obj = RunModifierBuilder(modifier).Build();
+
+                return activity;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This appends the <see cref="IActivityObject"/> to the <see cref="IActivityObject.Attachment"/>
+        /// </summary>
+        /// <param name="modifier">the builder for this type</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityBuilder Attachment(Action<ActivityBuilder> modifier)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.Attachment = ExpandArray(activity.AttributedTo, out int index);
+                activity.Attachment[index].Obj = RunModifierBuilder(modifier).Build();
+
+                return activity;
+            });
+            return this;
+        }
+
+        private static ActivityBuilder RunModifierBuilder(Action<ActivityBuilder> modifier)
+        {
+            Activity ac = new Activity();
+            ActivityBuilder abuilder = new ActivityBuilder(ac);
+            modifier(abuilder);
+            return abuilder;
+        }
+
+        private static IActivityObjectOrLink[] ExpandArray(IActivityObjectOrLink[] array,out int lastIndex)
+        {
+            lastIndex = 0;
+            if (array == null)
+            {
+                array = new IActivityObjectOrLink[1];
+            }
+            else
+            {
+                var temp = array;
+                array = new IActivityObjectOrLink[array.Length + 1];
+                Array.Copy(temp, array, temp.Length);
+                lastIndex = temp.Length;
+            }
+
+            array[lastIndex] = new ActivityObjectOrLink();
+
+            return array;
         }
 
         /// <summary>
