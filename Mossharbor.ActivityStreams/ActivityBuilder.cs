@@ -250,11 +250,6 @@ namespace Mossharbor.ActivityStreams
                 (activity as IParsesChildLinks).PerformCustomLinkParsing(el, ParseOutActivityLinks);
             }
 
-            if (el.TryGetProperty("location", out JsonElement localEl))
-            {
-                activity.Location = ParseActivityObject(localEl) as PlaceObject;
-            }
-
             return activity;
         }
 

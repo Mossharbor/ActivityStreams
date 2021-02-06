@@ -516,6 +516,7 @@ namespace Mossharbor.ActivityStreams
             this.Published = published;
             this.Updated = updated;
             this.MediaType = mediaType;
+
         }
 
         /// <inheritdoc/>
@@ -641,6 +642,11 @@ namespace Mossharbor.ActivityStreams
             if (el.ContainsElement("replies"))
             {
                 this.Replies = (activtyObjectParser(el.GetProperty("replies")) as Collection);
+            }
+
+            if (el.TryGetProperty("location", out JsonElement localEl))
+            {
+                this.Location = activtyObjectParser(localEl) as PlaceObject;
             }
         }
     }
