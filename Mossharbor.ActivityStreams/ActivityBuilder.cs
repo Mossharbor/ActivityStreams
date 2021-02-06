@@ -114,7 +114,7 @@ namespace Mossharbor.ActivityStreams
         /// <param name="activityId">the id that we are going to use for the activity id if nothing is currently set</param>
         /// <returns>A builder to be used in the builder pattern</returns>
         public ActivityBuilder Id(Uri activityId)
-        {
+        {   
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.Id = activityId;
