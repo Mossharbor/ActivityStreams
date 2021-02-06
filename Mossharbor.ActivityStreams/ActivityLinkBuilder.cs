@@ -75,6 +75,23 @@ namespace Mossharbor.ActivityStreams
             return this;
         }
 
+        private static string[] ParseOutRelationShips(JsonElement el)
+        {
+            if (el.ValueKind != JsonValueKind.Array)
+            {
+                return new string[] { el.GetString() };
+            }
+
+            List<string> links = new List<string>();
+
+            foreach (var t in el.EnumerateArray())
+            {
+                links.Add(t.ToString());
+            }
+
+            return links.ToArray();
+        }
+
         private static ActivityLink ParseLink(JsonElement el)
         {
             var type = el.GetStringOrDefault("type");
@@ -97,7 +114,6 @@ namespace Mossharbor.ActivityStreams
             var mediaType = el.GetStringOrDefault("mediaType");
             var height = el.GetLongOrDefault("height");
             var width = el.GetLongOrDefault("width");
-            var rel = el.GetStringOrDefault("rel");
             var name = el.GetStringOrDefault("name");
             var url = el.GetUriOrDefault("url");
 
@@ -109,7 +125,7 @@ namespace Mossharbor.ActivityStreams
             link.Height = height;
             link.Width = width;
             link.Name = name;
-            link.Rel = new string[] { rel };
+            link.Rel = el.ContainsElement("rel") ? ParseOutRelationShips(el.GetProperty("rel")) : null;
             link.Url = url;
 
             return link;

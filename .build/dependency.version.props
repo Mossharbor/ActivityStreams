@@ -1,5 +1,6 @@
 <Project ToolsVersion="15.0">
   <PropertyGroup>
     <SystemTextJsonVersion>5.0.1</SystemTextJsonVersion>
+    <MicrosoftAspNetWebApiCoreVersion>5.2.7</MicrosoftAspNetWebApiCoreVersion>
   </PropertyGroup>
 </Project>

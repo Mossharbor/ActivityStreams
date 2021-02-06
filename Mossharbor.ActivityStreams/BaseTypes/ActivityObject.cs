@@ -150,6 +150,8 @@ namespace Mossharbor.ActivityStreams
         [JsonPropertyName("mediaType")]
         public string MediaType { get; set; } // TODO assume text/html if nothing is here.
 
+        private string content = null;
+
         /// <summary>
         /// The content or textual representation of the Object encoded as a JSON string. 
         /// By default, the value of content is HTML. The mediaType property can be used in the object to indicate a different content type.
@@ -157,7 +159,23 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <see cref="https://www.w3.org/ns/activitystreams#content"/>
         [JsonPropertyName("content")]
-        public string Content { get; set; }
+        public string Content
+        {
+            get
+            {
+                if (content != null)
+                    return content;
+
+                if (this.ContentMap != null)
+                    return this.ContentMap.GetContent();
+
+                return null;
+            }
+            set
+            {
+                content = value;
+            }
+        }
 
         /// <summary>
         /// The content or textual representation of the Object encoded as a JSON string. 
@@ -167,6 +185,8 @@ namespace Mossharbor.ActivityStreams
         /// <see cref="https://www.w3.org/ns/activitystreams#content"/>
         [JsonPropertyName("contentMap")]
         public ContentMap ContentMap { get; set; }
+
+        private string name = null;
 
         /// <summary>
         /// A simple, human-readable, plain-text name for the object. HTML markup must not be included. The name may be expressed using multiple language-tagged values.
@@ -180,7 +200,23 @@ namespace Mossharbor.ActivityStreams
         /// </example>
         /// <see cref="https://www.w3.org/ns/activitystreams#name"/>
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                if (name != null)
+                    return name;
+
+                if (this.NameMap != null)
+                    return this.NameMap.GetContent();
+
+                return null;
+            }
+            set
+            {
+                name = value;
+            }
+        }
 
         /// <summary>
         /// A simple, human-readable, plain-text name for the object. HTML markup must not be included. The name may be expressed using multiple language-tagged values.
@@ -237,6 +273,32 @@ namespace Mossharbor.ActivityStreams
         /// <see cref="https://www.w3.org/ns/activitystreams#published"/>
         [JsonPropertyName("published")]
         public DateTime? Published { get; set; }
+
+        /// <summary>
+        /// One or more "tags" that have been associated with an objects.
+        /// A tag can be any kind of Object. 
+        /// The key difference between attachment and tag is that the former
+        /// implies association by inclusion, while the latter implies associated by reference.
+        /// </summary>
+        /// <example>
+        ///{
+        ///  "@context": "https://www.w3.org/ns/activitystreams",
+        ///  "type": "Image",
+        ///  "summary": "Picture of Sally",
+        ///  "url": "http://example.org/sally.jpg",
+        ///  "tag": [
+        ///    {
+        ///      "type": "Person",
+        ///      "id": "http://sally.example.org",
+        ///      "name": "Sally"
+        ///    }
+        ///  ]
+        ///}
+        ///  </example>
+        /// <see cref="https://www.w3.org/ns/activitystreams#tag"/>
+        [JsonPropertyName("tag")]
+        public IActivityObjectOrLink[] Tag { get; set; }
+
 
         /// <summary>
         /// Identifies one or more links to representations of the object
@@ -382,7 +444,25 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <see cref="https://www.w3.org/ns/activitystreams#summary"/>
         [JsonPropertyName("summary")]
-        public string Summary { get; set; }
+        public string Summary
+        {
+            get
+            {
+                if (summary != null)
+                    return summary;
+
+                if (this.SummaryMap != null)
+                    return this.SummaryMap.GetContent();
+
+                return null;
+            }
+            set
+            {
+                summary = value;
+            }
+        }
+
+        private string summary;
 
         /// <summary>
         /// A natural language summarization of the object encoded as HTML. Multiple language tagged summaries may be provided.
@@ -407,13 +487,14 @@ namespace Mossharbor.ActivityStreams
         /// <inheritdoc/>
         public virtual void PerformCustomParsing(JsonElement el)
         {
-            string typeString = el.GetStringOrDefault("type");
+            string typeString = el.TryGetProperty("type", out JsonElement typeProperty) ? ActivityBuilder.GetActivityType(typeProperty) : null;
             var idElement = el.GetUriOrDefault("id");
             var summary = el.GetStringOrDefault("summary");
             var name = el.GetStringOrDefault("name");
             var content = el.GetStringOrDefault("content");
             var context = el.GetUriOrDefault("@context");
             var context2 = el.GetUriOrDefault("context");
+            var mediaType = el.GetStringOrDefault("mediaType");
             DateTime? start = el.GetDateTimeOrDefault("startTime");
             DateTime? end = el.GetDateTimeOrDefault("endTime");
             DateTime? updated = el.GetDateTimeOrDefault("updated");
@@ -431,6 +512,7 @@ namespace Mossharbor.ActivityStreams
             this.EndTime = end;
             this.Published = published;
             this.Updated = updated;
+            this.MediaType = mediaType;
         }
     }
 }

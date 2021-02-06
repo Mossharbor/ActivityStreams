@@ -153,6 +153,25 @@ namespace Mossharbor.ActivityStreams
             return this;
         }
 
+        private static ContentMap ParseOutMap(JsonElement el)
+        {
+            if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
+                return null;
+
+            JsonProperty[] elementArray = el.ValueKind == JsonValueKind.Object ? el.EnumerateObject().ToArray() : throw new InvalidContentMapException(el.ToString());
+            Dictionary<string, string> mapping = new Dictionary<string, string>();
+
+
+            for (int i = 0; i < elementArray.Length; ++i)
+            {
+                var toParse = elementArray[i];
+
+                mapping.Add(toParse.Name, toParse.Value.ToString());
+            }
+
+            return new ContentMap(mapping);
+        }
+
         private static IActivityObjectOrLink[] ParseActivityObjectOrLink(JsonElement el)
         {
             if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
@@ -305,9 +324,44 @@ namespace Mossharbor.ActivityStreams
                 activity.CC = ParseActivityObjectOrLink(el.GetProperty("cc"));
             }
 
+            if (el.ContainsElement("to"))
+            {
+                activity.To = ParseActivityObjectOrLink(el.GetProperty("to"));
+            }
+
             if (el.ContainsElement("generator"))
             {
                 activity.Generator = ParseActivityObjectOrLink(el.GetProperty("generator"));
+            }
+
+            if (el.ContainsElement("preview"))
+            {
+                activity.Preview = ParseActivityObjectOrLink(el.GetProperty("preview"));
+            }
+
+            if (el.ContainsElement("replies"))
+            {
+                activity.Replies = (ParseActivityObject(el.GetProperty("replies")) as Collection);
+            }
+
+            if (el.ContainsElement("tag"))
+            {
+                activity.Tag = ParseActivityObjectOrLink(el.GetProperty("tag"));
+            }
+
+            if (el.ContainsElement("contentMap"))
+            {
+                activity.ContentMap = ParseOutMap(el.GetProperty("contentMap"));
+            }
+
+            if (el.ContainsElement("nameMap"))
+            {
+                activity.NameMap = ParseOutMap(el.GetProperty("nameMap"));
+            }
+
+            if (el.ContainsElement("summaryMap"))
+            {
+                activity.SummaryMap = ParseOutMap(el.GetProperty("summaryMap"));
             }
 
             if (activity is Collection)
@@ -351,9 +405,46 @@ namespace Mossharbor.ActivityStreams
             return activity;
         }
 
+        internal static string GetActivityType(JsonElement typeProperty)
+        {
+            if (typeProperty.ValueKind == JsonValueKind.Undefined || typeProperty.ValueKind == JsonValueKind.Null)
+            {
+                return null;
+            }
+
+            if (typeProperty.ValueKind == JsonValueKind.String)
+            {
+                return typeProperty.GetString();
+            }
+
+            if (typeProperty.ValueKind == JsonValueKind.Array)
+            {
+                List<string> types = new List<string>();
+
+                foreach (var t in typeProperty.EnumerateArray())
+                {
+                    if (t.ValueKind != JsonValueKind.String)
+                        throw new InvalidTypeDefinitionException(t.GetString());
+                    
+                    types.Add(t.GetString());
+                }
+
+                var knownTypes = types.Union(TypeToObjectMap.Keys);
+
+                if (!knownTypes.Any())
+                {
+                    return types.First();
+                }
+
+                return knownTypes.First();
+            }
+
+            throw new InvalidTypeDefinitionException(typeProperty.GetString());
+        }
+
         private static ActivityObject CreateCorrectActivityFrom(JsonElement el)
         {
-            string typeString = el.GetStringOrDefault("type");
+            string typeString = el.ContainsElement("type") ? GetActivityType(el.GetProperty("type")) : null;
 
             ActivityObject activity = null;
 

@@ -67,10 +67,16 @@ namespace Mossharbor.ActivityStreams
         public static double GetDoubleOrDefault(this JsonElement el, string propertyName)
         {
             JsonElement found;
-            if (!el.TryGetProperty(propertyName, out found) || found.ValueKind != JsonValueKind.Number)
+            if (!el.TryGetProperty(propertyName, out found) || (found.ValueKind != JsonValueKind.Number && found.ValueKind != JsonValueKind.String))
                 return double.NaN;
 
-            return found.GetDouble();
+            if (found.ValueKind == JsonValueKind.Number)
+                return found.GetDouble();
+
+            if (found.ValueKind == JsonValueKind.String)
+                return Double.Parse(found.GetString());
+
+            return double.NaN;
         }
 
         /// <summary>

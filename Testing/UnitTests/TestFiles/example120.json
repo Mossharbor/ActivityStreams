@@ -2,6 +2,6 @@
   "@context": "https://www.w3.org/ns/activitystreams",
   "type": "Link",
   "href": "http://example.org/image.png",
-  "height": 100,
+  "height": 101,
   "width": 100
 }

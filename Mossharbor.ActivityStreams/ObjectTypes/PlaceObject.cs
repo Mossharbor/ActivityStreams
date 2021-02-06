@@ -39,6 +39,12 @@ namespace Mossharbor.ActivityStreams
         public double Altitude { get; set; }
 
         /// <summary>
+        /// Indicates the accuracy of position coordinates on a Place objects. Expressed in properties of percentage. e.g. "94.0" means "94.0% accurate".
+        /// </summary>
+        [JsonPropertyName("accuracy")]
+        public double Accuracy { get; set; }
+
+        /// <summary>
         /// The radius from the given latitude and longitude for a Place. 
         /// The units is expressed by the units property. If units is not specified, the default is assumed to be "m" indicating "meters".
         /// </summary>
@@ -73,6 +79,7 @@ namespace Mossharbor.ActivityStreams
             this.Altitude = el.GetDoubleOrDefault("altitude");
             this.Radius = el.GetDoubleOrDefault("radius");
             this.Units = el.GetStringOrDefault("units");
+            this.Accuracy = el.GetDoubleOrDefault("accuracy");
 
             // If units is not specified, the default is assumed to be "m" indicating "meters".
             if ((this.Radius != double.NaN || this.Altitude != double.NaN) && string.IsNullOrEmpty(this.Units))

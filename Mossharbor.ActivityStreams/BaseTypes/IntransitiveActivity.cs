@@ -108,7 +108,7 @@ namespace Mossharbor.ActivityStreams
         /// </example>
         /// <see cref="https://www.w3.org/ns/activitystreams#result"/>
         [JsonPropertyName("result")]
-        public IActivityObjectOrLink Result { get; set; }
+        public IActivityObjectOrLink[] Result { get; set; }
 
         /// <summary>
         /// Describes an indirect object of the activity from which the activity is directed. 
@@ -178,7 +178,7 @@ namespace Mossharbor.ActivityStreams
 
             if (el.TryGetProperty("result", out JsonElement resultEl))
             {
-                this.Result = activtyOrLinkObjectParser(resultEl).FirstOrDefault();
+                this.Result = activtyOrLinkObjectParser(resultEl);
             }
 
             if (el.TryGetProperty("instrument", out JsonElement instrumentEl))
