@@ -490,7 +490,7 @@ namespace Mossharbor.ActivityStreams
         /// <inheritdoc/>
         public virtual void PerformCustomParsing(JsonElement el)
         {
-            string typeString = el.TryGetProperty("type", out JsonElement typeProperty) ? ActivityBuilder.GetActivityType(typeProperty) : null;
+            string typeString = el.TryGetProperty("type", out JsonElement typeProperty) ? ActivityStreamsParser.GetActivityType(typeProperty) : null;
             var idElement = el.GetUriOrDefault("id");
             var summary = el.GetStringOrDefault("summary");
             var name = el.GetStringOrDefault("name");
