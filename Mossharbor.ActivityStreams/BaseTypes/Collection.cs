@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 
+#pragma warning disable CS1658 // Warning is overriding an error
 namespace Mossharbor.ActivityStreams
 {
     /// <summary>

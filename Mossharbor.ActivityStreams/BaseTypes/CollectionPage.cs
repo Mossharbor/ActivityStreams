@@ -3,9 +3,10 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+#pragma warning disable CS1658 // Warning is overriding an error
 namespace Mossharbor.ActivityStreams
 {
-    public class CollectionPage : Collection, IParsesChildObjectOrLinks
+    public class CollectionPage : Collection, IParsesChildObjectOrLinks, IParsesChildLinks
     {
         public CollectionPage() : base(CollectionPageType)
         {
@@ -51,6 +52,7 @@ namespace Mossharbor.ActivityStreams
 
         [JsonPropertyName("prev")]
         public IActivityLink Prev { get; set; }
+
         /// <inheritdoc/>
         public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
         {
@@ -58,6 +60,17 @@ namespace Mossharbor.ActivityStreams
 
             if (el.ContainsElement("partOf"))
                 this.PartOf = activtyOrLinkObjectParser(el.GetProperty("partOf")).FirstOrDefault();
+        }
+
+        /// <inheritdoc/>
+        public override void PerformCustomLinkParsing(JsonElement el, Func<JsonElement, IActivityLink[]> activtyLinkParser)
+        {
+            base.PerformCustomLinkParsing(el, activtyLinkParser);
+
+            if (el.ContainsElement("next"))
+                this.Next = activtyLinkParser(el.GetProperty("next")).FirstOrDefault();
+            if (el.ContainsElement("prev"))
+                this.Prev = activtyLinkParser(el.GetProperty("prev")).FirstOrDefault();
         }
     }
 }

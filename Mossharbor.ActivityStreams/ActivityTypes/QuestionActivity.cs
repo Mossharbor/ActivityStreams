@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+#pragma warning disable CS1658 // Warning is overriding an error
 namespace Mossharbor.ActivityStreams
 {
     /// <summary>
@@ -118,8 +119,10 @@ namespace Mossharbor.ActivityStreams
         public DateTime? Closed { get; set; }
 
         /// <inheritdoc/>
-        public void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
+        public override void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
         {
+            base.PerformCustomObjectParsing(el, activtyObjectParser);
+
             if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
                 return;
 

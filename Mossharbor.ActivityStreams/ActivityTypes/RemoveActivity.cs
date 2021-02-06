@@ -1,4 +1,6 @@
-﻿namespace Mossharbor.ActivityStreams
+﻿
+#pragma warning disable CS1658 // Warning is overriding an error
+namespace Mossharbor.ActivityStreams
 {
     /// <summary>
     /// Indicates that the actor is removing the object. If specified, the origin indicates the context from which the object is being removed.

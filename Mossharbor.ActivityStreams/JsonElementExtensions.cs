@@ -14,7 +14,7 @@ namespace Mossharbor.ActivityStreams
         /// this returns the found property or default(JsonElment) if not found
         /// </summary>
         /// <param name="el">the json element root we are searching under</param>
-        /// <param name="propertyName">thename of the element we are looking for/param>
+        /// <param name="propertyName">thename of the element we are looking for</param>
         /// <returns>the found json property or default(JsonElment).</returns>
         public static JsonElement GetPropertyOrDefault(this JsonElement el, string propertyName)
         {
@@ -29,7 +29,7 @@ namespace Mossharbor.ActivityStreams
         /// this returns the found property or null if not found
         /// </summary>
         /// <param name="el">the json element root we are searching under</param>
-        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <param name="uriPropertyName">the name of the element we are looking for</param>
         /// <returns>the found json property or null.</returns>
         public static Uri GetUriOrDefault(this JsonElement el, string uriPropertyName)
         {
@@ -44,7 +44,7 @@ namespace Mossharbor.ActivityStreams
         /// this returns the found property or null if not found
         /// </summary>
         /// <param name="el">the json element root we are searching under</param>
-        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <param name="propertyName">the name of the element we are looking for</param>
         /// <returns>the found json property or null.</returns>
         public static string GetStringOrDefault(this JsonElement el, string propertyName)
         {
@@ -62,7 +62,7 @@ namespace Mossharbor.ActivityStreams
         /// this returns the found property or null if not found
         /// </summary>
         /// <param name="el">the json element root we are searching under</param>
-        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <param name="propertyName">the name of the element we are looking for</param>
         /// <returns>the found json property or null.</returns>
         public static double GetDoubleOrDefault(this JsonElement el, string propertyName)
         {
@@ -83,7 +83,7 @@ namespace Mossharbor.ActivityStreams
         /// this returns the found property or null if not found
         /// </summary>
         /// <param name="el">the json element root we are searching under</param>
-        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <param name="propertyName">the name of the element we are looking for</param>
         /// <returns>the found json property or null.</returns>
         public static long GetLongOrDefault(this JsonElement el, string propertyName)
         {
@@ -98,7 +98,7 @@ namespace Mossharbor.ActivityStreams
         /// this returns the found property or null if not found
         /// </summary>
         /// <param name="el">the json element root we are searching under</param>
-        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <param name="propertyName">the name of the element we are looking for</param>
         /// <returns>the found json property or null.</returns>
         public static DateTime? GetDateTimeOrDefault(this JsonElement el, string propertyName)
         {
@@ -113,7 +113,7 @@ namespace Mossharbor.ActivityStreams
         /// this returns the found property or null if not found
         /// </summary>
         /// <param name="el">the json element root we are searching under</param>
-        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <param name="propertyName">the name of the element we are looking for</param>
         /// <returns>the found json property or null.</returns>
         public static TimeSpan? GetTimeSpanOrDefault(this JsonElement el, string propertyName)
         {
@@ -130,7 +130,7 @@ namespace Mossharbor.ActivityStreams
         /// returns true if the property exists, false otherwise
         /// </summary>
         /// <param name="el">the json element root we are searching under</param>
-        /// <param name="propertyName">the name of the element we are looking for/param>
+        /// <param name="propertyName">the name of the element we are looking for</param>
         /// <returns>true if the element exists otherwise false</returns>
         public static bool ContainsElement(this JsonElement el, string propertyName)
         {

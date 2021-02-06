@@ -153,25 +153,6 @@ namespace Mossharbor.ActivityStreams
             return this;
         }
 
-        private static ContentMap ParseOutMap(JsonElement el)
-        {
-            if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
-                return null;
-
-            JsonProperty[] elementArray = el.ValueKind == JsonValueKind.Object ? el.EnumerateObject().ToArray() : throw new InvalidContentMapException(el.ToString());
-            Dictionary<string, string> mapping = new Dictionary<string, string>();
-
-
-            for (int i = 0; i < elementArray.Length; ++i)
-            {
-                var toParse = elementArray[i];
-
-                mapping.Add(toParse.Name, toParse.Value.ToString());
-            }
-
-            return new ContentMap(mapping);
-        }
-
         private static IActivityObjectOrLink[] ParseActivityObjectOrLink(JsonElement el)
         {
             if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
@@ -266,50 +247,12 @@ namespace Mossharbor.ActivityStreams
 
             if (activity is IParsesChildLinks)
             {
-                (activity as IParsesChildLinks).PerformCustomLinkParsing(el, ParseOutActivityLink);
+                (activity as IParsesChildLinks).PerformCustomLinkParsing(el, ParseOutActivityLinks);
             }
-
 
             if (el.TryGetProperty("location", out JsonElement localEl))
             {
                 activity.Location = ParseActivityObject(localEl) as PlaceObject;
-            }
-
-            if (el.TryGetProperty("url", out JsonElement urlEl))
-            {
-                activity.Url = ParseOutActivityLinks(urlEl);
-            }
-
-            
-            if (el.ContainsElement("replies"))
-            {
-                activity.Replies = (ParseActivityObject(el.GetProperty("replies")) as Collection);
-            }
-
-            if (el.ContainsElement("contentMap"))
-            {
-                activity.ContentMap = ParseOutMap(el.GetProperty("contentMap"));
-            }
-
-            if (el.ContainsElement("nameMap"))
-            {
-                activity.NameMap = ParseOutMap(el.GetProperty("nameMap"));
-            }
-
-            if (el.ContainsElement("summaryMap"))
-            {
-                activity.SummaryMap = ParseOutMap(el.GetProperty("summaryMap"));
-            }
-
-            if (activity is Collection)
-            {
-                if (activity is CollectionPage)
-                {
-                    if (el.ContainsElement("next"))
-                        (activity as CollectionPage).Next = ParseOutActivityLink(el.GetProperty("next"));
-                    if (el.ContainsElement("prev"))
-                        (activity as CollectionPage).Prev = ParseOutActivityLink(el.GetProperty("prev"));
-                }
             }
 
             return activity;
@@ -447,7 +390,7 @@ namespace Mossharbor.ActivityStreams
             {
                 // catch and new exceptions to the protocol during developement and testing
                 // every activity we build or modify should meet the spec
-                string violation = null;
+                // string violation = null;
                  // TODO System.Diagnostics.Debug.Assert(ValidateActivityMeetsSpec(ac, serverGeneratedActivity, out violation));
             }
 #endif

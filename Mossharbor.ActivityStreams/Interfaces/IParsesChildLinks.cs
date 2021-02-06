@@ -7,6 +7,6 @@ namespace Mossharbor.ActivityStreams
 {
     interface IParsesChildLinks
     {
-        void PerformCustomLinkParsing(JsonElement el, Func<JsonElement, IActivityLink> activtyLinkParser);
+        void PerformCustomLinkParsing(JsonElement el, Func<JsonElement, IActivityLink[]> activtyLinkParser);
     }
 }

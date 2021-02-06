@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
+#pragma warning disable CS1658 // Warning is overriding an error
 namespace Mossharbor.ActivityStreams
 {
     /// <summary>
     /// Represents a formal or informal collective of Actors.
     /// </summary>
+    /// <example>
     ///{
     ///  "@context": "https://www.w3.org/ns/activitystreams",
     ///  "type": "Person",

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+#pragma warning disable CS1658 // Warning is overriding an error
 namespace Mossharbor.ActivityStreams
 {
-    public class ActivityObject : IActivityObject, ICustomParser, IParsesChildObjectOrLinks
+    public class ActivityObject : IActivityObject, ICustomParser, IParsesChildObjectOrLinks, IParsesChildLinks, IParsesChildObject
     {
         internal ActivityObject() { }
 
@@ -369,8 +372,8 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// Identifies one or more Objects that are part of the private secondary audience of this Object.
         /// </summary>
-        [JsonPropertyName("bcc")]
         /// <see cref="https://www.w3.org/ns/activitystreams#bcc"/>
+        [JsonPropertyName("bcc")]
         public IActivityObjectOrLink[] bcc { get; set; }
 
         /// <summary>
@@ -581,6 +584,63 @@ namespace Mossharbor.ActivityStreams
             if (el.TryGetProperty("icon", out JsonElement iconEl))
             {
                 this.Icons = activtyOrLinkObjectParser(iconEl);
+            }
+
+            if (el.ContainsElement("contentMap"))
+            {
+                this.ContentMap = ParseOutMap(el.GetProperty("contentMap"));
+            }
+
+            if (el.ContainsElement("nameMap"))
+            {
+                this.NameMap = ParseOutMap(el.GetProperty("nameMap"));
+            }
+
+            if (el.ContainsElement("summaryMap"))
+            {
+                this.SummaryMap = ParseOutMap(el.GetProperty("summaryMap"));
+            }
+        }
+
+        /// <summary>
+        /// Parses ouot the maps
+        /// </summary>
+        /// <param name="el">the json element to parse</param>
+        /// <returns>thecontent map</returns>
+        private static ContentMap ParseOutMap(JsonElement el)
+        {
+            if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
+                return null;
+
+            JsonProperty[] elementArray = el.ValueKind == JsonValueKind.Object ? el.EnumerateObject().ToArray() : throw new InvalidContentMapException(el.ToString());
+            Dictionary<string, string> mapping = new Dictionary<string, string>();
+
+
+            for (int i = 0; i < elementArray.Length; ++i)
+            {
+                var toParse = elementArray[i];
+
+                mapping.Add(toParse.Name, toParse.Value.ToString());
+            }
+
+            return new ContentMap(mapping);
+        }
+
+        /// <inheritdoc/>
+        public virtual void PerformCustomLinkParsing(JsonElement el, Func<JsonElement, IActivityLink[]> activtyLinkParser)
+        {
+            if (el.TryGetProperty("url", out JsonElement urlEl))
+            {
+                this.Url = activtyLinkParser(urlEl);
+            }
+        }
+
+        /// <inheritdoc/>
+        public virtual void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
+        {
+            if (el.ContainsElement("replies"))
+            {
+                this.Replies = (activtyObjectParser(el.GetProperty("replies")) as Collection);
             }
         }
     }

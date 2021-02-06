@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
+#pragma warning disable CS1658 // Warning is overriding an error
 namespace Mossharbor.ActivityStreams
 {
     /// <summary>
@@ -70,7 +71,7 @@ namespace Mossharbor.ActivityStreams
         /// Parses out the details specific to the Place Object
         /// </summary>
         /// <param name="el"></param>
-        public void PerformCustomParsing(JsonElement el)
+        public override void PerformCustomParsing(JsonElement el)
         {
             base.PerformCustomParsing(el);
 

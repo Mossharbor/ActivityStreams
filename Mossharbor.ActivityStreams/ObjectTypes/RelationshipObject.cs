@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+#pragma warning disable CS1658 // Warning is overriding an error
 namespace Mossharbor.ActivityStreams
 {
     /// <summary>
@@ -55,17 +56,21 @@ namespace Mossharbor.ActivityStreams
         public IActivityObject Object { get; set; }
 
         /// <inheritdoc/>
-        public void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
         {
+            base.PerformCustomObjectOrLinkParsing(el, activtyOrLinkObjectParser);
+
             if (el.ContainsElement("subject"))
             {
                 this.Subject = activtyOrLinkObjectParser(el.GetProperty("subject"));
             }
         }
 
-            /// <inheritdoc/>
-        public void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
+         /// <inheritdoc/>
+        public override void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
         {
+            base.PerformCustomObjectParsing(el, activtyObjectParser);
+
             if (el.ContainsElement("object"))
             {
                 this.Object = activtyObjectParser(el.GetProperty("object"));
@@ -76,7 +81,7 @@ namespace Mossharbor.ActivityStreams
         /// Parses out the details specific to the Place Object
         /// </summary>
         /// <param name="el"></param>
-        public void PerformCustomParsing(JsonElement el)
+        public override void PerformCustomParsing(JsonElement el)
         {
             base.PerformCustomParsing(el);
 

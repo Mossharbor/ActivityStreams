@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
+#pragma warning disable CS1658 // Warning is overriding an error
 namespace Mossharbor.ActivityStreams
 {
     /// <summary>
     /// Describes a software application.
     /// </summary>
+    /// <example>
     ///{
     ///  "@context": "https://www.w3.org/ns/activitystreams",
     ///  "type": "Application",
