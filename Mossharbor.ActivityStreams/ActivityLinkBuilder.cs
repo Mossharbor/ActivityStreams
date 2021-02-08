@@ -5,8 +5,19 @@ using System.Text.Json;
 
 namespace Mossharbor.ActivityStreams
 {
-    public class ActivityLinkBuilder
+    public class ActivityLinkBuilder : BuilderBase
     {
+        public ActivityLinkBuilder()
+        { }
+
+        public ActivityLinkBuilder(IActivityLink link)
+        {
+            this.fn = (ignored) =>
+            {
+                return link;
+            };
+        }
+
         /// <summary>
         /// this is the mapping from a type to an implementation
         /// </summary>
@@ -170,13 +181,108 @@ namespace Mossharbor.ActivityStreams
                 return false;
         }
 
+        public ActivityLinkBuilder Href(string href)
+        {
+            this.fn = Compose(this.fn, (link) =>
+            {
+                link.Href = href;
+                return link;
+            });
+            return this;
+        }
+
+        public ActivityLinkBuilder Hreflang(string hreflang)
+        {
+            this.fn = Compose(this.fn, (link) =>
+            {
+                link.HrefLang = hreflang;
+                return link;
+            });
+            return this;
+        }
+
+        public ActivityLinkBuilder Name(string name)
+        {
+            this.fn = Compose(this.fn, (link) =>
+            {
+                link.Name = name;
+                return link;
+            });
+            return this;
+        }
+
+        public ActivityLinkBuilder MediaType(string mediaType)
+        {
+            this.fn = Compose(this.fn, (link) =>
+            {
+                link.MediaType = mediaType;
+                return link;
+            });
+            return this;
+        }
+
+        public ActivityLinkBuilder Width(long width)
+        {
+            this.fn = Compose(this.fn, (link) =>
+            {
+                link.Width = width;
+                return link;
+            });
+            return this;
+        }
+
+        public ActivityLinkBuilder Height(long height)
+        {
+            this.fn = Compose(this.fn, (link) =>
+            {
+                link.Height = height;
+                return link;
+            });
+            return this;
+        }
+
+        public ActivityLinkBuilder Rel(string[] rel)
+        {
+            this.fn = Compose(this.fn, (link) =>
+            {
+                link.Rel = rel;
+                return link;
+            });
+            return this;
+        }
+
+        public ActivityLinkBuilder Uri(string url)
+        {
+            this.fn = Compose(this.fn, (link) =>
+            {
+                link.Url = new Uri(url);
+                return link;
+            });
+            return this;
+        }
+
+        /// <summary>
+        /// This sets the context for the activity <see cref="IActivityLink.Context"/>
+        /// </summary>
+        /// <param name="context">the context of the activity</param>
+        /// <returns>A builder to be used in the builder pattern</returns>
+        public ActivityLinkBuilder Context(string context = "https://www.w3.org/ns/activitystreams")
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.Context = new Uri(context);
+                return activity;
+            });
+            return this;
+        }
+
         /// <summary>
         /// Run through the function chain and actually build the IActivity.
         /// </summary>
         /// <returns>the activity that we built</returns>
         public IActivityLink Build()
         {
-            IActivityLink ac = this.fn(null);
+            IActivityLink link = this.fn(null);
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -186,7 +292,7 @@ namespace Mossharbor.ActivityStreams
                 // TODO System.Diagnostics.Debug.Assert(ValidateActivityMeetsSpec(ac, serverGeneratedActivity, out violation));
             }
 #endif
-            return ac;
+            return link;
         }
     }
 }

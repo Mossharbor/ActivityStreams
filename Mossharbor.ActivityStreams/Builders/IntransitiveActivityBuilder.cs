@@ -14,14 +14,22 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// This appends the <see cref="IActivityObject"/> to the <see cref="IActivityObject.Actor"/>
         /// </summary>
-        /// <param name="modifier">the builder for this type</param>
+        /// <param name="objectModifier">the action for building objects</param>
+        /// <param name="linkModifier">the action for building links</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public IntransitiveActivityBuilder Actor(Action<IntransitiveActivityBuilder> modifier)
+        public IntransitiveActivityBuilder Actor(Action<IntransitiveActivityBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 (activity as IntransitiveActivity).Actor = ExpandArray((activity as IntransitiveActivity).Actor, out int index);
-                (activity as IntransitiveActivity).Actor[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    (activity as IntransitiveActivity).Actor[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    (activity as IntransitiveActivity).Actor[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -32,15 +40,22 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// This appends the <see cref="IActivityObject"/> to the <see cref="IActivityObject.Target"/>
         /// </summary>
-        /// <param name="modifier">the builder for this type</param>
+        /// <param name="objectModifier">the action for building objects</param>
+        /// <param name="linkModifier">the action for building links</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public IntransitiveActivityBuilder Target(Action<IntransitiveActivityBuilder> modifier)
+        public IntransitiveActivityBuilder Target(Action<IntransitiveActivityBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
-                (activity as IntransitiveActivity).Target = ExpandArray((activity as IntransitiveActivity).Actor, out int index);
-                (activity as IntransitiveActivity).Target[index].Obj = RunModifierBuilder(modifier).Build();
-
+                (activity as IntransitiveActivity).Target = ExpandArray((activity as IntransitiveActivity).Target, out int index);
+                if (null != objectModifier)
+                {
+                    (activity as IntransitiveActivity).Target[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    (activity as IntransitiveActivity).Target[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
                 return activity;
             });
 
@@ -50,14 +65,22 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// This appends the <see cref="IActivityObject"/> to the <see cref="IActivityObject.Result"/>
         /// </summary>
-        /// <param name="modifier">the builder for this type</param>
+        /// <param name="objectModifier">the action for building objects</param>
+        /// <param name="linkModifier">the action for building links</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public IntransitiveActivityBuilder Result(Action<IntransitiveActivityBuilder> modifier)
+        public IntransitiveActivityBuilder Result(Action<IntransitiveActivityBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
-                (activity as IntransitiveActivity).Result = ExpandArray((activity as IntransitiveActivity).Actor, out int index);
-                (activity as IntransitiveActivity).Result[index].Obj = RunModifierBuilder(modifier).Build();
+                (activity as IntransitiveActivity).Result = ExpandArray((activity as IntransitiveActivity).Result, out int index);
+                if (null != objectModifier)
+                {
+                    (activity as IntransitiveActivity).Result[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    (activity as IntransitiveActivity).Result[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -68,13 +91,22 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// This appends the <see cref="IActivityObject"/> to the <see cref="IActivityObject.Origin"/>
         /// </summary>
-        /// <param name="modifier">the builder for this type</param>
+        /// <param name="objectModifier">the action for building objects</param>
+        /// <param name="linkModifier">the action for building links</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public IntransitiveActivityBuilder Origin(Action<IntransitiveActivityBuilder> modifier)
+        public IntransitiveActivityBuilder Origin(Action<IntransitiveActivityBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
-                (activity as IntransitiveActivity).Origin.Obj = RunModifierBuilder(modifier).Build();
+                (activity as IntransitiveActivity).Origin = new ActivityObjectOrLink();
+                if (null != objectModifier)
+                {
+                    (activity as IntransitiveActivity).Origin.Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    (activity as IntransitiveActivity).Origin.Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -85,14 +117,22 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// This appends the <see cref="IActivityObject"/> to the <see cref="IActivityObject.Instrument"/>
         /// </summary>
-        /// <param name="modifier">the builder for this type</param>
+        /// <param name="objectModifier">the action for building objects</param>
+        /// <param name="linkModifier">the action for building links</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public IntransitiveActivityBuilder Instrument(Action<IntransitiveActivityBuilder> modifier)
+        public IntransitiveActivityBuilder Instrument(Action<IntransitiveActivityBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
-                (activity as IntransitiveActivity).Instrument = ExpandArray((activity as IntransitiveActivity).Actor, out int index);
-                (activity as IntransitiveActivity).Instrument[index].Obj = RunModifierBuilder(modifier).Build();
+                (activity as IntransitiveActivity).Instrument = ExpandArray((activity as IntransitiveActivity).Instrument, out int index);
+                if (null != objectModifier)
+                {
+                    (activity as IntransitiveActivity).Instrument[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    (activity as IntransitiveActivity).Instrument[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -100,7 +140,7 @@ namespace Mossharbor.ActivityStreams
             return this;
         }
 
-        protected ActivityObjectBuilder RunModifierBuilder(Action<IntransitiveActivityBuilder> modifier)
+        protected IntransitiveActivityBuilder RunModifierBuilder(Action<IntransitiveActivityBuilder> modifier)
         {
             IntransitiveActivity ac = new IntransitiveActivity();
             IntransitiveActivityBuilder abuilder = new IntransitiveActivityBuilder(ac);

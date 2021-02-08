@@ -18,7 +18,7 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// Initializes a new instance of the <see cref="Activity"/> class.
         /// </summary>
-        public Activity()
+        public Activity() :this (ActivityType)
         { }
 
         /// <summary>

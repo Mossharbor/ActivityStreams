@@ -10,7 +10,7 @@ namespace Mossharbor.ActivityStreams
     /// <summary>
     /// this builds Activities
     /// </summary>
-    public class ActivityObjectBuilder
+    public class ActivityObjectBuilder : BuilderBase
     {
         public enum BuildValidationLevel { Off, Basic, Strict };
 
@@ -19,19 +19,6 @@ namespace Mossharbor.ActivityStreams
             AllowTrailingCommas = true
         };
 
-        /// <summary>
-        /// This function composes the builder function
-        /// </summary>
-        /// <typeparam name="TA">input type to f1</typeparam>
-        /// <typeparam name="TB">output type to f1 and input type to f2</typeparam>
-        /// <typeparam name="TC">output type of f2</typeparam>
-        /// <param name="f1">first function in the chain to call</param>
-        /// <param name="f2">second function in the chain to call</param>
-        /// <returns>The function chain</returns>
-        protected static Func<TA, TC> Compose<TA, TB, TC>(Func<TA, TB> f1, Func<TB, TC> f2)
-        {
-            return (a) => f2(f1(a));
-        }
 
         /// <summary>
         /// This is the function that modifies the Activity we are trying to build
@@ -41,7 +28,6 @@ namespace Mossharbor.ActivityStreams
         public ActivityObjectBuilder()
         {
         }
-
 
         public ActivityObjectBuilder(IActivityObject activity)
         {
@@ -288,7 +274,8 @@ namespace Mossharbor.ActivityStreams
             {
                 VideoObject activity = (VideoObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[VideoObject.VideoType]);
                 activity.Name = title;
-                ExpandArray(activity.Url, out int index);
+                activity.Url = ExpandArray(activity.Url, out int index);
+                activity.Url[index] = new ActivityLink();
                 activity.Url[index].Href = url;
                 return activity;
             };
@@ -357,7 +344,8 @@ namespace Mossharbor.ActivityStreams
             {
                 Activity activity = new Activity();
                 ActivityBuilder qBuilder = new ActivityBuilder(activity);
-                modifier(qBuilder);
+                if (null != modifier)
+                    modifier(qBuilder);
                 return qBuilder.Build();
             };
 
@@ -876,14 +864,22 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// This appends the <see cref="IActivityObject"/> to the <see cref="IActivityObject.AttributedTo"/>
         /// </summary>
-        /// <param name="modifier">the builder for this type</param>
+        /// <param name="objectModifier">the action for building objects</param>
+        /// <param name="linkModifier">the action for building links</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder AttributedTo(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder AttributedTo(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.AttributedTo = ExpandArray(activity.AttributedTo, out int index);
-                activity.AttributedTo[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    activity.AttributedTo[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.AttributedTo[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -893,14 +889,22 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// This appends the <see cref="IActivityObject"/> to the <see cref="IActivityObject.Attachment"/>
         /// </summary>
-        /// <param name="modifier">the builder for this type</param>
+        /// <param name="objectModifier">the action for building objects</param>
+        /// <param name="linkModifier">the action for building links</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder Attachment(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder Attachment(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
-                activity.Attachment = ExpandArray(activity.AttributedTo, out int index);
-                activity.Attachment[index].Obj = RunModifierBuilder(modifier).Build();
+                activity.Attachment = ExpandArray(activity.Attachment, out int index);
+                if (null != objectModifier)
+                {
+                    activity.Attachment[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.Attachment[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -910,14 +914,22 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// This appends the <see cref="IActivityObject"/> to the <see cref="IActivityObject.Audience"/>
         /// </summary>
-        /// <param name="modifier">the builder for this type</param>
+        /// <param name="objectModifier">the action for building objects</param>
+        /// <param name="linkModifier">the action for building links</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder Audience(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder Audience(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.Audience = ExpandArray(activity.AttributedTo, out int index);
-                activity.Audience[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    activity.Audience[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.Audience[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -927,14 +939,22 @@ namespace Mossharbor.ActivityStreams
         /// <summary>
         /// This appends the <see cref="IActivityObject"/> to the <see cref="IActivityObject.InReplyTo"/>
         /// </summary>
-        /// <param name="modifier">the builder for this type</param>
+        /// <param name="objectModifier">the action for building objects</param>
+        /// <param name="linkModifier">the action for building links</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder InReplyTo(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder InReplyTo(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.InReplyTo = ExpandArray(activity.AttributedTo, out int index);
-                activity.InReplyTo[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    activity.InReplyTo[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.InReplyTo[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -946,12 +966,19 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <param name="modifier">the builder for this type</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder BCC(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder BCC(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.bcc = ExpandArray(activity.AttributedTo, out int index);
-                activity.bcc[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    activity.bcc[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.bcc[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -963,12 +990,19 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <param name="modifier">the builder for this type</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder BTO(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder BTO(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.Bto = ExpandArray(activity.AttributedTo, out int index);
-                activity.Bto[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    activity.Bto[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.Bto[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -980,12 +1014,19 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <param name="modifier">the builder for this type</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder CC(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder CC(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.CC = ExpandArray(activity.AttributedTo, out int index);
-                activity.CC[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    activity.CC[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.CC[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -997,12 +1038,31 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <param name="modifier">the builder for this type</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder To(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder To(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.To = ExpandArray(activity.AttributedTo, out int index);
-                activity.To[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    activity.To[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.To[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
+
+                return activity;
+            });
+            return this;
+        }
+
+        public ActivityObjectBuilder Url(Action<ActivityLinkBuilder> linkModifier)
+        {
+            this.fn = Compose(this.fn, (activity) =>
+            {
+                activity.Url = ExpandArray(activity.Url, out int index);
+                activity.Url[index] = RunModifierBuilder(linkModifier).Build();
 
                 return activity;
             });
@@ -1014,12 +1074,19 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <param name="modifier">the builder for this type</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder Generator(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder Generator(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.Generator = ExpandArray(activity.AttributedTo, out int index);
-                activity.Generator[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    activity.Generator[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.Generator[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -1031,12 +1098,19 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <param name="modifier">the builder for this type</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder Preview(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder Preview(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.Preview = ExpandArray(activity.AttributedTo, out int index);
-                activity.Preview[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    activity.Preview[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.Preview[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -1048,12 +1122,19 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <param name="modifier">the builder for this type</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder Tag(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder Tag(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.Tag = ExpandArray(activity.AttributedTo, out int index);
-                activity.Tag[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    activity.Tag[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.Tag[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -1065,12 +1146,19 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <param name="modifier">the builder for this type</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder Images(Action<ActivityObjectBuilder> modifier)
+        public ActivityObjectBuilder Images(Action<ActivityObjectBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
                 activity.Images = ExpandArray(activity.AttributedTo, out int index);
-                activity.Images[index].Obj = RunModifierBuilder(modifier).Build();
+                if (null != objectModifier)
+                {
+                    activity.Images[index].Obj = RunModifierBuilder(objectModifier).Build();
+                }
+                else
+                {
+                    activity.Images[index].Link = RunModifierBuilder(linkModifier).Build();
+                }
 
                 return activity;
             });
@@ -1099,6 +1187,14 @@ namespace Mossharbor.ActivityStreams
         {
             ActivityObject ac = new ActivityObject();
             ActivityObjectBuilder abuilder = new ActivityObjectBuilder(ac);
+            modifier(abuilder);
+            return abuilder;
+        }
+
+        protected ActivityLinkBuilder RunModifierBuilder(Action<ActivityLinkBuilder> modifier)
+        {
+            ActivityLink ac = new ActivityLink();
+            ActivityLinkBuilder abuilder = new ActivityLinkBuilder(ac);
             modifier(abuilder);
             return abuilder;
         }

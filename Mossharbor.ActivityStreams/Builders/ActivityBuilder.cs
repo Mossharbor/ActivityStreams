@@ -16,11 +16,11 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <param name="modifier">the builder for this type</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityObjectBuilder Object(Action<ActivityObjectBuilder> modifier)
+        public ActivityBuilder Object(Action<ActivityBuilder> modifier)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
-                System.Diagnostics.Debug.Assert(activity is Activity);
+                System.Diagnostics.Debug.Assert((activity as Activity) != null);
                 (activity as Activity).Object = ExpandArray((activity as Activity).Object, out int index);
                 (activity as Activity).Object[index] = RunModifierBuilder(modifier).Build();
 
@@ -28,6 +28,14 @@ namespace Mossharbor.ActivityStreams
             });
 
             return this;
+        }
+
+        protected ActivityBuilder RunModifierBuilder(Action<ActivityBuilder> modifier)
+        {
+            Activity ac = new Activity();
+            ActivityBuilder abuilder = new ActivityBuilder(ac);
+            modifier(abuilder);
+            return abuilder;
         }
 
     }
