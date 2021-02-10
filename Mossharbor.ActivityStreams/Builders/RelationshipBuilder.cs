@@ -16,7 +16,7 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <param name="modifier">the builder for this type</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityBuilder Object(Action<ActivityBuilder> modifier)
+        public RelationshipBuilder Object(Action<RelationshipBuilder> modifier)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
@@ -35,7 +35,7 @@ namespace Mossharbor.ActivityStreams
         /// <param name="objectModifier">the action for building objects</param>
         /// <param name="linkModifier">the action for building links</param>
         /// <returns>A builder to be used in the builder pattern</returns>
-        public ActivityBuilder Subject(Action<ActivityBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
+        public RelationshipBuilder Subject(Action<RelationshipBuilder> objectModifier, Action<ActivityLinkBuilder> linkModifier = null)
         {
             this.fn = Compose(this.fn, (activity) =>
             {
@@ -54,6 +54,14 @@ namespace Mossharbor.ActivityStreams
             });
 
             return this;
+        }
+
+        protected ActivityBuilder RunModifierBuilder(Action<RelationshipBuilder> modifier)
+        {
+            RelationshipObject ac = new RelationshipObject();
+            RelationshipBuilder abuilder = new RelationshipBuilder(ac);
+            modifier(abuilder);
+            return abuilder;
         }
 
     }

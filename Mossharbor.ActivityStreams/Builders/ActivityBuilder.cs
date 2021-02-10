@@ -37,6 +37,5 @@ namespace Mossharbor.ActivityStreams
             modifier(abuilder);
             return abuilder;
         }
-
     }
 }

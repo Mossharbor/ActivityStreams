@@ -211,10 +211,9 @@ namespace Mossharbor.ActivityStreams.UnitTests
                 .Create(i =>
                            i.Object(a =>
                               a.Relationship("http://purl.org/vocab/relationship/friendOf", r=>
-                                 r.Subject(null, s => s.Href("http://sally.example.org"))
-                                   .Object(o=>o.Url(u=>u.Href("http://matt.example.org")))
-                                   .StartTime(DateTime.Parse("2015-04-21T12:34:56"))
-                                    ))
+                                 r.Object(o => o.Url(u => u.Href("http://matt.example.org")))
+                                  .Subject(null, s => s.Href("http://sally.example.org")))
+                                  .StartTime(DateTime.Parse("2015-04-21T12:34:56")))
                             .Actor(null, a => a.Href("http://sally.example.org")))
                 .Context()
                 .Build();
@@ -230,6 +229,34 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.AreEqual(((activity as CreateActivity).Object[0] as RelationshipObject).Relationship, "http://purl.org/vocab/relationship/friendOf");
             Assert.AreEqual(((activity as CreateActivity).Object[0] as RelationshipObject).Object.Url[0].Href, "http://matt.example.org");
             Assert.AreEqual(((activity as CreateActivity).Object[0] as RelationshipObject).StartTime.Value, DateTime.Parse("2015-04-21T12:34:56"));
+        }
+
+        [TestMethod]
+        public void BuildSimpleDelete()
+        {
+            DeleteActivity activity = (DeleteActivity)new ActivityObjectBuilder()
+                .Delete(i =>
+                           i.Object(o=>o.Activity(a=>a.Url(u=>u.Href("http://example.org/notes/1"))))
+                            .Actor(a =>a.Person(p=>p.Name("Sally")))
+                            .Origin(o =>o.Dislike(d=>d.Name("Sally's Notes"))))
+                .Context()
+                .Build();
+
+            Assert.IsNotNull((activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.AreEqual("Delete", (activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.IsInstanceOfType(activity, typeof(DeleteActivity));
+
+            Assert.AreEqual("Sally", (activity as Activity).Actor[0].Obj.Name, "the actor object name was incorrect");
+            Assert.AreEqual("Person", (activity as Activity).Actor[0].Obj.Type, "the actor object type was incorrect");
+            Assert.IsInstanceOfType((activity as Activity).Actor[0].Obj, typeof(PersonActor));
+
+            Assert.IsNotNull((activity as Activity).Object[0].Type, "the target object type was null");
+            Assert.AreEqual("http://example.org/notes/1", (activity as Activity).Object[0].Url[0].Href, "the target object url name was incorrect");
+            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(Activity));
+
+            Assert.AreEqual("Dislike", (activity as Activity).Origin.Obj.Type, "the origin object type was incorrect");
+            Assert.AreEqual("Sally's Notes", (activity as Activity).Origin.Obj.Name, "the origin object name was incorrect");
+            Assert.IsInstanceOfType((activity as Activity).Origin.Obj, typeof(DislikeActivity));
         }
     }
 }
