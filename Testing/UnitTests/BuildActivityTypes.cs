@@ -258,5 +258,36 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.AreEqual("Sally's Notes", (activity as Activity).Origin.Obj.Name, "the origin object name was incorrect");
             Assert.IsInstanceOfType((activity as Activity).Origin.Obj, typeof(DislikeActivity));
         }
+
+        [TestMethod]
+        public void BuildSimpleDislike()
+        {
+            /*
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally disliked a post",
+              "type": "Dislike",
+              "actor": "http://sally.example.org",
+              "object": "http://example.org/posts/1"
+            }*/
+
+            DislikeActivity activity = (DislikeActivity)new ActivityObjectBuilder()
+                .Dislike(i =>
+                         i.Object(o => o.Type(ActivityLink.ActivityLinkType).Url(u => u.Href("http://example.org/posts/1")))
+                          .Summary("Sally disliked a post"))
+                .Context()
+                .Build();
+
+            Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.AreEqual(activity.Summary, "Sally disliked a post");
+
+            Assert.IsNotNull((activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.AreEqual("Dislike", (activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.IsInstanceOfType(activity, typeof(DislikeActivity));
+
+            Assert.IsNotNull((activity as Activity).Object[0].Type, "the target object type was null");
+            Assert.AreEqual(ActivityLink.ActivityLinkType, (activity as Activity).Object[0].Type, "the target object url name was incorrect");
+            Assert.AreEqual("http://example.org/posts/1", (activity as Activity).Object[0].Url[0].Href, "the target object url name was incorrect");
+        }
     }
 }
