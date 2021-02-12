@@ -289,5 +289,33 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.AreEqual(ActivityLink.ActivityLinkType, (activity as Activity).Object[0].Type, "the target object url name was incorrect");
             Assert.AreEqual("http://example.org/posts/1", (activity as Activity).Object[0].Url[0].Href, "the target object url name was incorrect");
         }
+
+        [TestMethod]
+        public void BuildSimpleFlag()
+        {
+            /*
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally disliked a post",
+              "type": "Dislike",
+              "actor": "http://sally.example.org",
+              "object": "http://example.org/posts/1"
+            }*/
+
+            FlagActivity activity = (FlagActivity)new ActivityObjectBuilder()
+                .Flag(i =>
+                         i.Object(o => o.Note("An inappropriate note")))
+                .Context()
+                .Build();
+
+            Assert.IsNotNull((activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.AreEqual("Flag", (activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.IsInstanceOfType(activity, typeof(FlagActivity));
+
+            Assert.IsNotNull((activity as FlagActivity).Object[0].Type, "the target object type was null");
+            Assert.AreEqual("Note", (activity as Activity).Object[0].Type, "the target object url name was incorrect");
+            Assert.IsInstanceOfType((activity as FlagActivity).Object[0], typeof(NoteObject));
+            Assert.AreEqual("An inappropriate note", (activity as Activity).Object[0].Content, "the target object url name was incorrect");
+        }
     }
 }
