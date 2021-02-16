@@ -106,11 +106,11 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void BuildSimpleAdd()
         {
             AddActivity activity = (AddActivity)new ActivityObjectBuilder()
-                .Add(i => i.Object(o=>
+                .Add(i => i.Object(o =>
                                 o.Activity(null)
-                                .Url(u=>u.Href("http://example.org/abc")))
-                           .Actor(a=>
-                                a.Person(p=>
+                                .Url(u => u.Href("http://example.org/abc")))
+                           .Actor(a =>
+                                a.Person(p =>
                                     p.Name("Sally"))))
                 .Summary("Sally added an object")
                 .Context()
@@ -160,7 +160,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
                                 a.Person(p =>
                                     p.Name("Sally"))
                                 .Id(new Uri("http://sally.example.org")))
-                           .Origin(o=>o.Place(null,null,null,null,null,null,o=>o.Name("Home"))))
+                           .Origin(o => o.Place(null, null, null, null, null, null, o => o.Name("Home"))))
                 .Summary("Sally added an object")
                 .Context()
                 .Build();
@@ -183,11 +183,11 @@ namespace Mossharbor.ActivityStreams.UnitTests
         {
             BlockActivity activity = (BlockActivity)new ActivityObjectBuilder()
                 .Block(i =>
-                           i.Object(a => 
+                           i.Object(a =>
                                         a.Activity(null)
                                          .Type(ActivityLink.ActivityLinkType)
-                                         .Url( u=>u.Href("http://joe.example.org")))
-                            .Actor(null, a=> a.Href("http://sally.example.org")))
+                                         .Url(u => u.Href("http://joe.example.org")))
+                            .Actor(null, a => a.Href("http://sally.example.org")))
                 .Summary("Sally added an object")
                 .Context()
                 .Build();
@@ -210,7 +210,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             CreateActivity activity = (CreateActivity)new ActivityObjectBuilder()
                 .Create(i =>
                            i.Object(a =>
-                              a.Relationship("http://purl.org/vocab/relationship/friendOf", r=>
+                              a.Relationship("http://purl.org/vocab/relationship/friendOf", r =>
                                  r.Object(o => o.Url(u => u.Href("http://matt.example.org")))
                                   .Subject(null, s => s.Href("http://sally.example.org")))
                                   .StartTime(DateTime.Parse("2015-04-21T12:34:56")))
@@ -236,9 +236,9 @@ namespace Mossharbor.ActivityStreams.UnitTests
         {
             DeleteActivity activity = (DeleteActivity)new ActivityObjectBuilder()
                 .Delete(i =>
-                           i.Object(o=>o.Activity(a=>a.Url(u=>u.Href("http://example.org/notes/1"))))
-                            .Actor(a =>a.Person(p=>p.Name("Sally")))
-                            .Origin(o =>o.Dislike(d=>d.Name("Sally's Notes"))))
+                           i.Object(o => o.Activity(a => a.Url(u => u.Href("http://example.org/notes/1"))))
+                            .Actor(a => a.Person(p => p.Name("Sally")))
+                            .Origin(o => o.Dislike(d => d.Name("Sally's Notes"))))
                 .Context()
                 .Build();
 
@@ -293,15 +293,6 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void BuildSimpleFlag()
         {
-            /*
-            {
-              "@context": "https://www.w3.org/ns/activitystreams",
-              "summary": "Sally disliked a post",
-              "type": "Dislike",
-              "actor": "http://sally.example.org",
-              "object": "http://example.org/posts/1"
-            }*/
-
             FlagActivity activity = (FlagActivity)new ActivityObjectBuilder()
                 .Flag(i =>
                          i.Object(o => o.Note("An inappropriate note")))
@@ -316,6 +307,144 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.AreEqual("Note", (activity as Activity).Object[0].Type, "the target object url name was incorrect");
             Assert.IsInstanceOfType((activity as FlagActivity).Object[0], typeof(NoteObject));
             Assert.AreEqual("An inappropriate note", (activity as Activity).Object[0].Content, "the target object url name was incorrect");
+        }
+
+        [TestMethod]
+        public void BuildSimpleFollow()
+        {
+
+            FollowActivity activity = (FollowActivity)new ActivityObjectBuilder()
+                .Follow(i =>
+                         i.Object(o => o.Person().Name("John"))
+                          .Actor(a => a.Person().Name("Sally")))
+                .Summary("Sally followed John")
+                .Context()
+                .Build();
+
+            Assert.AreEqual(activity.Summary, "Sally followed John");
+
+            Assert.IsNotNull(activity.Type, "the sub object was null and should not have been");
+            Assert.AreEqual("Follow", activity.Type, "the sub object was null and should not have been");
+
+            Assert.AreEqual("Sally", activity.Actor[0].Obj.Name, "the actor object name was incorrect");
+            Assert.AreEqual("Person", activity.Actor[0].Obj.Type, "the actor object type was incorrect");
+            Assert.IsInstanceOfType(activity.Actor[0].Obj, typeof(PersonActor));
+
+            Assert.AreEqual("Person", (activity as Activity).Object[0].Type, "the target object type was not null");
+            Assert.AreEqual("John", (activity as Activity).Object[0].Name, "the target object name was incorrect");
+            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(PersonActor));
+        }
+
+        [TestMethod]
+        public void BuildSimpleIgnore()
+        {
+            IgnoreActivity activity = (IgnoreActivity)new ActivityObjectBuilder()
+                .Ignore(i =>
+                         i.Object(null, o => o.Href("http://example.org/notes/1"))
+                          .Actor(a => a.Person().Name("Sally")))
+                .Summary("Sally ignored a note")
+                .Context()
+                .Build();
+
+            Assert.AreEqual(activity.Summary, "Sally ignored a note");
+
+            Assert.IsNotNull((activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.AreEqual("Ignore", (activity as Activity).Type, "the sub object was null and should not have been");
+
+            Assert.AreEqual("Sally", (activity as Activity).Actor[0].Obj.Name, "the actor object name was incorrect");
+            Assert.AreEqual("Person", (activity as Activity).Actor[0].Obj.Type, "the actor object type was incorrect");
+            Assert.IsInstanceOfType((activity as Activity).Actor[0].Obj, typeof(PersonActor));
+
+            Assert.AreEqual("Link", (activity as Activity).Object[0].Type, "the target object type was not null");
+            Assert.AreEqual("http://example.org/notes/1", (activity as Activity).Object[0].Url[0].Href, "the object link was not correct.");
+        }
+
+        [TestMethod]
+        public void BuildSimpleInvite()
+        {
+            InviteActivity activity = (InviteActivity)new ActivityObjectBuilder()
+                .Invite(i =>
+                         i.Object(o=>o.Event(null).Name("A Party"))
+                          .Actor(a => a.Person().Name("Sally"))
+                          .Target(t=>t.Person().Name("John"))
+                          .Target(t=>t.Person().Name("Lisa")))
+                .Summary("Sally invited John and Lisa to a party")
+                .Context()
+                .Build();
+
+            Assert.AreEqual(activity.Summary, "Sally invited John and Lisa to a party");
+
+            Assert.IsNotNull((activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.AreEqual("Invite", (activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.IsInstanceOfType(activity, typeof(InviteActivity));
+
+            Assert.AreEqual("Sally", (activity as Activity).Actor[0].Obj.Name, "the actor object name was incorrect");
+            Assert.AreEqual("Person", (activity as Activity).Actor[0].Obj.Type, "the actor object type was incorrect");
+            Assert.IsInstanceOfType((activity as Activity).Actor[0].Obj, typeof(PersonActor));
+
+            Assert.AreEqual("Event", (activity as Activity).Object[0].Type, "the target object type was incorrect");
+            Assert.AreEqual("A Party", (activity as Activity).Object[0].Name, "the target object name was incorrect");
+            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(EventObject));
+
+            Assert.AreEqual("Person", (activity as Activity).Target[0].Obj.Type, "the target object type was incorrect");
+            Assert.AreEqual("John", (activity as Activity).Target[0].Obj.Name, "the target object name was incorrect");
+            Assert.IsInstanceOfType((activity as Activity).Target[0].Obj, typeof(PersonActor));
+
+            Assert.AreEqual("Person", (activity as Activity).Target[1].Obj.Type, "the target object 1 type was incorrect");
+            Assert.AreEqual("Lisa", (activity as Activity).Target[1].Obj.Name, "the target object 1 name was incorrect");
+            Assert.IsInstanceOfType((activity as Activity).Target[1].Obj, typeof(PersonActor));
+        }
+
+        [TestMethod]
+        public void BuildSimpleJoin()
+        {
+            JoinActivity activity = (JoinActivity)new ActivityObjectBuilder()
+                .Join(i =>
+                         i.Object(o => o.Group().Name("A Simple Group"))
+                          .Actor(a => a.Person().Name("Sally")))
+                .Summary("Sally joined a group")
+                .Context()
+                .Build();
+
+            Assert.AreEqual(activity.Summary, "Sally joined a group");
+
+            Assert.IsNotNull((activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.AreEqual("Join", (activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.IsInstanceOfType(activity, typeof(JoinActivity));
+
+            Assert.AreEqual("Sally", (activity as Activity).Actor[0].Obj.Name, "the actor object name was incorrect");
+            Assert.AreEqual("Person", (activity as Activity).Actor[0].Obj.Type, "the actor object type was incorrect");
+            Assert.IsInstanceOfType((activity as Activity).Actor[0].Obj, typeof(PersonActor));
+
+            Assert.AreEqual("Group", (activity as Activity).Object[0].Type, "the target object type was not null");
+            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(GroupActor));
+            Assert.AreEqual("A Simple Group", (activity as Activity).Object[0].Name, "the object link was not correct.");
+        }
+
+        [TestMethod]
+        public void BuildSimpleLeave()
+        {
+            LeaveActivity activity = (LeaveActivity)new ActivityObjectBuilder()
+                .Leave(i =>
+                         i.Object(o => o.Place("Work"))
+                          .Actor(a => a.Person().Name("Sally")))
+                .Summary("Sally left work")
+                .Context()
+                .Build();
+
+            Assert.AreEqual(activity.Summary, "Sally left work");
+
+            Assert.IsNotNull((activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.AreEqual("Leave", (activity as Activity).Type, "the sub object was null and should not have been");
+            Assert.IsInstanceOfType(activity, typeof(LeaveActivity));
+
+            Assert.AreEqual("Sally", (activity as Activity).Actor[0].Obj.Name, "the actor object name was incorrect");
+            Assert.AreEqual("Person", (activity as Activity).Actor[0].Obj.Type, "the actor object type was incorrect");
+            Assert.IsInstanceOfType((activity as Activity).Actor[0].Obj, typeof(PersonActor));
+
+            Assert.AreEqual("Place", (activity as Activity).Object[0].Type, "the target object type was not null");
+            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(PlaceObject));
+            Assert.AreEqual("Work", (activity as Activity).Object[0].Name, "the object link was not correct.");
         }
     }
 }

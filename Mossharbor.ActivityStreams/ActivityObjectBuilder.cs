@@ -226,6 +226,19 @@ namespace Mossharbor.ActivityStreams
             return this;
         }
 
+        public ActivityObjectBuilder Place(string name, Action<ActivityObjectBuilder> modifier = null)
+        {
+            this.fn = (ignored) =>
+            {
+                PlaceObject activity = (PlaceObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[PlaceObject.PlaceType]);
+                activity.Name = name;
+
+                return activity;
+            };
+
+            return this;
+        }
+
         public ActivityObjectBuilder Profile(Action<ProfileBuilder> modifier = null)
         {
             this.fn = (ignored) =>

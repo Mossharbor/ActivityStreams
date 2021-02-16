@@ -25,6 +25,6 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         public const string EventType = "Event";
 
-        public EventObject() : base(type: "EventType") { }
+        public EventObject() : base(type: EventType) { }
     }
 }
