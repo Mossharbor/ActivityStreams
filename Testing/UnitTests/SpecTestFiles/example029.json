@@ -1,0 +1,11 @@
+{
+  "@context": {
+    "https://www.w3.org/ns/activitystreams",
+    "ex": "http://example.org/",
+    "term": {
+      "@type": "id",
+      "@id": "ex:term"
+    }
+  },
+  "term": "ex:Foo"
+}

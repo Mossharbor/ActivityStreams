@@ -23,481 +23,526 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestFiles\example001.json">
+    <None Update="SpecTestFiles\example002.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example002.json">
+    <None Update="SpecTestFiles\example003.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example003.json">
+    <None Update="SpecTestFiles\example005.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example004.json">
+    <None Update="SpecTestFiles\example006.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example005.json">
+    <None Update="SpecTestFiles\example008.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example006.json">
+    <None Update="SpecTestFiles\example012.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example007.json">
+    <None Update="SpecTestFiles\example013.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example008.json">
+    <None Update="SpecTestFiles\example015.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example009.json">
+    <None Update="SpecTestFiles\example020.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example010.json">
+    <None Update="SpecTestFiles\example023.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example011.json">
+    <None Update="SpecTestFiles\example024.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example012.json">
+    <None Update="SpecTestFiles\example028.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example013.json">
+    <None Update="SpecTestFiles\example029.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example014.json">
+    <None Update="SpecTestFiles\example030.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example015.json">
+    <None Update="SpecTestFiles\example032.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example016.json">
+    <None Update="SpecVocabTestFiles\example001.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example017.json">
+    <None Update="SpecVocabTestFiles\example002.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example018.json">
+    <None Update="SpecVocabTestFiles\example003.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example019.json">
+    <None Update="SpecVocabTestFiles\example004.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example020.json">
+    <None Update="SpecVocabTestFiles\example005.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example021.json">
+    <None Update="SpecVocabTestFiles\example006.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example022.json">
+    <None Update="SpecVocabTestFiles\example007.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example023.json">
+    <None Update="SpecVocabTestFiles\example008.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example024.json">
+    <None Update="SpecVocabTestFiles\example009.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example025.json">
+    <None Update="SpecVocabTestFiles\example010.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example026.json">
+    <None Update="SpecVocabTestFiles\example011.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example027.json">
+    <None Update="SpecVocabTestFiles\example012.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example028.json">
+    <None Update="SpecVocabTestFiles\example013.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example029.json">
+    <None Update="SpecVocabTestFiles\example014.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example030.json">
+    <None Update="SpecVocabTestFiles\example015.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example031.json">
+    <None Update="SpecVocabTestFiles\example016.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example032.json">
+    <None Update="SpecVocabTestFiles\example017.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example033.json">
+    <None Update="SpecVocabTestFiles\example018.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example034.json">
+    <None Update="SpecVocabTestFiles\example019.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example035.json">
+    <None Update="SpecVocabTestFiles\example020.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example036.json">
+    <None Update="SpecVocabTestFiles\example021.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example037.json">
+    <None Update="SpecVocabTestFiles\example022.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example038.json">
+    <None Update="SpecVocabTestFiles\example023.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example039.json">
+    <None Update="SpecVocabTestFiles\example024.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example040.json">
+    <None Update="SpecVocabTestFiles\example025.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example041.json">
+    <None Update="SpecVocabTestFiles\example026.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example042.json">
+    <None Update="SpecVocabTestFiles\example027.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example043.json">
+    <None Update="SpecVocabTestFiles\example028.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example044.json">
+    <None Update="SpecVocabTestFiles\example029.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example045.json">
+    <None Update="SpecVocabTestFiles\example030.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example046.json">
+    <None Update="SpecVocabTestFiles\example031.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example047.json">
+    <None Update="SpecVocabTestFiles\example032.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example048.json">
+    <None Update="SpecVocabTestFiles\example033.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example049.json">
+    <None Update="SpecVocabTestFiles\example034.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example050.json">
+    <None Update="SpecVocabTestFiles\example035.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example051.json">
+    <None Update="SpecVocabTestFiles\example036.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example052.json">
+    <None Update="SpecVocabTestFiles\example037.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example053.json">
+    <None Update="SpecVocabTestFiles\example038.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example054.json">
+    <None Update="SpecVocabTestFiles\example039.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example055.json">
+    <None Update="SpecVocabTestFiles\example040.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example056.json">
+    <None Update="SpecVocabTestFiles\example041.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example057.json">
+    <None Update="SpecVocabTestFiles\example042.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example058.json">
+    <None Update="SpecVocabTestFiles\example043.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example059.json">
+    <None Update="SpecVocabTestFiles\example044.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example060.json">
+    <None Update="SpecVocabTestFiles\example045.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example061.json">
+    <None Update="SpecVocabTestFiles\example046.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example062.json">
+    <None Update="SpecVocabTestFiles\example047.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example063.json">
+    <None Update="SpecVocabTestFiles\example048.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example064.json">
+    <None Update="SpecVocabTestFiles\example049.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example065.json">
+    <None Update="SpecVocabTestFiles\example050.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example066.json">
+    <None Update="SpecVocabTestFiles\example051.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example067.json">
+    <None Update="SpecVocabTestFiles\example052.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example068.json">
+    <None Update="SpecVocabTestFiles\example053.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example069.json">
+    <None Update="SpecVocabTestFiles\example054.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example070.json">
+    <None Update="SpecVocabTestFiles\example055.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example071.json">
+    <None Update="SpecVocabTestFiles\example056.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example072.json">
+    <None Update="SpecVocabTestFiles\example057.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example073.json">
+    <None Update="SpecVocabTestFiles\example058.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example074.json">
+    <None Update="SpecVocabTestFiles\example059.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example075.json">
+    <None Update="SpecVocabTestFiles\example060.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example076.json">
+    <None Update="SpecVocabTestFiles\example061.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example077.json">
+    <None Update="SpecVocabTestFiles\example062.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example078.json">
+    <None Update="SpecVocabTestFiles\example063.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example079.json">
+    <None Update="SpecVocabTestFiles\example064.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example080.json">
+    <None Update="SpecVocabTestFiles\example065.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example081.json">
+    <None Update="SpecVocabTestFiles\example066.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example082.json">
+    <None Update="SpecVocabTestFiles\example067.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example083.json">
+    <None Update="SpecVocabTestFiles\example068.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example084.json">
+    <None Update="SpecVocabTestFiles\example069.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example085.json">
+    <None Update="SpecVocabTestFiles\example070.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example086.json">
+    <None Update="SpecVocabTestFiles\example071.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example087.json">
+    <None Update="SpecVocabTestFiles\example072.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example088.json">
+    <None Update="SpecVocabTestFiles\example073.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example089.json">
+    <None Update="SpecVocabTestFiles\example074.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example090.json">
+    <None Update="SpecVocabTestFiles\example075.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example091.json">
+    <None Update="SpecVocabTestFiles\example076.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example092.json">
+    <None Update="SpecVocabTestFiles\example077.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example093.json">
+    <None Update="SpecVocabTestFiles\example078.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example094.json">
+    <None Update="SpecVocabTestFiles\example079.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example095.json">
+    <None Update="SpecVocabTestFiles\example080.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example096.json">
+    <None Update="SpecVocabTestFiles\example081.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example097.json">
+    <None Update="SpecVocabTestFiles\example082.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example098.json">
+    <None Update="SpecVocabTestFiles\example083.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example099.json">
+    <None Update="SpecVocabTestFiles\example084.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example100.json">
+    <None Update="SpecVocabTestFiles\example085.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example101.json">
+    <None Update="SpecVocabTestFiles\example086.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example102.json">
+    <None Update="SpecVocabTestFiles\example087.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example103.json">
+    <None Update="SpecVocabTestFiles\example088.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example104.json">
+    <None Update="SpecVocabTestFiles\example089.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example105.json">
+    <None Update="SpecVocabTestFiles\example090.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example106.json">
+    <None Update="SpecVocabTestFiles\example091.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example107.json">
+    <None Update="SpecVocabTestFiles\example092.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example108.json">
+    <None Update="SpecVocabTestFiles\example093.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example109.json">
+    <None Update="SpecVocabTestFiles\example094.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example110.json">
+    <None Update="SpecVocabTestFiles\example095.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example111.json">
+    <None Update="SpecVocabTestFiles\example096.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example112.json">
+    <None Update="SpecVocabTestFiles\example097.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example113.json">
+    <None Update="SpecVocabTestFiles\example098.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example114.json">
+    <None Update="SpecVocabTestFiles\example099.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example115.json">
+    <None Update="SpecVocabTestFiles\example100.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example116.json">
+    <None Update="SpecVocabTestFiles\example101.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example117.json">
+    <None Update="SpecVocabTestFiles\example102.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example118.json">
+    <None Update="SpecVocabTestFiles\example103.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example119.json">
+    <None Update="SpecVocabTestFiles\example104.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example120.json">
+    <None Update="SpecVocabTestFiles\example105.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example121.json">
+    <None Update="SpecVocabTestFiles\example106.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example122.json">
+    <None Update="SpecVocabTestFiles\example107.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example123.json">
+    <None Update="SpecVocabTestFiles\example108.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example124.json">
+    <None Update="SpecVocabTestFiles\example109.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example125.json">
+    <None Update="SpecVocabTestFiles\example110.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example126.json">
+    <None Update="SpecVocabTestFiles\example111.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example127.json">
+    <None Update="SpecVocabTestFiles\example112.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example128.json">
+    <None Update="SpecVocabTestFiles\example113.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example129.json">
+    <None Update="SpecVocabTestFiles\example114.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example130.json">
+    <None Update="SpecVocabTestFiles\example115.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example131.json">
+    <None Update="SpecVocabTestFiles\example116.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example132.json">
+    <None Update="SpecVocabTestFiles\example117.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example133.json">
+    <None Update="SpecVocabTestFiles\example118.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example134.json">
+    <None Update="SpecVocabTestFiles\example119.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example135.json">
+    <None Update="SpecVocabTestFiles\example120.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example136.json">
+    <None Update="SpecVocabTestFiles\example121.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example137.json">
+    <None Update="SpecVocabTestFiles\example122.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example138.json">
+    <None Update="SpecVocabTestFiles\example123.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example139.json">
+    <None Update="SpecVocabTestFiles\example124.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example140.json">
+    <None Update="SpecVocabTestFiles\example125.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example141.json">
+    <None Update="SpecVocabTestFiles\example126.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example142.json">
+    <None Update="SpecVocabTestFiles\example127.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example143.json">
+    <None Update="SpecVocabTestFiles\example128.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example144.json">
+    <None Update="SpecVocabTestFiles\example129.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example145.json">
+    <None Update="SpecVocabTestFiles\example130.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example146.json">
+    <None Update="SpecVocabTestFiles\example131.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example147.json">
+    <None Update="SpecVocabTestFiles\example132.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example148.json">
+    <None Update="SpecVocabTestFiles\example133.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example149.json">
+    <None Update="SpecVocabTestFiles\example134.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example150.json">
+    <None Update="SpecVocabTestFiles\example135.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example151.json">
+    <None Update="SpecVocabTestFiles\example136.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example152.json">
+    <None Update="SpecVocabTestFiles\example137.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example153.json">
+    <None Update="SpecVocabTestFiles\example138.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example154.json">
+    <None Update="SpecVocabTestFiles\example139.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example155.json">
+    <None Update="SpecVocabTestFiles\example140.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example156.json">
+    <None Update="SpecVocabTestFiles\example141.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example157.json">
+    <None Update="SpecVocabTestFiles\example142.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example158.json">
+    <None Update="SpecVocabTestFiles\example143.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\example159.json">
+    <None Update="SpecVocabTestFiles\example144.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example145.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example146.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example147.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example148.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example149.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example150.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example151.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example152.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example153.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example154.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example155.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example156.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example157.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example158.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SpecVocabTestFiles\example159.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

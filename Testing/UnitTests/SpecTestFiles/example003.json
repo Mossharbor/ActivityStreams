@@ -1,0 +1,12 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "css": "http://www.w3.org/ns/oa#styledBy"
+    }
+  ],
+  "summary": "A note",
+  "type": "Note",
+  "content": "My dog has fleas.",
+  "css": "http://www.csszengarden.com/217/217.css?v=8may2013"
+}

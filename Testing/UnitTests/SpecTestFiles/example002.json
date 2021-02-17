@@ -1,0 +1,12 @@
+{
+  "@context": {
+    "@vocab": "https://www.w3.org/ns/activitystreams",
+    "ext": "https://canine-extension.example/terms/",
+    "@language": "en"
+  },
+  "summary": "A note",
+  "type": "Note",
+  "content": "My dog has fleas.",
+  "ext:nose": 0,
+  "ext:smell": "terrible"
+}

@@ -7,11 +7,14 @@ using System.Xml;
 
 namespace Mossharbor.ActivityStreams.UnitTests
 {
+    /// <summary>
+    /// this test class test parsing the examples that are given in the w3c activity streams vocab spec.
+    /// </summary>
     [TestClass]
     public class ParsingSpecVocabExamples
     {
         /// <summary>
-        /// 
+        ///  testing example 62
         /// </summary>
         [TestMethod]
         public void ParseBasicObjectWithType62()
