@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -35,6 +36,46 @@ namespace Mossharbor.ActivityStreams
         /// <see cref="	https://www.w3.org/ns/activitystreams#context"/>
         [JsonPropertyName("@context")]
         public Uri Context { get; set; }
+
+        /// <summary>
+        /// this represents the extended context we can have for extending ativity streams
+        /// </summary>
+        /// <example>
+        ///{
+        ///  "@context": {
+        ///     "@vocab": "https://www.w3.org/ns/activitystreams",
+        ///     "ext": "https://canine-extension.example/terms/",
+        ///     "@language": "en"
+        ///  },
+        ///  "summary": "A note",
+        ///  "type": "Note",
+        ///  "content": "My dog has fleas.",
+        ///  "ext:nose": 0,
+        ///  "ext:smell": "terrible"
+        ///}
+        /// </example>
+        [JsonIgnore]
+        public IDictionary<string,string> ExtendedContexts { get; set; }
+
+        /// <summary>
+        /// this represents the extentions that are outside of the activity streams spec but addd in the context
+        /// </summary>
+        /// <example>
+        ///{
+        ///  "@context": {
+        ///     "@vocab": "https://www.w3.org/ns/activitystreams",
+        ///     "ext": "https://canine-extension.example/terms/",
+        ///     "@language": "en"
+        ///  },
+        ///  "summary": "A note",
+        ///  "type": "Note",
+        ///  "content": "My dog has fleas.",
+        ///  "ext:nose": 0,
+        ///  "ext:smell": "terrible"
+        ///}
+        /// </example>
+        [JsonIgnore]
+        public IDictionary<string, string> Extensions { get; set; }
 
         /// <summary>
         /// Identifies the Object or Link type. Multiple values may be specified.
@@ -519,6 +560,8 @@ namespace Mossharbor.ActivityStreams
             if (this.Context == null && el.ContainsElement("@context"))
             {
                 PerformExtendedContextParsing(el.GetProperty("@context"));
+
+                PerformExtentionParsing(el);
             }
 
         }
@@ -530,23 +573,57 @@ namespace Mossharbor.ActivityStreams
 
             if (el.ValueKind == JsonValueKind.Object)
             {
-                Dictionary<string, string> extendedContext = new Dictionary<string, string>();
+                this.ExtendedContexts = new Dictionary<string, string>();
+
                 foreach (var subEl in el.EnumerateObject())
                 {
-                    if (!extendedContext.ContainsKey(subEl.Name))
+                    if (!this.ExtendedContexts.ContainsKey(subEl.Name))
                     {
-                        extendedContext.Add(subEl.Name.ToLower(), subEl.Value.GetString());
+                        this.ExtendedContexts.Add(subEl.Name.ToLower(), subEl.Value.GetString());
                     }
                 }
 
-                if (extendedContext.ContainsKey("@vocab"))
+                if (this.ExtendedContexts.ContainsKey("@vocab"))
                 {
-                    this.Context = new Uri(extendedContext["@vocab"]);
+                    this.Context = new Uri(this.ExtendedContexts["@vocab"]);
+                    this.ExtendedContexts.Remove("@vocab");
                 }
             }
             else if (el.ValueKind == JsonValueKind.Array)
             {
 
+            }
+        }
+
+        private void PerformExtentionParsing(JsonElement el)
+        {
+            if (this.ExtendedContexts == null || !this.ExtendedContexts.Any())
+                return;
+
+            this.Extensions = new Dictionary<string, string>();
+            foreach (var t in el.EnumerateObject())
+            {
+                int indexOfColon = t.Name.IndexOf(":");
+
+                // Parse out extension objects
+                if (indexOfColon > 0 && indexOfColon < t.Name.Length-1)
+                {
+                    // split out the extension
+                    string extensionName = t.Name.Substring(0, indexOfColon);
+                    if (this.ExtendedContexts.ContainsKey(extensionName))
+                    {
+                        if (!this.Extensions.ContainsKey(t.Name))
+                        {
+                            this.Extensions.Add(t.Name, t.Value.ToString());
+                        }
+
+                        string nameWithOutExtension = t.Name.Substring(indexOfColon+1);
+                        if (!this.Extensions.ContainsKey(nameWithOutExtension))
+                        {
+                            this.Extensions.Add(nameWithOutExtension, t.Value.ToString());
+                        }
+                    }
+                }
             }
         }
 

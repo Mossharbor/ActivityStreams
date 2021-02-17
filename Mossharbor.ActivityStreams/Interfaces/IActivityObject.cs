@@ -1,10 +1,51 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
 {
     public interface IActivityObject
     {
+
+
+        /// <summary>
+        /// this represents the extended context we can have for extending ativity streams
+        /// </summary>
+        /// <example>
+        ///{
+        ///  "@context": {
+        ///     "@vocab": "https://www.w3.org/ns/activitystreams",
+        ///     "ext": "https://canine-extension.example/terms/",
+        ///     "@language": "en"
+        ///  },
+        ///  "summary": "A note",
+        ///  "type": "Note",
+        ///  "content": "My dog has fleas.",
+        ///  "ext:nose": 0,
+        ///  "ext:smell": "terrible"
+        ///}
+        /// </example>
+        IDictionary<string, string> ExtendedContexts { get; set; }
+
+        /// <summary>
+        /// this represents the extentions that are outside of the activity streams spec but addd in the context
+        /// </summary>
+        /// <example>
+        ///{
+        ///  "@context": {
+        ///     "@vocab": "https://www.w3.org/ns/activitystreams",
+        ///     "ext": "https://canine-extension.example/terms/",
+        ///     "@language": "en"
+        ///  },
+        ///  "summary": "A note",
+        ///  "type": "Note",
+        ///  "content": "My dog has fleas.",
+        ///  "ext:nose": 0,
+        ///  "ext:smell": "terrible"
+        ///}
+        /// </example>
+        IDictionary<string, string> Extensions { get; set; }
+
         IActivityObjectOrLink[] Attachment { get; set; }
         IActivityObjectOrLink[] AttributedTo { get; set; }
         IActivityObjectOrLink[] Audience { get; set; }

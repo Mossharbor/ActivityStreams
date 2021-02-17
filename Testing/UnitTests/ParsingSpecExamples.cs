@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mossharbor.ActivityStreams;
+using System;
 
 namespace Mossharbor.ActivityStreams.UnitTests
 {
@@ -18,9 +19,29 @@ namespace Mossharbor.ActivityStreams.UnitTests
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
-            Assert.AreEqual("https://www.w3.org/ns/activitystreams", activity.Context, "the activity stream context was not correct");
+            Assert.AreEqual(new Uri("https://www.w3.org/ns/activitystreams"), activity.Context, "the activity stream context was not correct");
 
-            Assert.Fail(); // need to test for nose and smell somehow.
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("ext"), "the extended context did not exit");
+            Assert.AreEqual("https://canine-extension.example/terms/", activity.ExtendedContexts["ext"], "the extended context was wrong");
+
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("@language"), "the extended language context did not exit");
+            Assert.AreEqual("en", activity.ExtendedContexts["@language"], "the extended lanage was wrong");
+
+            Assert.IsTrue(activity.Extensions.ContainsKey("ext:nose"), "the extension did not exit");
+            Assert.AreEqual("0", activity.Extensions["ext:nose"], "the extension was wrong");
+
+            Assert.IsTrue(activity.Extensions.ContainsKey("nose"), "the extension did not exit");
+            Assert.AreEqual("0", activity.Extensions["nose"], "the extension was wrong");
+
+            Assert.IsTrue(activity.Extensions.ContainsKey("ext:smell"), "the extension did not exit");
+            Assert.AreEqual("terrible", activity.Extensions["ext:smell"], "the extension was wrong");
+
+            Assert.IsTrue(activity.Extensions.ContainsKey("smell"), "the extension did not exit");
+            Assert.AreEqual("terrible", activity.Extensions["smell"], "the extension was wrong");
+
+            Assert.AreEqual("A note", activity.Summary, "the activity stream summary");
+            Assert.IsNotNull(activity as NoteObject, "the activity was not a note");
+            Assert.AreEqual("My dog has fleas.", activity.Content, "the activity stream content");
         }
 
         // <summary>
