@@ -20,7 +20,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = Compose(this.fn, (activity) =>
             {
-                System.Diagnostics.Debug.Assert(activity is Activity);
+                System.Diagnostics.Debug.Assert(activity is ProfileObject);
                 (activity as ProfileObject).Describes = RunModifierBuilder(modifier).Build();
 
                 return activity;

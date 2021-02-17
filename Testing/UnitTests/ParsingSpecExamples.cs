@@ -325,7 +325,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.AreEqual("Sally", (activity as Activity).Actor[0].Obj.Name, "the actor object name was incorrect");
             Assert.AreEqual("Person", (activity as Activity).Actor[0].Obj.Type, "the actor object type was incorrect");
             Assert.IsInstanceOfType((activity as Activity).Actor[0].Obj, typeof(PersonActor));
-            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(Activity));
+            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(ActivityObject));
             Assert.AreEqual("http://example.org/abc", (activity as Activity).Object[0].Url[0].Href, "the object url was not correct");
         }
 
@@ -445,7 +445,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
 
             Assert.IsNotNull((activity as Activity).Object[0].Type, "the target object type was null");
             Assert.AreEqual("http://example.org/notes/1", (activity as Activity).Object[0].Url[0].Href, "the target object url name was incorrect");
-            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(Activity));
+            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(ActivityObject));
 
             Assert.AreEqual("Collection", (activity as Activity).Origin.Obj.Type, "the origin object type was incorrect");
             Assert.AreEqual("Sally's Notes", (activity as Activity).Origin.Obj.Name, "the origin object name was incorrect");
@@ -928,7 +928,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
 
             Assert.IsNotNull((activity as Activity).Object[0].Type, "the target object type was null");
             Assert.AreEqual("http://example.org/posts/1", (activity as Activity).Object[0].Url[0].Href, "the target object url name was incorrect");
-            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(Activity));
+            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(ActivityObject));
 
             Assert.AreEqual("Collection", (activity as Activity).Target[0].Obj.Type, "the origin object type was incorrect");
             Assert.AreEqual("List B", (activity as Activity).Target[0].Obj.Name, "the origin object name was incorrect");
@@ -2290,7 +2290,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
 
             Assert.IsNotNull((activity as Activity).Object[0].Type, "the target object type was null");
             Assert.AreEqual("http://example.org/posts/1", (activity as Activity).Object[0].Url[0].Href, "the target object url name was incorrect");
-            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(Activity));
+            Assert.IsInstanceOfType((activity as Activity).Object[0], typeof(ActivityObject));
 
             Assert.AreEqual("Collection", (activity as Activity).Target[0].Obj.Type, "the origin object type was incorrect");
             Assert.AreEqual("List B", (activity as Activity).Target[0].Obj.Name, "the origin object name was incorrect");
@@ -3404,7 +3404,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.AreEqual((activity as Collection).Items[1].Obj.Summary, "John liked Sally's note");
             Assert.AreEqual((activity as Collection).Items[1].Obj.Type, "Like");
             Assert.AreEqual((activity as Collection).Items[1].Obj.Id, "http://activities.example.com/1");
-            Assert.IsInstanceOfType(((activity as Collection).Items[1].Obj as LikeActivity).Object[0], typeof(Activity));
+            Assert.IsInstanceOfType(((activity as Collection).Items[1].Obj as LikeActivity).Object[0], typeof(ActivityObject));
             Assert.AreEqual(((activity as Collection).Items[1].Obj as LikeActivity).Actor[0].Link.Href, "http://john.example.org");
             Assert.AreEqual(((activity as Collection).Items[1].Obj as LikeActivity).Object[0].Url[0].Href, "http://notes.example.com/1");
 

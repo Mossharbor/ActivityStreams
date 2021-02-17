@@ -133,6 +133,16 @@ namespace Mossharbor.ActivityStreams
 
             return this;
         }
+        public ActivityObjectBuilder Article(Action<ActivityObjectBuilder> modifier = null)
+        {
+            this.fn = (ignored) =>
+            {
+                ArticleObject activity = (ArticleObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[ArticleObject.ArticleType]);
+                return activity;
+            };
+
+            return this;
+        }
 
         public ActivityObjectBuilder Audio(Action<ActivityObjectBuilder> modifier = null)
         {
@@ -157,6 +167,17 @@ namespace Mossharbor.ActivityStreams
             return this;
         }
 
+        public ActivityObjectBuilder Document(Action<ActivityObjectBuilder> modifier = null)
+        {
+            this.fn = (ignored) =>
+            {
+                DocumentObject activity = (DocumentObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[DocumentObject.DocumentType]);
+                return activity;
+            };
+
+            return this;
+        }
+
         public ActivityObjectBuilder Event(string content, Action<ActivityObjectBuilder> modifier = null)
         {
             this.fn = (ignored) =>
@@ -168,6 +189,18 @@ namespace Mossharbor.ActivityStreams
 
             return this;
         }
+
+        public ActivityObjectBuilder Event(Action<ActivityObjectBuilder> modifier = null)
+        {
+            this.fn = (ignored) =>
+            {
+                EventObject activity = (EventObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[EventObject.EventType]);
+                return activity;
+            };
+
+            return this;
+        }
+
 
         public ActivityObjectBuilder Image(Action<ActivityObjectBuilder> modifier = null)
         {
@@ -204,6 +237,16 @@ namespace Mossharbor.ActivityStreams
             return this;
         }
 
+        public ActivityObjectBuilder Page(Action<ActivityObjectBuilder> modifier = null)
+        {
+            this.fn = (ignored) =>
+            {
+                PageObject activity = (PageObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[PageObject.PageType]);
+                return activity;
+            };
+
+            return this;
+        }
         public ActivityObjectBuilder Place(double? longitude, double? latitude, double? altitude, double? accuracy, double? radius, string units, Action<ActivityObjectBuilder> modifier = null)
         {
             this.fn = (ignored) =>
@@ -220,6 +263,8 @@ namespace Mossharbor.ActivityStreams
                     activity.Accuracy = accuracy.Value;
                 if (radius != null)
                     activity.Radius = radius.Value;
+                if (radius != null)
+                    activity.Units = units;
                 return activity;
             };
 
@@ -296,6 +341,17 @@ namespace Mossharbor.ActivityStreams
             return this;
         }
 
+        public ActivityObjectBuilder Video(Action<ActivityObjectBuilder> modifier = null)
+        {
+            this.fn = (ignored) =>
+            {
+                VideoObject activity = (VideoObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[VideoObject.VideoType]);
+                return activity;
+            };
+
+            return this;
+        }
+
         public ActivityObjectBuilder Application(Action<ActivityObjectBuilder> modifier = null)
         {
             this.fn = (ignored) =>
@@ -323,6 +379,18 @@ namespace Mossharbor.ActivityStreams
             this.fn = (ignored) =>
             {
                 OrganizationActor activity = (OrganizationActor)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[OrganizationActor.OrganizationActorType]);
+                return activity;
+            };
+
+            return this;
+        }
+
+        public ActivityObjectBuilder Person(string name, Action<ActivityObjectBuilder> modifier = null)
+        {
+            this.fn = (ignored) =>
+            {
+                PersonActor activity = (PersonActor)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[PersonActor.PersonActorType]);
+                activity.Name = name;
                 return activity;
             };
 
@@ -544,6 +612,32 @@ namespace Mossharbor.ActivityStreams
         public ActivityObjectBuilder View(Action<ActivityBuilder> modifier = null)
         {
             this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[ViewActivity.TypeString]);
+            return this;
+        }
+
+        public ActivityObjectBuilder Collection(Action<ActivityBuilder> modifier = null)
+        {
+
+            this.fn = (ignored) =>
+            {
+                var collection = CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[Mossharbor.ActivityStreams.Collection.CollectionType]);
+                collection.Type = Mossharbor.ActivityStreams.Collection.CollectionType;
+                return collection;
+            };
+
+            return this;
+        }
+
+        public ActivityObjectBuilder OrderedCollection(Action<ActivityBuilder> modifier = null)
+        {
+
+            this.fn = (ignored) =>
+            {
+                var collection = CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[Mossharbor.ActivityStreams.Collection.OrderedCollectionType]);
+                collection.Type = Mossharbor.ActivityStreams.Collection.OrderedCollectionType;
+                return collection;
+            };
+
             return this;
         }
 

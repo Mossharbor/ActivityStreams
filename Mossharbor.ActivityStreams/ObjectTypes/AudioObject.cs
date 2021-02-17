@@ -28,6 +28,6 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         public const string AudioType = "Audio";
 
-        public AudioObject() : base(type: "AudioType") { }
+        public AudioObject() : base(type: AudioType) { }
     }
 }

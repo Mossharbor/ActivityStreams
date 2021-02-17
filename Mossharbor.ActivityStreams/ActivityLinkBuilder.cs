@@ -261,6 +261,21 @@ namespace Mossharbor.ActivityStreams
             return this;
         }
 
+        public ActivityLinkBuilder Mention(Action<ActivityLinkBuilder> modifier = null)
+        {
+
+            this.fn = (ignored) => CreateStreamsType(modifier, ActivityLinkBuilder.TypeToObjectMap[MentionLink.LinkType]);
+            return this;
+        }
+        protected T CreateStreamsType<T>(Action<ActivityLinkBuilder> modifier, Func<T> activityInstanitator) where T : ActivityLink
+        {
+            T activityLink = activityInstanitator();
+            ActivityLinkBuilder qBuilder = new ActivityLinkBuilder(activityLink);
+            if (modifier != null)
+                modifier(qBuilder);
+            return (T)qBuilder.Build();
+        }
+
         /// <summary>
         /// This sets the context for the activity <see cref="IActivityLink.Context"/>
         /// </summary>
