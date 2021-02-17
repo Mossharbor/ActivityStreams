@@ -8,7 +8,7 @@ using System.Xml;
 namespace Mossharbor.ActivityStreams.UnitTests
 {
     [TestClass]
-    public class ParsingSpecExamples
+    public class ParsingSpecVocabExamples
     {
         /// <summary>
         /// 
