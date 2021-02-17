@@ -18,6 +18,9 @@ namespace Mossharbor.ActivityStreams.UnitTests
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.AreEqual("https://www.w3.org/ns/activitystreams", activity.Context, "the activity stream context was not correct");
+
+            Assert.Fail(); // need to test for nose and smell somehow.
         }
 
         // <summary>

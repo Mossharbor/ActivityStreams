@@ -516,6 +516,38 @@ namespace Mossharbor.ActivityStreams
             this.Updated = updated;
             this.MediaType = mediaType;
 
+            if (this.Context == null && el.ContainsElement("@context"))
+            {
+                PerformExtendedContextParsing(el.GetProperty("@context"));
+            }
+
+        }
+
+        private void PerformExtendedContextParsing(JsonElement el)
+        {
+            if (el.ValueKind != JsonValueKind.Array && el.ValueKind != JsonValueKind.Object)
+                return;
+
+            if (el.ValueKind == JsonValueKind.Object)
+            {
+                Dictionary<string, string> extendedContext = new Dictionary<string, string>();
+                foreach (var subEl in el.EnumerateObject())
+                {
+                    if (!extendedContext.ContainsKey(subEl.Name))
+                    {
+                        extendedContext.Add(subEl.Name.ToLower(), subEl.Value.GetString());
+                    }
+                }
+
+                if (extendedContext.ContainsKey("@vocab"))
+                {
+                    this.Context = new Uri(extendedContext["@vocab"]);
+                }
+            }
+            else if (el.ValueKind == JsonValueKind.Array)
+            {
+
+            }
         }
 
         /// <inheritdoc/>
