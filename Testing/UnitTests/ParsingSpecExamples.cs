@@ -39,7 +39,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample001()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example001.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example001.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -52,7 +52,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample002()
         {
             ActivityLinkBuilder builder = new ActivityLinkBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example002.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example002.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Type, "the activity link context was null");
@@ -75,7 +75,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample003()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example003.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example003.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -103,7 +103,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample004()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example004.json")).Build();
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example004.json")).Build();
             
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
             Assert.IsNotNull((activity as Activity).Type, "the sub object was null and should not have been");
@@ -124,7 +124,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample005()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example005.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example005.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -148,7 +148,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample006()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example006.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example006.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -172,7 +172,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample007()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example007.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example007.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -203,7 +203,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample008()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example008.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example008.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -235,7 +235,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample009()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example009.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example009.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -261,7 +261,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample010()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example010.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example010.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -287,7 +287,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample011()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example011.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example011.json"))
                             .Build();
 
 
@@ -314,7 +314,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample012()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example012.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example012.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -336,7 +336,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample013()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example013.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example013.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -371,7 +371,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample014()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example014.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example014.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -401,7 +401,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample015()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example015.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example015.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -429,7 +429,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample016()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example016.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example016.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -459,7 +459,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample017()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example017.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example017.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -485,7 +485,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample018()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example018.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example018.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -510,7 +510,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample019()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example019.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example019.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -536,7 +536,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample020()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example020.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example020.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -562,7 +562,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample021()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example021.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example021.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -588,7 +588,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample022()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example022.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example022.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -613,7 +613,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample023()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example023.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example023.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -643,7 +643,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample024()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example024.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example024.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -677,7 +677,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample025()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example025.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example025.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -706,7 +706,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample026()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example026.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example026.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -735,7 +735,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample027()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example027.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example027.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -764,7 +764,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample028()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example028.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example028.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -794,7 +794,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample029()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example029.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example029.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -825,7 +825,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample030()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example030.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example030.json"))
                             .Build();
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
             Assert.AreEqual(activity.Summary, "Sally updated her note");
@@ -845,7 +845,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample031()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example031.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example031.json"))
                             .Build();
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
             Assert.AreEqual(activity.Summary, "Sally read an article");
@@ -866,7 +866,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample032()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example032.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example032.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -887,7 +887,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample033()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example033.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example033.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -912,7 +912,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample034()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example034.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example034.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -947,7 +947,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample035()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example035.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example035.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -977,7 +977,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample036()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example036.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example036.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1010,7 +1010,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample037()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example037.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example037.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1035,7 +1035,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample038()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example038.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example038.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1058,7 +1058,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample039()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example039.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example039.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1080,7 +1080,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample040()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example040.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example040.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1107,7 +1107,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample041()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example041.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example041.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1126,7 +1126,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample042()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example042.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example042.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1142,7 +1142,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample043()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example043.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example043.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1158,7 +1158,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample044()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example044.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example044.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1174,7 +1174,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample045()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example045.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example045.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1190,7 +1190,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample046()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example046.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example046.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1206,7 +1206,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample047()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example047.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example047.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1231,7 +1231,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample048()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example048.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example048.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1250,7 +1250,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample049()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example049.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example049.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1267,7 +1267,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample050()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example050.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example050.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1286,7 +1286,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample051()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example051.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example051.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1308,7 +1308,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample052()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example052.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example052.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1326,7 +1326,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample053()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example053.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example053.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1343,7 +1343,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample054()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example054.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example054.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1360,7 +1360,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample055()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example055.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example055.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1378,7 +1378,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample056()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example056.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example056.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1394,7 +1394,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample057()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example057.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example057.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1414,7 +1414,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample058()
         {
             ActivityLinkBuilder builder = new ActivityLinkBuilder();
-            var activityLink = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example058.json"))
+            var activityLink = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example058.json"))
                             .Build();
 
             Assert.IsNotNull(activityLink.Context, "the activity stream context was null");
@@ -1431,7 +1431,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample059()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example059.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example059.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1450,7 +1450,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample060()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example060.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example060.json"))
                             .Build();
 
             Assert.IsNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -1480,7 +1480,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample061()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example061.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example061.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1495,7 +1495,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample062()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example062.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example062.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1510,7 +1510,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample063()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example063.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example063.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1531,7 +1531,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample064()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example064.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example064.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1558,7 +1558,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample065()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example065.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example065.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1587,7 +1587,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample066()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example066.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example066.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1612,7 +1612,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample067()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example067.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example067.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1634,7 +1634,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample068()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example068.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example068.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1657,7 +1657,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample069()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example069.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example069.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1681,7 +1681,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample070()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example070.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example070.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1707,7 +1707,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample071()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example071.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example071.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Type);
@@ -1731,7 +1731,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample072()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example072.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example072.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Type);
@@ -1755,7 +1755,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample073()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example073.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example073.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -1785,7 +1785,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample074()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example074.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example074.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -1815,7 +1815,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample075()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example075.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example075.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -1846,7 +1846,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample076()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example076.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example076.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -1868,7 +1868,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample077()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example077.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example077.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -1890,7 +1890,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample078()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example078.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example078.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1910,7 +1910,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample079()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example079.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example079.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1934,7 +1934,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample080()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example080.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example080.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1965,7 +1965,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample081()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example081.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example081.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -1987,7 +1987,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample082()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example082.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example082.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2014,7 +2014,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample083()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example083.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example083.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2037,7 +2037,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample084()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example084.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example084.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2058,7 +2058,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample085()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example085.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example085.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2088,7 +2088,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample086()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example086.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example086.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2110,7 +2110,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample087()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example087.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example087.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2132,7 +2132,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample088()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example088.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example088.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2152,7 +2152,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample089()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example089.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example089.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2177,7 +2177,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample090()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example090.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example090.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2202,7 +2202,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample091()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example091.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example091.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2229,7 +2229,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample092()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example092.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example092.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2256,7 +2256,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample093()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example093.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example093.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2275,7 +2275,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample094()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example094.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example094.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2308,7 +2308,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample095()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example095.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example095.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -2337,7 +2337,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample096()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example096.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example096.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -2367,7 +2367,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample097()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example097.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example097.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2387,7 +2387,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample098()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example098.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example098.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2408,7 +2408,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample099()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example099.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example099.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2434,7 +2434,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample100()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example100.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example100.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -2463,7 +2463,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample101()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example101.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example101.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -2493,7 +2493,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample102()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example102.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example102.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2516,7 +2516,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample103()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example103.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example103.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2543,7 +2543,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample104()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example104.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example104.json"))
                             .Build(); 
             
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2572,7 +2572,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample105()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example105.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example105.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2592,7 +2592,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample106()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example106.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example106.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2617,7 +2617,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample107()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example107.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example107.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2644,7 +2644,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample108()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example108.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example108.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2672,7 +2672,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample109()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example109.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example109.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2689,7 +2689,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample110()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example110.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example110.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2706,7 +2706,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample111()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example111.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example111.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2726,7 +2726,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample112()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example112.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example112.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2746,7 +2746,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample113()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example113.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example113.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2766,7 +2766,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample114()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example114.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example114.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2783,7 +2783,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample115()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example115.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example115.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2803,7 +2803,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample116()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example116.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example116.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2822,7 +2822,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample117()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example117.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example117.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2838,7 +2838,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample118()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example118.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example118.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2857,7 +2857,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample119()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example119.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example119.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2875,7 +2875,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample120()
         {
             ActivityLinkBuilder builder = new ActivityLinkBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example120.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example120.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2893,7 +2893,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample121()
         {
             ActivityLinkBuilder builder = new ActivityLinkBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example121.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example121.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2911,7 +2911,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample122()
         {
             ActivityLinkBuilder builder = new ActivityLinkBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example122.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example122.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2930,7 +2930,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample123()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example123.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example123.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2964,7 +2964,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample124()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example124.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example124.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -2984,7 +2984,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample125()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example125.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example125.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3004,7 +3004,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample126()
         {
             ActivityLinkBuilder builder = new ActivityLinkBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example126.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example126.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Type, "the activity link context was null");
@@ -3027,7 +3027,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample127()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example127.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example127.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3045,7 +3045,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample128()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example128.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example128.json"))
                             .Build();
 
             Assert.AreEqual(activity.Type, "Note");
@@ -3062,7 +3062,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample129()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example129.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example129.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3080,7 +3080,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample130()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example130.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example130.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3100,7 +3100,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample131()
         {
             ActivityLinkBuilder builder = new ActivityLinkBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example131.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example131.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Type, "the activity link context was null");
@@ -3124,7 +3124,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample132()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example132.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example132.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3152,7 +3152,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample133()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example133.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example133.json"))
                             .Build();
             Assert.AreEqual(activity.Type, "Note");
             Assert.IsInstanceOfType(activity, typeof(NoteObject));
@@ -3167,7 +3167,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample134()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example134.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example134.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3187,7 +3187,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample135()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example135.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example135.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Summary, "Sally's notes");
@@ -3211,7 +3211,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample136()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example136.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example136.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3231,7 +3231,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample137()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example137.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example137.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3248,7 +3248,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample138()
         {
             ActivityLinkBuilder builder = new ActivityLinkBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example138.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example138.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Type, "the activity link context was null");
@@ -3267,7 +3267,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample139()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example139.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example139.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3292,7 +3292,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample140()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example140.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example140.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3317,7 +3317,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample141()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example141.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example141.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3337,7 +3337,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample142()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example142.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example142.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3355,7 +3355,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample143()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example143.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example143.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3372,7 +3372,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample144()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example144.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example144.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -3423,7 +3423,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample145()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example145.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example145.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -3463,7 +3463,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample146()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example146.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example146.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3486,7 +3486,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample147()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example147.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example147.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3512,7 +3512,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample148()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example148.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example148.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null"); Assert.IsInstanceOfType(activity, typeof(Collection));
@@ -3576,7 +3576,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample149()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example149.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example149.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3591,7 +3591,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample150()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example150.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example150.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3609,7 +3609,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample151()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example151.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example151.json"))
                             .Build();
 
             Assert.IsNotNull((activity as IntransitiveActivity).Type, "the sub object was null and should not have been");
@@ -3627,7 +3627,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample152()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example152.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example152.json"))
                             .Build();
 
             Assert.AreEqual("A question about robots", (activity as QuestionActivity).Name);
@@ -3644,7 +3644,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample153()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example153.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example153.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3660,7 +3660,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample154()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example154.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example154.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3698,7 +3698,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample155()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example155.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example155.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3730,7 +3730,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample156()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example156.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example156.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3761,7 +3761,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample157()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example157.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example157.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3781,7 +3781,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample158()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example158.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example158.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -3802,7 +3802,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample159()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\TestFiles\example159.json"))
+            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecVocabTestFiles\example159.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
