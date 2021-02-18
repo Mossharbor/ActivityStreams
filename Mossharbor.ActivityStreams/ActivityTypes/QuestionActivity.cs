@@ -119,7 +119,7 @@ namespace Mossharbor.ActivityStreams
         public DateTime? Closed { get; set; }
 
         /// <inheritdoc/>
-        public override void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
+        public override void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject, IActivityObject> activtyObjectParser)
         {
             base.PerformCustomObjectParsing(el, activtyObjectParser);
 
@@ -151,7 +151,7 @@ namespace Mossharbor.ActivityStreams
                 if (ActivityLinkBuilder.IsLinkElment(toParse))
                     aOrI.Link = new ActivityLinkBuilder().FromJsonElement(toParse).Build();
                 else
-                    aOrI.Obj = activtyObjectParser(toParse);
+                    aOrI.Obj = activtyObjectParser(toParse, this);
             }
 
             if (isOneOf)

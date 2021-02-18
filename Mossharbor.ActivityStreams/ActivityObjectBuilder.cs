@@ -54,7 +54,7 @@ namespace Mossharbor.ActivityStreams
                     if (ActivityLinkBuilder.IsLinkElment(document.RootElement))
                         throw new NotSupportedException("We dont support links being the root.  the root must be an activity");
 
-                    activity = ActivityStreamsParser.ParseActivityObject(document.RootElement);
+                    activity = ActivityStreamsParser.ParseActivityObject(document.RootElement, null);
                 }
 
                 return activity;
@@ -81,7 +81,7 @@ namespace Mossharbor.ActivityStreams
                     if (ActivityLinkBuilder.IsLinkElment(document.RootElement))
                         throw new NotSupportedException("We dont support links being the root.  the root must be an activity");
 
-                    activity = ActivityStreamsParser.ParseActivityObject(document.RootElement);
+                    activity = ActivityStreamsParser.ParseActivityObject(document.RootElement, null);
                 }
 
                 return activity;
@@ -99,7 +99,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                ActivityObject activity = ActivityStreamsParser.ParseActivityObject(je);
+                ActivityObject activity = ActivityStreamsParser.ParseActivityObject(je, null);
 
                 return activity;
             };

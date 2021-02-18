@@ -52,7 +52,7 @@ namespace Mossharbor.ActivityStreams
         public IActivityObject Describes { get; set; }
 
         /// <inheritdoc/>
-        public override void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
+        public override void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject, IActivityObject> activtyObjectParser)
         {
             base.PerformCustomObjectParsing(el, activtyObjectParser);
 
@@ -61,7 +61,7 @@ namespace Mossharbor.ActivityStreams
 
             var describesProperty = el.GetPropertyOrDefault("describes");
 
-            this.Describes = activtyObjectParser(describesProperty);
+            this.Describes = activtyObjectParser(describesProperty, this);
         }
     }
 }

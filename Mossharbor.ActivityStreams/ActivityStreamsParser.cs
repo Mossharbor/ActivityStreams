@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 
@@ -66,7 +67,7 @@ namespace Mossharbor.ActivityStreams
             {CollectionPage.OrderedCollectionPageType, () => new CollectionPage()}
         };
 
-        private static IActivityObjectOrLink[] ParseActivityObjectOrLink(JsonElement el)
+        private static IActivityObjectOrLink[] ParseActivityObjectOrLink(JsonElement el, IActivityObject parent)
         {
             if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
                 return null;
@@ -83,7 +84,7 @@ namespace Mossharbor.ActivityStreams
                 if (ActivityLinkBuilder.IsLinkElment(toParse))
                     aOrI.Link = new ActivityLinkBuilder().FromJsonElement(toParse).Build();
                 else
-                    aOrI.Obj = ParseActivityObject(toParse);
+                    aOrI.Obj = ParseActivityObject(toParse, parent);
             }
 
             return parsed;
@@ -111,24 +112,75 @@ namespace Mossharbor.ActivityStreams
             return links.ToArray();
         }
 
-        private static IActivityObject[] ParseActivityObjects(JsonElement el)
+        private static IActivityObject[] ParseActivityObjects(JsonElement el, IActivityObject parent)
         {
             if (el.ValueKind != JsonValueKind.Array)
             {
-                return new IActivityObject[] { ParseActivityObject(el) };
+                return new IActivityObject[] { ParseActivityObject(el, parent) };
             }
 
             List<IActivityObject> objects = new List<IActivityObject>();
 
             foreach (var t in el.EnumerateArray())
             {
-                objects.Add(ParseActivityObject(t));
+                objects.Add(ParseActivityObject(t, parent));
             }
 
             return objects.ToArray();
         }
 
-        internal static ActivityObject ParseActivityObject(JsonElement el)
+        internal static void ParseOutExtensions(JsonElement el, IActivityObject activity)
+        {
+            if (activity.ExtendedContexts == null || !activity.ExtendedContexts.Any())
+                return;
+
+            activity.Extensions = new Dictionary<string, string>();
+            foreach (var t in el.EnumerateObject())
+            {
+                if (t.Name == "@context" || t.Name == "context" || t.Name == "type")
+                    continue;
+
+                int indexOfColon = t.Name.IndexOf(":");
+
+                // Parse out extension objects
+                if (indexOfColon > 0 && indexOfColon < t.Name.Length - 1)
+                {
+                    // split out the extension
+                    string extensionName = t.Name.Substring(0, indexOfColon);
+                    if (activity.ExtendedContexts.ContainsKey(extensionName))
+                    {
+                        if (!activity.Extensions.ContainsKey(t.Name))
+                        {
+                            activity.Extensions.Add(t.Name, t.Value.ToString());
+                        }
+
+                        string nameWithOutExtension = t.Name.Substring(indexOfColon + 1);
+                        if (!activity.Extensions.ContainsKey(nameWithOutExtension))
+                        {
+                            activity.Extensions.Add(nameWithOutExtension, t.Value.ToString());
+                        }
+                    }
+                }
+                else if (t.Value.ValueKind == JsonValueKind.String || t.Value.ValueKind == JsonValueKind.Number)
+                {
+                    // Make sure we ignore the standard items
+                    if (t.Name.Contains(":"))
+                        activity.Extensions.Add(t.Name.ToLower(), t.Value.ToString());
+                    else if (activity.ExtendedContexts.ContainsKey(t.Name))
+                        activity.Extensions.Add(t.Name.ToLower(), t.Value.ToString());
+                }
+                else if (t.Value.ValueKind == JsonValueKind.Array)
+                {
+                    foreach (var subEl in t.Value.EnumerateArray())
+                    {
+                        int foo = 0;
+                        // this.Extensions.Add(subEl.Name.ToLower(), subEl.Value.ToString());
+                    }
+                }
+            }
+        }
+
+        internal static ActivityObject ParseActivityObject(JsonElement el, IActivityObject parent)
         {
             if (el.ValueKind == JsonValueKind.String)
             {
@@ -136,7 +188,7 @@ namespace Mossharbor.ActivityStreams
                 return new ActivityObject() { Url = ParseOutActivityLinks(el), Type = ActivityLink.ActivityLinkType };
             }
 
-            ActivityObject activity = CreateCorrectActivityFrom(el);
+            ActivityObject activity = CreateCorrectActivityFrom(el, parent?.Context, parent?.ExtendedContexts);
 
             if (activity is ICustomParser)
             {
@@ -163,11 +215,17 @@ namespace Mossharbor.ActivityStreams
                 (activity as IParsesChildLinks).PerformCustomLinkParsing(el, ParseOutActivityLinks);
             }
 
+            if (activity is IParsesChildObjectExtensions)
+            {
+                (activity as IParsesChildObjectExtensions).PerformCustomExtendedObjectParsing(el, ParseOutExtensions);
+            }
+
             return activity;
         }
 
-        internal static string GetActivityType(JsonElement typeProperty)
+        internal static string GetActivityType(JsonElement typeProperty, out IEnumerable<string> extendedTypes)
         {
+            extendedTypes = new List<string>();
             if (typeProperty.ValueKind == JsonValueKind.Undefined || typeProperty.ValueKind == JsonValueKind.Null)
             {
                 return null;
@@ -190,22 +248,25 @@ namespace Mossharbor.ActivityStreams
                     types.Add(t.GetString());
                 }
 
-                var knownTypes = types.Union(TypeToObjectMap.Keys);
+                var knownTypes = types.Intersect(TypeToObjectMap.Keys).ToArray();
 
                 if (!knownTypes.Any())
                 {
+                    extendedTypes = types;
                     return types.First();
                 }
 
+                types.Remove(knownTypes.First());
+                extendedTypes = types;
                 return knownTypes.First();
             }
 
             throw new InvalidTypeDefinitionException(typeProperty.GetString());
         }
 
-        private static ActivityObject CreateCorrectActivityFrom(JsonElement el)
+        private static ActivityObject CreateCorrectActivityFrom(JsonElement el, Uri context, IDictionary<string, string> ExtendedContexts)
         {
-            string typeString = el.ContainsElement("type") ? GetActivityType(el.GetProperty("type")) : null;
+            string typeString = el.ContainsElement("type") ? GetActivityType(el.GetProperty("type"), out _) : null;
 
             ActivityObject activity = null;
 
@@ -213,25 +274,36 @@ namespace Mossharbor.ActivityStreams
             {
                 if (el.ContainsElement("partOf") || el.ContainsElement("next") || el.ContainsElement("prev"))
                 {
-                    return TypeToObjectMap[CollectionPage.CollectionPageType]();
+                    var ac = TypeToObjectMap[CollectionPage.CollectionPageType]();
+                    ac.Context = context;
+                    ac.ExtendedContexts = ExtendedContexts;
+                    return ac;
                 }
             }
             else if (typeString != null && typeString.Equals(Collection.OrderedCollectionType))
             {
                 if (el.ContainsElement("partOf") || el.ContainsElement("next") || el.ContainsElement("prev"))
                 {
-                    return TypeToObjectMap[CollectionPage.OrderedCollectionPageType]();
+                    var ac = TypeToObjectMap[CollectionPage.OrderedCollectionPageType]();
+                    ac.Context = context;
+                    ac.ExtendedContexts = ExtendedContexts;
+                    return ac;
                 }
             }
 
             if (typeString == ImageObject.ImageType && el.ContainsElement("width") || el.ContainsElement("height"))
             {
-                return TypeToObjectMap[Icon.IconType]();
+                var ac = TypeToObjectMap[Icon.IconType]();
+                ac.Context = context;
+                return ac;
             }
 
             if (!String.IsNullOrEmpty(typeString) && TypeToObjectMap.ContainsKey(typeString))
             {
-                return TypeToObjectMap[typeString]();
+                var ac = TypeToObjectMap[typeString]();
+                ac.Context = context;
+                ac.ExtendedContexts = ExtendedContexts;
+                return ac;
             }
             else
             {
@@ -252,6 +324,8 @@ namespace Mossharbor.ActivityStreams
                 }
             }
 
+            activity.Context = context;
+            activity.ExtendedContexts = ExtendedContexts;
             return activity;
         }
     }

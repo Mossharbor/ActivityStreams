@@ -119,33 +119,33 @@ namespace Mossharbor.ActivityStreams
         }
 
         /// <inheritdoc/>
-        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObject, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
         {
             base.PerformCustomObjectOrLinkParsing(el, activtyOrLinkObjectParser);
 
             (this as Collection).TotalItems = (uint)el.GetLongOrDefault("totalItems");
             if (el.ContainsElement("items"))
             {
-                (this as Collection).Items = activtyOrLinkObjectParser(el.GetProperty("items"));
+                (this as Collection).Items = activtyOrLinkObjectParser(el.GetProperty("items"), this);
             }
             else if (el.ContainsElement("orderedItems"))
             {
-                (this as Collection).OrderedItems = activtyOrLinkObjectParser(el.GetProperty("orderedItems"));
+                (this as Collection).OrderedItems = activtyOrLinkObjectParser(el.GetProperty("orderedItems"), this);
             }
 
             if (el.ContainsElement("current"))
             {
-                (this as Collection).Current = activtyOrLinkObjectParser(el.GetProperty("current")).FirstOrDefault();
+                (this as Collection).Current = activtyOrLinkObjectParser(el.GetProperty("current"), this).FirstOrDefault();
             }
 
             if (el.ContainsElement("first"))
             {
-                (this as Collection).First = activtyOrLinkObjectParser(el.GetProperty("first")).FirstOrDefault();
+                (this as Collection).First = activtyOrLinkObjectParser(el.GetProperty("first"), this).FirstOrDefault();
             }
 
             if (el.ContainsElement("last"))
             {
-                (this as Collection).Last = activtyOrLinkObjectParser(el.GetProperty("last")).FirstOrDefault();
+                (this as Collection).Last = activtyOrLinkObjectParser(el.GetProperty("last"), this).FirstOrDefault();
             }
         }
     }

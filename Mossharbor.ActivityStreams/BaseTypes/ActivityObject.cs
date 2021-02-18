@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 #pragma warning disable CS1658 // Warning is overriding an error
 namespace Mossharbor.ActivityStreams
 {
-    public class ActivityObject : IActivityObject, ICustomParser, IParsesChildObjectOrLinks, IParsesChildLinks, IParsesChildObject
+    public class ActivityObject : IActivityObject, ICustomParser, IParsesChildObjectOrLinks, IParsesChildLinks, IParsesChildObject, IParsesChildObjectExtensions
     {
         internal ActivityObject() { }
 
@@ -55,7 +55,7 @@ namespace Mossharbor.ActivityStreams
         ///}
         /// </example>
         [JsonIgnore]
-        public IDictionary<string,string> ExtendedContexts { get; set; }
+        public IDictionary<string, string> ExtendedContexts { get; set; }
 
         /// <summary>
         /// this represents the extentions that are outside of the activity streams spec but addd in the context
@@ -76,6 +76,27 @@ namespace Mossharbor.ActivityStreams
         /// </example>
         [JsonIgnore]
         public IDictionary<string, string> Extensions { get; set; }
+
+        /// <summary>
+        /// this represents the extended types we can have for extending ativity streams
+        /// </summary>
+        /// <example>
+        ///{
+        ///    "@context": [
+        ///      "https://www.w3.org/ns/activitystreams",
+        ///    {
+        ///        "gr": "http://purl.org/goodrelations/v1#"
+        ///    }
+        ///  ],
+        ///  "type": ["Place", "gr:Location"],
+        ///  "name": "Sally's Restaurant",
+        ///  "longitude": 12.34,
+        ///  "latitude": 56.78,
+        ///  "gr:category": "restaurants/french_restaurants"
+        ///}
+        /// </example>
+        [JsonIgnore]
+        public IEnumerable<string> ExtendedTypes { get; set; }
 
         /// <summary>
         /// Identifies the Object or Link type. Multiple values may be specified.
@@ -530,7 +551,8 @@ namespace Mossharbor.ActivityStreams
         /// <inheritdoc/>
         public virtual void PerformCustomParsing(JsonElement el)
         {
-            string typeString = el.TryGetProperty("type", out JsonElement typeProperty) ? ActivityStreamsParser.GetActivityType(typeProperty) : null;
+            IEnumerable<string> extendedTypes = new string[0];
+            string typeString = el.TryGetProperty("type", out JsonElement typeProperty) ? ActivityStreamsParser.GetActivityType(typeProperty, out extendedTypes) : null;
             var idElement = el.GetUriOrDefault("id");
             var summary = el.GetStringOrDefault("summary");
             var name = el.GetStringOrDefault("name");
@@ -556,12 +578,11 @@ namespace Mossharbor.ActivityStreams
             this.Published = published;
             this.Updated = updated;
             this.MediaType = mediaType;
+            this.ExtendedTypes = extendedTypes;
 
             if (this.Context == null && el.ContainsElement("@context"))
             {
                 PerformExtendedContextParsing(el.GetProperty("@context"));
-
-                PerformExtentionParsing(el);
             }
 
         }
@@ -571,10 +592,11 @@ namespace Mossharbor.ActivityStreams
             if (el.ValueKind != JsonValueKind.Array && el.ValueKind != JsonValueKind.Object)
                 return;
 
-            if (el.ValueKind == JsonValueKind.Object)
-            {
+            if (this.ExtendedContexts == null)
                 this.ExtendedContexts = new Dictionary<string, string>();
 
+            if (el.ValueKind == JsonValueKind.Object)
+            {
                 foreach (var subEl in el.EnumerateObject())
                 {
                     if (!this.ExtendedContexts.ContainsKey(subEl.Name))
@@ -591,108 +613,186 @@ namespace Mossharbor.ActivityStreams
             }
             else if (el.ValueKind == JsonValueKind.Array)
             {
-
-            }
-        }
-
-        private void PerformExtentionParsing(JsonElement el)
-        {
-            if (this.ExtendedContexts == null || !this.ExtendedContexts.Any())
-                return;
-
-            this.Extensions = new Dictionary<string, string>();
-            foreach (var t in el.EnumerateObject())
-            {
-                int indexOfColon = t.Name.IndexOf(":");
-
-                // Parse out extension objects
-                if (indexOfColon > 0 && indexOfColon < t.Name.Length-1)
+                foreach (var subEl in el.EnumerateArray())
                 {
-                    // split out the extension
-                    string extensionName = t.Name.Substring(0, indexOfColon);
-                    if (this.ExtendedContexts.ContainsKey(extensionName))
-                    {
-                        if (!this.Extensions.ContainsKey(t.Name))
-                        {
-                            this.Extensions.Add(t.Name, t.Value.ToString());
-                        }
+                    string value = string.Empty;
+                    string key = string.Empty;
 
-                        string nameWithOutExtension = t.Name.Substring(indexOfColon+1);
-                        if (!this.Extensions.ContainsKey(nameWithOutExtension))
-                        {
-                            this.Extensions.Add(nameWithOutExtension, t.Value.ToString());
-                        }
+                    switch (subEl.ValueKind)
+                    {
+                        case JsonValueKind.Object:
+
+                            foreach (var objEl in subEl.EnumerateObject())
+                            {
+                                if (!this.ExtendedContexts.ContainsKey(objEl.Name))
+                                {
+                                    this.ExtendedContexts.Add(objEl.Name.ToLower(), objEl.Value.GetString());
+                                }
+                            }
+                            break;
+
+                        case JsonValueKind.Number:
+                            continue;
+
+                        case JsonValueKind.String:
+                            if (this.Context == null)
+                                this.Context = new Uri(subEl.GetString());
+                            continue;
                     }
                 }
             }
         }
 
         /// <inheritdoc/>
-        public virtual void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        public virtual void PerformCustomExtendedObjectParsing(JsonElement el, Action<JsonElement, IActivityObject> activtyExtensionParser)
+        {
+            activtyExtensionParser(el,this);
+        }
+
+        /// <inheritdoc/>
+        public virtual void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObject, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
         {
             if (el.TryGetProperty("attributedTo", out JsonElement attributeTo))
             {
-                this.AttributedTo = activtyOrLinkObjectParser(attributeTo);
+                this.AttributedTo = activtyOrLinkObjectParser(attributeTo, this);
+
+                foreach (var o in this.AttributedTo)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.TryGetProperty("attachment", out JsonElement attachmentEl))
             {
-                this.Attachment = activtyOrLinkObjectParser(attachmentEl);
+                this.Attachment = activtyOrLinkObjectParser(attachmentEl, this);
+
+                foreach (var o in this.Attachment)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.TryGetProperty("audience", out JsonElement audienceEl))
             {
-                this.Audience = activtyOrLinkObjectParser(audienceEl);
+                this.Audience = activtyOrLinkObjectParser(audienceEl, this);
+
+                foreach (var o in this.Audience)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.TryGetProperty("inReplyTo", out JsonElement inReplyToEl))
             {
-                this.InReplyTo = activtyOrLinkObjectParser(inReplyToEl);
+                this.InReplyTo = activtyOrLinkObjectParser(inReplyToEl, this);
+
+                foreach (var o in this.InReplyTo)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.ContainsElement("bcc"))
             {
-                this.bcc = activtyOrLinkObjectParser(el.GetProperty("bcc"));
+                this.bcc = activtyOrLinkObjectParser(el.GetProperty("bcc"), this);
+
+                foreach (var o in this.bcc)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.ContainsElement("bto"))
             {
-                this.Bto = activtyOrLinkObjectParser(el.GetProperty("bto"));
+                this.Bto = activtyOrLinkObjectParser(el.GetProperty("bto"), this);
+
+                foreach (var o in this.Bto)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.ContainsElement("cc"))
             {
-                this.CC = activtyOrLinkObjectParser(el.GetProperty("cc"));
+                this.CC = activtyOrLinkObjectParser(el.GetProperty("cc"), this);
+
+                foreach (var o in this.CC)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.ContainsElement("to"))
             {
-                this.To = activtyOrLinkObjectParser(el.GetProperty("to"));
+                this.To = activtyOrLinkObjectParser(el.GetProperty("to"), this);
+
+                foreach (var o in this.To)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.ContainsElement("generator"))
             {
-                this.Generator = activtyOrLinkObjectParser(el.GetProperty("generator"));
+                this.Generator = activtyOrLinkObjectParser(el.GetProperty("generator"), this);
+
+                foreach (var o in this.Generator)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.ContainsElement("preview"))
             {
-                this.Preview = activtyOrLinkObjectParser(el.GetProperty("preview"));
+                this.Preview = activtyOrLinkObjectParser(el.GetProperty("preview"), this);
+
+                foreach (var o in this.Preview)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.ContainsElement("tag"))
             {
-                this.Tag = activtyOrLinkObjectParser(el.GetProperty("tag"));
+                this.Tag = activtyOrLinkObjectParser(el.GetProperty("tag"), this);
+
+                foreach (var o in this.Tag)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.TryGetProperty("image", out JsonElement imageEl))
             {
-                this.Images = activtyOrLinkObjectParser(imageEl);
+                this.Images = activtyOrLinkObjectParser(imageEl, this);
+
+                foreach (var o in this.Images)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.TryGetProperty("icon", out JsonElement iconEl))
             {
-                this.Icons = activtyOrLinkObjectParser(iconEl);
+                this.Icons = activtyOrLinkObjectParser(iconEl, this);
+
+                foreach (var o in this.Icons)
+                {
+                    if (null != o.Obj && null == o.Obj.Context)
+                        o.Obj.Context = this.Context;
+                }
             }
 
             if (el.ContainsElement("contentMap"))
@@ -745,16 +845,16 @@ namespace Mossharbor.ActivityStreams
         }
 
         /// <inheritdoc/>
-        public virtual void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
+        public virtual void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject, IActivityObject> activtyObjectParser)
         {
             if (el.ContainsElement("replies"))
             {
-                this.Replies = (activtyObjectParser(el.GetProperty("replies")) as Collection);
+                this.Replies = (activtyObjectParser(el.GetProperty("replies"), this) as Collection);
             }
 
             if (el.TryGetProperty("location", out JsonElement localEl))
             {
-                this.Location = activtyObjectParser(localEl) as PlaceObject;
+                this.Location = activtyObjectParser(localEl, this) as PlaceObject;
             }
         }
     }

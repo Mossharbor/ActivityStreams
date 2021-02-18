@@ -7,6 +7,6 @@ namespace Mossharbor.ActivityStreams
 {
     interface IParsesChildObject
     {
-        void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser);
+        void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject, IActivityObject> activtyObjectParser);
     }
 }

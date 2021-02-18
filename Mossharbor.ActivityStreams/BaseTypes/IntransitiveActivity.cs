@@ -161,33 +161,33 @@ namespace Mossharbor.ActivityStreams
         public IActivityObjectOrLink[] Instrument { get; set; }
 
         /// <inheritdoc/>
-        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObject, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
         {
             base.PerformCustomObjectOrLinkParsing(el, activtyOrLinkObjectParser);
 
             if (el.TryGetProperty("actor", out JsonElement actorEl))
             {
-                this.Actor = activtyOrLinkObjectParser(actorEl);
+                this.Actor = activtyOrLinkObjectParser(actorEl, this);
             }
 
             if (el.TryGetProperty("origin", out JsonElement originEl))
             {
-                this.Origin = activtyOrLinkObjectParser(originEl).FirstOrDefault();
+                this.Origin = activtyOrLinkObjectParser(originEl, this).FirstOrDefault();
             }
 
             if (el.TryGetProperty("target", out JsonElement targetEl))
             {
-                this.Target = activtyOrLinkObjectParser(targetEl);
+                this.Target = activtyOrLinkObjectParser(targetEl, this);
             }
 
             if (el.TryGetProperty("result", out JsonElement resultEl))
             {
-                this.Result = activtyOrLinkObjectParser(resultEl);
+                this.Result = activtyOrLinkObjectParser(resultEl, this);
             }
 
             if (el.TryGetProperty("instrument", out JsonElement instrumentEl))
             {
-                this.Instrument = activtyOrLinkObjectParser(instrumentEl);
+                this.Instrument = activtyOrLinkObjectParser(instrumentEl, this);
             }
         }
     }

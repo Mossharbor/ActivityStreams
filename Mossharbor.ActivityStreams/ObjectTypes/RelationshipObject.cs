@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -56,24 +57,24 @@ namespace Mossharbor.ActivityStreams
         public IActivityObject Object { get; set; }
 
         /// <inheritdoc/>
-        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObject, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
         {
             base.PerformCustomObjectOrLinkParsing(el, activtyOrLinkObjectParser);
 
             if (el.ContainsElement("subject"))
             {
-                this.Subject = activtyOrLinkObjectParser(el.GetProperty("subject"));
+                this.Subject = activtyOrLinkObjectParser(el.GetProperty("subject"), this);
             }
         }
 
          /// <inheritdoc/>
-        public override void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject> activtyObjectParser)
+        public override void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject, IActivityObject> activtyObjectParser)
         {
             base.PerformCustomObjectParsing(el, activtyObjectParser);
 
             if (el.ContainsElement("object"))
             {
-                this.Object = activtyObjectParser(el.GetProperty("object"));
+                this.Object = activtyObjectParser(el.GetProperty("object"), this);
             }
         }
 

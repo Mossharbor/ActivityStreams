@@ -46,6 +46,7 @@ namespace Mossharbor.ActivityStreams
         /// </example>
         IDictionary<string, string> Extensions { get; set; }
 
+        IEnumerable<string> ExtendedTypes { get; set; }
         IActivityObjectOrLink[] Attachment { get; set; }
         IActivityObjectOrLink[] AttributedTo { get; set; }
         IActivityObjectOrLink[] Audience { get; set; }

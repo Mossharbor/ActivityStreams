@@ -39,11 +39,16 @@ namespace Mossharbor.ActivityStreams
         public IActivityObject[] Object { get; set; }
 
         /// <inheritdoc/>
-        public void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject[]> activtyObjectsParser)
+        public void PerformCustomObjectParsing(JsonElement el, Func<JsonElement, IActivityObject, IActivityObject[]> activtyObjectsParser)
         {
             if (el.TryGetProperty("object", out JsonElement objectEl))
             {
-                this.Object = activtyObjectsParser(objectEl);
+                this.Object = activtyObjectsParser(objectEl, this);
+                foreach(var o in this.Object)
+                {
+                    if (null == o.Context)
+                        o.Context = this.Context;
+                }
             }
         }
     }

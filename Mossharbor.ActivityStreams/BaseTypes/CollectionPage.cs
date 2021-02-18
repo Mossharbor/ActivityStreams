@@ -54,12 +54,14 @@ namespace Mossharbor.ActivityStreams
         public IActivityLink Prev { get; set; }
 
         /// <inheritdoc/>
-        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
+        public override void PerformCustomObjectOrLinkParsing(JsonElement el, Func<JsonElement, IActivityObject, IActivityObjectOrLink[]> activtyOrLinkObjectParser)
         {
             base.PerformCustomObjectOrLinkParsing(el, activtyOrLinkObjectParser);
 
             if (el.ContainsElement("partOf"))
-                this.PartOf = activtyOrLinkObjectParser(el.GetProperty("partOf")).FirstOrDefault();
+            {
+                this.PartOf = activtyOrLinkObjectParser(el.GetProperty("partOf"), this).FirstOrDefault();
+            }
         }
 
         /// <inheritdoc/>

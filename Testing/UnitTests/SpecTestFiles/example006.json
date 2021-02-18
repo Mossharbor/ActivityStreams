@@ -1,4 +1,4 @@
-{
+Ôªø{
   "@context": "https://www.w3.org/ns/activitystreams",
   "summary": "Martin's recent activities",
   "type": "Collection",
@@ -28,21 +28,21 @@
       "object": {
         "name": "My fluffy cat",
         "type": "Image",
-        "id": "http://example.org/album/m·irÈad.jpg",
+        "id": "http://example.org/album/m√°ir√©ad.jpg",
         "preview": {
           "type": "Link",
-          "href": "http://example.org/album/m·irÈad.jpg",
+          "href": "http://example.org/album/m√°ir√©ad.jpg",
           "mediaType": "image/jpeg"
         },
         "url": [
           {
             "type": "Link",
-            "href": "http://example.org/album/m·irÈad.jpg",
+            "href": "http://example.org/album/m√°ir√©ad.jpg",
             "mediaType": "image/jpeg"
           },
           {
             "type": "Link",
-            "href": "http://example.org/album/m·irÈad.png",
+            "href": "http://example.org/album/m√°ir√©ad.png",
             "mediaType": "image/png"
           }
         ]
