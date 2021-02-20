@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Reflection;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
 {
@@ -134,10 +134,21 @@ namespace Mossharbor.ActivityStreams
             if (activity.ExtendedContexts == null || !activity.ExtendedContexts.Any())
                 return;
 
+            var knownAttributes = activity.GetType().GetProperties(
+                          BindingFlags.FlattenHierarchy |
+                          BindingFlags.Instance |
+                          BindingFlags.Public).Where(p =>
+                          {
+                              return (null != p.GetCustomAttribute(typeof(JsonPropertyNameAttribute)));
+                          })
+                          .Select(p => (p.GetCustomAttribute(typeof(JsonPropertyNameAttribute)) as JsonPropertyNameAttribute).Name)
+                          .ToArray();
+
             activity.Extensions = new Dictionary<string, string>();
+            activity.ExtensionsOutOfContext = new Dictionary<string, string>();
             foreach (var t in el.EnumerateObject())
             {
-                if (t.Name == "@context" || t.Name == "context" || t.Name == "type")
+                if (t.Name == "@context" || t.Name == "context" || t.Name == "type" || knownAttributes.Contains(t.Name))
                     continue;
 
                 int indexOfColon = t.Name.IndexOf(":");
@@ -147,7 +158,7 @@ namespace Mossharbor.ActivityStreams
                 {
                     // split out the extension
                     string extensionName = t.Name.Substring(0, indexOfColon);
-                    if (activity.ExtendedContexts.ContainsKey(extensionName))
+                    if (activity.ExtendedContexts.ContainsKey(extensionName) || activity.ExtendedIds.ContainsKey(extensionName))
                     {
                         if (!activity.Extensions.ContainsKey(t.Name))
                         {
@@ -160,14 +171,20 @@ namespace Mossharbor.ActivityStreams
                             activity.Extensions.Add(nameWithOutExtension, t.Value.ToString());
                         }
                     }
+                    else
+                    {
+                        activity.ExtensionsOutOfContext.Add(t.Name.ToLower(), t.Value.ToString());
+                    }
                 }
                 else if (t.Value.ValueKind == JsonValueKind.String || t.Value.ValueKind == JsonValueKind.Number)
                 {
                     // Make sure we ignore the standard items
                     if (t.Name.Contains(":"))
                         activity.Extensions.Add(t.Name.ToLower(), t.Value.ToString());
-                    else if (activity.ExtendedContexts.ContainsKey(t.Name))
+                    else if (activity.ExtendedContexts.ContainsKey(t.Name) || activity.ExtendedIds.ContainsKey(t.Name))
                         activity.Extensions.Add(t.Name.ToLower(), t.Value.ToString());
+                    else
+                        activity.ExtensionsOutOfContext.Add(t.Name.ToLower(), t.Value.ToString());
                 }
                 else if (t.Value.ValueKind == JsonValueKind.Array)
                 {
@@ -188,7 +205,7 @@ namespace Mossharbor.ActivityStreams
                 return new ActivityObject() { Url = ParseOutActivityLinks(el), Type = ActivityLink.ActivityLinkType };
             }
 
-            ActivityObject activity = CreateCorrectActivityFrom(el, parent?.Context, parent?.ExtendedContexts);
+            ActivityObject activity = CreateCorrectActivityFrom(el, parent?.Context, parent?.ExtendedContexts, parent?.ExtendedIds);
 
             if (activity is ICustomParser)
             {
@@ -264,7 +281,7 @@ namespace Mossharbor.ActivityStreams
             throw new InvalidTypeDefinitionException(typeProperty.GetString());
         }
 
-        private static ActivityObject CreateCorrectActivityFrom(JsonElement el, Uri context, IDictionary<string, string> ExtendedContexts)
+        private static ActivityObject CreateCorrectActivityFrom(JsonElement el, Uri context, IDictionary<string, string> extendedContexts, IDictionary<string, CompactIriID> extendedIds)
         {
             string typeString = el.ContainsElement("type") ? GetActivityType(el.GetProperty("type"), out _) : null;
 
@@ -276,7 +293,8 @@ namespace Mossharbor.ActivityStreams
                 {
                     var ac = TypeToObjectMap[CollectionPage.CollectionPageType]();
                     ac.Context = context;
-                    ac.ExtendedContexts = ExtendedContexts;
+                    ac.ExtendedContexts = extendedContexts;
+                    ac.ExtendedIds = extendedIds;
                     return ac;
                 }
             }
@@ -286,7 +304,8 @@ namespace Mossharbor.ActivityStreams
                 {
                     var ac = TypeToObjectMap[CollectionPage.OrderedCollectionPageType]();
                     ac.Context = context;
-                    ac.ExtendedContexts = ExtendedContexts;
+                    ac.ExtendedContexts = extendedContexts;
+                    ac.ExtendedIds = extendedIds;
                     return ac;
                 }
             }
@@ -295,6 +314,8 @@ namespace Mossharbor.ActivityStreams
             {
                 var ac = TypeToObjectMap[Icon.IconType]();
                 ac.Context = context;
+                ac.ExtendedContexts = extendedContexts;
+                ac.ExtendedIds = extendedIds;
                 return ac;
             }
 
@@ -302,7 +323,8 @@ namespace Mossharbor.ActivityStreams
             {
                 var ac = TypeToObjectMap[typeString]();
                 ac.Context = context;
-                ac.ExtendedContexts = ExtendedContexts;
+                ac.ExtendedContexts = extendedContexts;
+                ac.ExtendedIds = extendedIds;
                 return ac;
             }
             else
@@ -325,7 +347,8 @@ namespace Mossharbor.ActivityStreams
             }
 
             activity.Context = context;
-            activity.ExtendedContexts = ExtendedContexts;
+            activity.ExtendedContexts = extendedContexts;
+            activity.ExtendedIds = extendedIds;
             return activity;
         }
     }

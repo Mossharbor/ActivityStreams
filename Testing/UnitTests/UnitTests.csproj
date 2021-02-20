@@ -23,6 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="JsonLDSpecExamples\example032.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="SpecTestFiles\example002.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

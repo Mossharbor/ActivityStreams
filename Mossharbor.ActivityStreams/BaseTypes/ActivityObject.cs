@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -58,6 +59,24 @@ namespace Mossharbor.ActivityStreams
         public IDictionary<string, string> ExtendedContexts { get; set; }
 
         /// <summary>
+        /// this represents the extended id fields for the activity from jsonld spec
+        /// </summary>
+        /// <example>
+        ///{
+        ///"@context": {
+        ///"ex": "http://example.org/",
+        ///"term": {
+        ///  "@type": "id",
+        ///  "@id": "ex:term"
+        ///}
+        ///},
+        ///"term": "ex:Foo"
+        ///}
+        /// </example>
+        [JsonIgnore]
+        public IDictionary<string, CompactIriID> ExtendedIds { get; set; }
+
+        /// <summary>
         /// this represents the extentions that are outside of the activity streams spec but addd in the context
         /// </summary>
         /// <example>
@@ -76,6 +95,23 @@ namespace Mossharbor.ActivityStreams
         /// </example>
         [JsonIgnore]
         public IDictionary<string, string> Extensions { get; set; }
+
+        /// <summary>
+        /// this represents the extentions that are outside of the activity streams spec and do not have a context
+        /// </summary>
+        /// <example>
+        ///{
+        ///  "@context": [
+        ///    "https://www.w3.org/ns/activitystreams",
+        ///    { "foo": "http://example.org/foo" }
+        ///  ],
+        ///  "type": "Note",
+        ///  "content": "This is a simple note",
+        ///  "foo": 123,
+        ///  "bar": 321
+        ///}
+        /// </example>
+        public IDictionary<string, string> ExtensionsOutOfContext { get; set; }
 
         /// <summary>
         /// this represents the extended types we can have for extending ativity streams
@@ -595,17 +631,14 @@ namespace Mossharbor.ActivityStreams
             if (this.ExtendedContexts == null)
                 this.ExtendedContexts = new Dictionary<string, string>();
 
+            if (this.ExtendedIds == null)
+                this.ExtendedIds = new Dictionary<string, CompactIriID>();
+
             if (el.ValueKind == JsonValueKind.Object)
             {
-                foreach (var subEl in el.EnumerateObject())
-                {
-                    if (!this.ExtendedContexts.ContainsKey(subEl.Name))
-                    {
-                        this.ExtendedContexts.Add(subEl.Name.ToLower(), subEl.Value.GetString());
-                    }
-                }
+                ParseOutContextObject(el);
 
-                if (this.ExtendedContexts.ContainsKey("@vocab"))
+                if (this.ExtendedContexts.ContainsKey("@vocab") && null == this.Context)
                 {
                     this.Context = new Uri(this.ExtendedContexts["@vocab"]);
                     this.ExtendedContexts.Remove("@vocab");
@@ -615,20 +648,10 @@ namespace Mossharbor.ActivityStreams
             {
                 foreach (var subEl in el.EnumerateArray())
                 {
-                    string value = string.Empty;
-                    string key = string.Empty;
-
                     switch (subEl.ValueKind)
                     {
                         case JsonValueKind.Object:
-
-                            foreach (var objEl in subEl.EnumerateObject())
-                            {
-                                if (!this.ExtendedContexts.ContainsKey(objEl.Name))
-                                {
-                                    this.ExtendedContexts.Add(objEl.Name.ToLower(), objEl.Value.GetString());
-                                }
-                            }
+                            ParseOutContextObject(subEl);
                             break;
 
                         case JsonValueKind.Number:
@@ -638,6 +661,28 @@ namespace Mossharbor.ActivityStreams
                             if (this.Context == null)
                                 this.Context = new Uri(subEl.GetString());
                             continue;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// parses out the context obejects
+        /// </summary>
+        /// <param name="el">the context element to be parsed</param>
+        private void ParseOutContextObject(JsonElement el)
+        {
+            foreach (var subEl in el.EnumerateObject())
+            {
+                if (!this.ExtendedContexts.ContainsKey(subEl.Name))
+                {
+                    if (subEl.Value.ValueKind == JsonValueKind.Object && subEl.Value.ContainsElement("@type") && subEl.Value.GetProperty("@type").ToString() == "@id")
+                    {
+                        this.ExtendedIds.Add(subEl.Name, new CompactIriID(subEl.Value));
+                    }
+                    else
+                    {
+                        this.ExtendedContexts.Add(subEl.Name.ToLower(), subEl.Value.ToString());
                     }
                 }
             }
@@ -655,144 +700,66 @@ namespace Mossharbor.ActivityStreams
             if (el.TryGetProperty("attributedTo", out JsonElement attributeTo))
             {
                 this.AttributedTo = activtyOrLinkObjectParser(attributeTo, this);
-
-                foreach (var o in this.AttributedTo)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.TryGetProperty("attachment", out JsonElement attachmentEl))
             {
                 this.Attachment = activtyOrLinkObjectParser(attachmentEl, this);
-
-                foreach (var o in this.Attachment)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.TryGetProperty("audience", out JsonElement audienceEl))
             {
                 this.Audience = activtyOrLinkObjectParser(audienceEl, this);
-
-                foreach (var o in this.Audience)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.TryGetProperty("inReplyTo", out JsonElement inReplyToEl))
             {
                 this.InReplyTo = activtyOrLinkObjectParser(inReplyToEl, this);
-
-                foreach (var o in this.InReplyTo)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.ContainsElement("bcc"))
             {
                 this.bcc = activtyOrLinkObjectParser(el.GetProperty("bcc"), this);
-
-                foreach (var o in this.bcc)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.ContainsElement("bto"))
             {
                 this.Bto = activtyOrLinkObjectParser(el.GetProperty("bto"), this);
-
-                foreach (var o in this.Bto)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.ContainsElement("cc"))
             {
                 this.CC = activtyOrLinkObjectParser(el.GetProperty("cc"), this);
-
-                foreach (var o in this.CC)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.ContainsElement("to"))
             {
                 this.To = activtyOrLinkObjectParser(el.GetProperty("to"), this);
-
-                foreach (var o in this.To)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.ContainsElement("generator"))
             {
                 this.Generator = activtyOrLinkObjectParser(el.GetProperty("generator"), this);
-
-                foreach (var o in this.Generator)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.ContainsElement("preview"))
             {
                 this.Preview = activtyOrLinkObjectParser(el.GetProperty("preview"), this);
-
-                foreach (var o in this.Preview)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.ContainsElement("tag"))
             {
                 this.Tag = activtyOrLinkObjectParser(el.GetProperty("tag"), this);
-
-                foreach (var o in this.Tag)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.TryGetProperty("image", out JsonElement imageEl))
             {
                 this.Images = activtyOrLinkObjectParser(imageEl, this);
-
-                foreach (var o in this.Images)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.TryGetProperty("icon", out JsonElement iconEl))
             {
                 this.Icons = activtyOrLinkObjectParser(iconEl, this);
-
-                foreach (var o in this.Icons)
-                {
-                    if (null != o.Obj && null == o.Obj.Context)
-                        o.Obj.Context = this.Context;
-                }
             }
 
             if (el.ContainsElement("contentMap"))

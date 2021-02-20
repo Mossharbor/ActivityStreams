@@ -6,8 +6,6 @@ namespace Mossharbor.ActivityStreams
 {
     public interface IActivityObject
     {
-
-
         /// <summary>
         /// this represents the extended context we can have for extending ativity streams
         /// </summary>
@@ -28,6 +26,23 @@ namespace Mossharbor.ActivityStreams
         IDictionary<string, string> ExtendedContexts { get; set; }
 
         /// <summary>
+        /// this represents the extended id fields for the activity from jsonld spec
+        /// </summary>
+        /// <example>
+        ///{
+        ///"@context": {
+        ///"ex": "http://example.org/",
+        ///"term": {
+        ///  "@type": "id",
+        ///  "@id": "ex:term"
+        ///}
+        ///},
+        ///"term": "ex:Foo"
+        ///}
+        /// </example>
+        IDictionary<string, CompactIriID> ExtendedIds { get; set; }
+
+        /// <summary>
         /// this represents the extentions that are outside of the activity streams spec but addd in the context
         /// </summary>
         /// <example>
@@ -45,6 +60,24 @@ namespace Mossharbor.ActivityStreams
         ///}
         /// </example>
         IDictionary<string, string> Extensions { get; set; }
+
+
+        /// <summary>
+        /// this represents the extentions that are outside of the activity streams spec and do not have a context
+        /// </summary>
+        /// <example>
+        ///{
+        ///  "@context": [
+        ///    "https://www.w3.org/ns/activitystreams",
+        ///    { "foo": "http://example.org/foo" }
+        ///  ],
+        ///  "type": "Note",
+        ///  "content": "This is a simple note",
+        ///  "foo": 123,
+        ///  "bar": 321
+        ///}
+        /// </example>
+        IDictionary<string, string> ExtensionsOutOfContext { get; set; }
 
         IEnumerable<string> ExtendedTypes { get; set; }
         IActivityObjectOrLink[] Attachment { get; set; }

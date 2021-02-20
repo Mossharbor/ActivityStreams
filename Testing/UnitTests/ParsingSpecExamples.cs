@@ -116,7 +116,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
-            Assert.AreEqual(activity.Summary, "Martin added an article to his blog");
+            Assert.AreEqual(activity.Summary, "Martin's recent activities");
 
             Assert.AreEqual((uint)1, (activity as Collection).TotalItems, "the total items were incorrect");
             Assert.IsNull((activity as Collection).OrderedItems, "the Items were not empty");
@@ -362,8 +362,14 @@ namespace Mossharbor.ActivityStreams.UnitTests
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecTestFiles\example029.json"))
                             .Build();
 
-            Assert.IsNotNull(activity.Context, "the activity stream context was null");
-            throw new NotImplementedException();
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("ex"), "ex is missing");
+            Assert.AreEqual("http://example.org/", activity.ExtendedContexts["ex"], "ex value is missing");
+            Assert.IsTrue(activity.Extensions.ContainsKey("term"), "term is missing");
+
+            Assert.IsTrue(activity.ExtendedIds.Any(), "the extended ids are not available");
+
+            Assert.AreEqual("term", activity.ExtendedIds.First().Key, "term is missing");
+            Assert.AreEqual("ex:term", activity.ExtendedIds["term"].Id, "ex:term value is missing");
         }
 
         // <summary>
@@ -381,6 +387,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.AreEqual("http://example.org/foo", activity.ExtendedContexts["foo"], "the extended context did not exit");
             Assert.AreEqual("123", activity.Extensions["foo"], "the extention did not exit");
             Assert.IsTrue(!activity.Extensions.ContainsKey("bar"), "the extention did exit");
+            Assert.IsTrue(activity.ExtensionsOutOfContext.ContainsKey("bar"), "the extention did exit");
         }
 
         // <summary>
@@ -390,10 +397,27 @@ namespace Mossharbor.ActivityStreams.UnitTests
         public void ParseActivityStreamSpecExample032()
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
-            var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecTestFiles\example032.json"))
+            Collection activity = (Collection)builder.FromJson(System.IO.File.OpenRead(@".\SpecTestFiles\example032.json"))
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("oa"), "the extended context did not exit");
+            Assert.AreEqual("http://www.w3.org/ns/oa#", activity.ExtendedContexts["oa"], "the extended context did not exit");
+
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("prov"), "the extended context did not exit");
+            Assert.AreEqual("http://www.w3.org/ns/prov#", activity.ExtendedContexts["prov"], "the extended context did not exit");
+
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("dcterms"), "the extended context did not exit");
+            Assert.AreEqual("http://purl.org/dc/terms/", activity.ExtendedContexts["dcterms"], "the extended context did not exit");
+
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("dcterms:created"), "the extended context did not exit");
+            Assert.IsTrue(!activity.ExtendedIds.ContainsKey("dcterms:created"), "the extended context did not exit");
+            Assert.IsTrue(!activity.Extensions.Any(), "We have extensions at the root and should not have.");
+
+            Assert.IsTrue(activity.Items[0].Obj.ExtendedContexts.ContainsKey("dcterms:created"));
+            Assert.IsTrue(activity.Items[0].Obj.ExtendedContexts.ContainsKey("dcterms"));
+            Assert.IsTrue(activity.Items[0].Obj.ExtendedContexts.ContainsKey("prov"));
+            Assert.IsTrue(activity.Items[0].Obj.ExtendedContexts.ContainsKey("oa"));
         }
     }
 }
