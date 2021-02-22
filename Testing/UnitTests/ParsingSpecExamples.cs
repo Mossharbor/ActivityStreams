@@ -418,6 +418,40 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.IsTrue(activity.Items[0].Obj.ExtendedContexts.ContainsKey("dcterms"));
             Assert.IsTrue(activity.Items[0].Obj.ExtendedContexts.ContainsKey("prov"));
             Assert.IsTrue(activity.Items[0].Obj.ExtendedContexts.ContainsKey("oa"));
+
+            Assert.IsTrue(!activity.Items[0].Obj.Extensions.ContainsKey("oa:hasBody"));
+            Assert.IsTrue(!activity.Items[0].Obj.Extensions.ContainsKey("oa:hasTarget"));
+            Assert.IsTrue(!activity.Items[0].Obj.Extensions.ContainsKey("oa:motivatedBy"));
+            Assert.IsTrue(!activity.Items[0].Obj.Extensions.ContainsKey("prov:generated"));
+            Assert.IsTrue(!activity.Items[0].Obj.Extensions.ContainsKey("prov:wasInformedBy"));
+
+            Assert.IsTrue(activity.Items[1].Obj.ExtendedContexts.ContainsKey("dcterms:created"));
+            Assert.IsTrue(activity.Items[1].Obj.ExtendedContexts.ContainsKey("dcterms"));
+            Assert.IsTrue(activity.Items[1].Obj.ExtendedContexts.ContainsKey("prov"));
+            Assert.IsTrue(activity.Items[1].Obj.ExtendedContexts.ContainsKey("oa"));
+
+            Assert.IsTrue(activity.Items[1].Obj.Extensions.ContainsKey("oa:hasBody"));
+            Assert.IsTrue(activity.Items[1].Obj.Extensions.ContainsKey("oa:hasTarget"));
+            Assert.IsTrue(activity.Items[1].Obj.Extensions.ContainsKey("oa:motivatedBy"));
+            Assert.IsTrue(activity.Items[1].Obj.Extensions.ContainsKey("prov:generated"));
+            Assert.IsTrue(activity.Items[1].Obj.Extensions.ContainsKey("prov:wasInformedBy"));
+
+            Assert.IsTrue(!string.IsNullOrEmpty(activity.Items[1].Obj.Extensions["oa:hasBody"]));
+            Assert.IsTrue(activity.Items[1].Obj.Extensions["oa:hasTarget"] == @"{ ""@id"": ""http://example.org/entry/20150101000000"" }");
+            Assert.IsTrue(activity.Items[1].Obj.Extensions["oa:motivatedBy"] == @"{ ""@id"": ""oa:editing"" }");
+            Assert.IsTrue(activity.Items[1].Obj.Extensions["prov:generated"] == @"{ ""@id"": ""http://example.org/entry/20150101000059"" }");
+            Assert.IsTrue(activity.Items[1].Obj.Extensions["prov:wasInformedBy"] == @"{ ""@id"": ""http://example.org/activity/20150101000000"" }");
+
+            Assert.IsTrue(activity.Items[2].Obj.ExtendedContexts.ContainsKey("dcterms:created"));
+            Assert.IsTrue(activity.Items[2].Obj.ExtendedContexts.ContainsKey("dcterms"));
+            Assert.IsTrue(activity.Items[2].Obj.ExtendedContexts.ContainsKey("prov"));
+            Assert.IsTrue(activity.Items[2].Obj.ExtendedContexts.ContainsKey("oa"));
+
+            Assert.IsTrue(!activity.Items[0].Obj.Extensions.ContainsKey("oa:hasBody"));
+            Assert.IsTrue(!activity.Items[0].Obj.Extensions.ContainsKey("oa:hasTarget"));
+            Assert.IsTrue(!activity.Items[0].Obj.Extensions.ContainsKey("oa:motivatedBy"));
+            Assert.IsTrue(!activity.Items[0].Obj.Extensions.ContainsKey("prov:generated"));
+            Assert.IsTrue(!activity.Items[0].Obj.Extensions.ContainsKey("prov:wasInformedBy"));
         }
     }
 }

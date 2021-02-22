@@ -2556,7 +2556,6 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.AreEqual(activity.Content, "I am fine.");
             Assert.AreEqual(activity.Id, "http://www.test.example/notes/1");
 
-
             Assert.AreEqual(activity.Replies.Type, "Collection");
             Assert.AreEqual((activity.Replies as Collection).TotalItems, (uint)1);
 
