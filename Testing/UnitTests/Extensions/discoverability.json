@@ -1,0 +1,12 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "toot": "http://joinmastodon.org/ns#",
+      "discoverable": "toot:discoverable"
+    }
+  ],
+  "id": "https://mastodon.social/users/Gargron",
+  "type": "Person",
+  "discoverable": true
+}

@@ -1,0 +1,20 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/security/v1",
+    {
+      "toot": "http://joinmastodon.org/ns#",
+      "IdentityProof": "toot:IdentityProof"
+    }
+  ],
+  "id": "https://mastodon.social/users/Gargron",
+  "type": "Person",
+  "attachment": [
+    {
+      "type": "IdentityProof",
+      "name": "gargron",
+      "signatureAlgorithm": "keybase",
+      "signatureValue": "5cfc20c7018f2beefb42a68836da59a792e55daa4d118498c9b1898de7e845690f"
+    }
+  ]
+}

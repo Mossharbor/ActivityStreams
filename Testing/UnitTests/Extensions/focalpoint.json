@@ -1,0 +1,27 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "toot": "http://joinmastodon.org/ns#",
+      "focalPoint": {
+        "@container": "@list",
+        "@id": "toot:focalPoint"
+      }
+    }
+  ],
+
+  "id": "https://example.com/@alice/hello-world",
+  "type": "Note",
+  "content": "A picture attached!",
+  "attachment": [
+    {
+      "type": "Image",
+      "mediaType": "image/png",
+      "url": "https://example.com/files/cats.png",
+      "focalPoint": [
+        -0.55,
+        0.43
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "toot": "http://joinmastodon.org/ns#",
+      "featured": {
+        "@id": "toot:featured",
+        "@type": "@id"
+      }
+    }
+  ],
+
+  "id": "https://example.com/@alice",
+  "type": "Person",
+  "featured": "https://example.com/@alice/collections/featured"
+}
