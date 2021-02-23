@@ -52,7 +52,7 @@ namespace Mossharbor.ActivityStreams
         /// <returns>the content for the lanage or null if it does not exist.</returns>
         public string GetContent(string twoLetterLanguageName)
         {
-            this.TryGetValue(twoLetterLanguageName?.ToLower(), out string curLangChar);
+            this.TryGetValue(twoLetterLanguageName, out string curLangChar);
             return curLangChar;
         }
 

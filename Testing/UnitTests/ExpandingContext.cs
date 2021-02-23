@@ -315,6 +315,22 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.IsTrue(activity.Attachment[0].Obj.ExtendedTypes.Contains("http://joinmastodon.org/ns#IdentityProof"), "featuredTags expansion is missing");
         }
 
+        // <summary>
+        /// Testing Spec example 1
+        /// </summary>
+        [TestMethod]
+        public void ExpandCustomStreamPublicKey()
+        {
+            // support compact URI's
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
+            PersonActor activity = (PersonActor)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\publickey.json"))
+                            .ExpandExtentionContexts()
+                            .Build();
+
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("https://w3id.org/security/v1"), "https://w3id.org/security/v1 is missing");
+            Assert.IsTrue(activity.ExtensionsOutOfContext.ContainsKey("publicKey"), "featuredTags expansion is missing");
+        }
+
 
         // <summary>
         /// Testing Spec example 1

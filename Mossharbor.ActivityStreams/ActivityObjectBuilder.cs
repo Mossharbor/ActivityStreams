@@ -1437,6 +1437,9 @@ namespace Mossharbor.ActivityStreams
             if (null == activity)
                 return;
 
+            if (activity.ExtendedContexts == null || !activity.ExtendedContexts.Any())
+                return;
+
             ExpandActivityContexts(activity);
             ExpandActivityExtensionNames(overwrite, activity);
             ExpandActivityExtensionValues(activity);

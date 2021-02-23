@@ -170,7 +170,7 @@ namespace Mossharbor.ActivityStreams
                         activity.ExtensionsOutOfContext.Add(t.Name, t.Value.ToString());
                     }
                 }
-                else if (t.Value.ValueKind == JsonValueKind.String || t.Value.ValueKind == JsonValueKind.Number || t.Value.ValueKind == JsonValueKind.True || t.Value.ValueKind == JsonValueKind.False || t.Value.ValueKind == JsonValueKind.Undefined)
+                else if (t.Value.ValueKind == JsonValueKind.Object || t.Value.ValueKind == JsonValueKind.String || t.Value.ValueKind == JsonValueKind.Number || t.Value.ValueKind == JsonValueKind.True || t.Value.ValueKind == JsonValueKind.False || t.Value.ValueKind == JsonValueKind.Undefined)
                 {
                     // Make sure we ignore the standard items
                     if (t.Name.Contains(":"))

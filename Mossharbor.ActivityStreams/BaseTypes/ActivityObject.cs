@@ -660,6 +660,8 @@ namespace Mossharbor.ActivityStreams
                         case JsonValueKind.String:
                             if (this.Context == null)
                                 this.Context = new Uri(subEl.GetString());
+                            else
+                                this.ExtendedContexts.Add(subEl.GetString(), subEl.GetString());
                             continue;
                     }
                 }
