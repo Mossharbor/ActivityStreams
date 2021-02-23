@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Mossharbor.ActivityStreams.UnitTests
 {
+    /// <summary>
+    /// Parses some of the harder example from the activity streams spec
+    /// </summary>
     [TestClass]
     public class ParsingSpecExamples
     {
@@ -31,14 +34,8 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.IsTrue(activity.Extensions.ContainsKey("ext:nose"), "the extension did not exit");
             Assert.AreEqual("0", activity.Extensions["ext:nose"], "the extension was wrong");
 
-            Assert.IsTrue(activity.Extensions.ContainsKey("nose"), "the extension did not exit");
-            Assert.AreEqual("0", activity.Extensions["nose"], "the extension was wrong");
-
             Assert.IsTrue(activity.Extensions.ContainsKey("ext:smell"), "the extension did not exit");
             Assert.AreEqual("terrible", activity.Extensions["ext:smell"], "the extension was wrong");
-
-            Assert.IsTrue(activity.Extensions.ContainsKey("smell"), "the extension did not exit");
-            Assert.AreEqual("terrible", activity.Extensions["smell"], "the extension was wrong");
 
             Assert.AreEqual("A note", activity.Summary, "the activity stream summary");
             Assert.IsNotNull(activity as NoteObject, "the activity was not a note");
@@ -177,10 +174,9 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.IsTrue(activity.Extensions.ContainsKey("gr:category"), "the extension did not exit");
             Assert.AreEqual("restaurants/french_restaurants", activity.Extensions["gr:category"], "the extension was wrong");
 
-            Assert.IsTrue(activity.Extensions.ContainsKey("category"), "the extension did not exit");
-            Assert.AreEqual("restaurants/french_restaurants", activity.Extensions["category"], "the extension was wrong");
+            Assert.IsTrue(!activity.Extensions.ContainsKey("category"), "the extension did not exit");
 
-            Assert.IsTrue(activity.ExtendedTypes.Contains("gr:Location"), "the extended Typedid not exit");
+            Assert.IsTrue(activity.ExtendedTypes.Contains("gr:Location"), "the extended Type did not exit");
 
             Assert.IsFalse(activity.Extensions.ContainsKey("name"), "the extension did contain the name and should not have");
 
@@ -259,14 +255,12 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.IsTrue(activity.Actor[0].Obj.Extensions.ContainsKey("vcard:given-name"), "the extension did not exist");
             Assert.AreEqual("Sally", activity.Actor[0].Obj.Extensions["vcard:given-name"], "the extension was wrong");
 
-            Assert.IsTrue(activity.Actor[0].Obj.Extensions.ContainsKey("given-name"), "the extension did not exit");
-            Assert.AreEqual("Sally", activity.Actor[0].Obj.Extensions["given-name"], "the extension was wrong");
+            Assert.IsFalse(activity.Actor[0].Obj.Extensions.ContainsKey("given-name"), "the extension did not exit");
 
             Assert.IsTrue(activity.Actor[0].Obj.Extensions.ContainsKey("vcard:family-name"), "the extension did not exist");
             Assert.AreEqual("Smith", activity.Actor[0].Obj.Extensions["vcard:family-name"], "the extension was wrong");
 
-            Assert.IsTrue(activity.Actor[0].Obj.Extensions.ContainsKey("family-name"), "the extension did not exit");
-            Assert.AreEqual("Smith", activity.Actor[0].Obj.Extensions["family-name"], "the extension was wrong");
+            Assert.IsFalse(activity.Actor[0].Obj.Extensions.ContainsKey("family-name"), "the extension did not exit");
 
             Assert.IsTrue(activity.Actor[0].Obj.ExtendedTypes.Contains("vcard:Individual"), "the extended Typedid not exist");
 
@@ -348,7 +342,6 @@ namespace Mossharbor.ActivityStreams.UnitTests
             Assert.IsTrue(activity.ExtendedContexts.ContainsKey("gsp"), "the extended context did not exit");
             Assert.AreEqual("http://www.opengis.net/ont/geosparql", activity.ExtendedContexts["gsp"], "the extended context did not exit");
             Assert.AreEqual("Polygon((100.0, 0.0, 101.0, 0.0, 101.0, 1.0, 100.0, 1.0, 100.0, 0.0))", activity.Extensions["gsp:asWKT"], "the extention did not exit");
-            Assert.AreEqual("Polygon((100.0, 0.0, 101.0, 0.0, 101.0, 1.0, 100.0, 1.0, 100.0, 0.0))", activity.Extensions["asWKT"], "the extention did not exit");
         }
 
         // <summary>

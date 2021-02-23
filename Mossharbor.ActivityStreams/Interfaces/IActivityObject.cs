@@ -79,7 +79,7 @@ namespace Mossharbor.ActivityStreams
         /// </example>
         IDictionary<string, string> ExtensionsOutOfContext { get; set; }
 
-        IEnumerable<string> ExtendedTypes { get; set; }
+        IList<string> ExtendedTypes { get; set; }
         IActivityObjectOrLink[] Attachment { get; set; }
         IActivityObjectOrLink[] AttributedTo { get; set; }
         IActivityObjectOrLink[] Audience { get; set; }

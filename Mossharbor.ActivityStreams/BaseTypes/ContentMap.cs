@@ -21,7 +21,7 @@ namespace Mossharbor.ActivityStreams
 
             foreach(var t in contentMap)
             {
-                this.contentMap.Add(t.Key.ToLower(), t.Value);
+                this.contentMap.Add(t.Key, t.Value);
             }
         }
 

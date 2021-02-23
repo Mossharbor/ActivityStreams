@@ -164,27 +164,21 @@ namespace Mossharbor.ActivityStreams
                         {
                             activity.Extensions.Add(t.Name, t.Value.ToString());
                         }
-
-                        string nameWithOutExtension = t.Name.Substring(indexOfColon + 1);
-                        if (!activity.Extensions.ContainsKey(nameWithOutExtension))
-                        {
-                            activity.Extensions.Add(nameWithOutExtension, t.Value.ToString());
-                        }
                     }
                     else
                     {
-                        activity.ExtensionsOutOfContext.Add(t.Name.ToLower(), t.Value.ToString());
+                        activity.ExtensionsOutOfContext.Add(t.Name, t.Value.ToString());
                     }
                 }
-                else if (t.Value.ValueKind == JsonValueKind.String || t.Value.ValueKind == JsonValueKind.Number)
+                else if (t.Value.ValueKind == JsonValueKind.String || t.Value.ValueKind == JsonValueKind.Number || t.Value.ValueKind == JsonValueKind.True || t.Value.ValueKind == JsonValueKind.False || t.Value.ValueKind == JsonValueKind.Undefined)
                 {
                     // Make sure we ignore the standard items
                     if (t.Name.Contains(":"))
-                        activity.Extensions.Add(t.Name.ToLower(), t.Value.ToString());
+                        activity.Extensions.Add(t.Name, t.Value.ToString());
                     else if (activity.ExtendedContexts.ContainsKey(t.Name) || activity.ExtendedIds.ContainsKey(t.Name))
-                        activity.Extensions.Add(t.Name.ToLower(), t.Value.ToString());
+                        activity.Extensions.Add(t.Name, t.Value.ToString());
                     else
-                        activity.ExtensionsOutOfContext.Add(t.Name.ToLower(), t.Value.ToString());
+                        activity.ExtensionsOutOfContext.Add(t.Name, t.Value.ToString());
                 }
                 else if (t.Value.ValueKind == JsonValueKind.Array)
                 {
@@ -240,7 +234,7 @@ namespace Mossharbor.ActivityStreams
             return activity;
         }
 
-        internal static string GetActivityType(JsonElement typeProperty, out IEnumerable<string> extendedTypes)
+        internal static string GetActivityType(JsonElement typeProperty, out IList<string> extendedTypes)
         {
             extendedTypes = new List<string>();
             if (typeProperty.ValueKind == JsonValueKind.Undefined || typeProperty.ValueKind == JsonValueKind.Null)
@@ -250,7 +244,13 @@ namespace Mossharbor.ActivityStreams
 
             if (typeProperty.ValueKind == JsonValueKind.String)
             {
-                return typeProperty.GetString();
+                string typeVal = typeProperty.GetString();
+                if (TypeToObjectMap.ContainsKey(typeVal))
+                    return typeVal;
+                else
+                    extendedTypes.Add(typeVal);
+
+                return typeVal;
             }
 
             if (typeProperty.ValueKind == JsonValueKind.Array)

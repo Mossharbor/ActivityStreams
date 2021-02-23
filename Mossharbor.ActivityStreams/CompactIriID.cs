@@ -17,9 +17,16 @@ namespace Mossharbor.ActivityStreams
         {
             this.je = je;
             if (je.ContainsElement("@id"))
+            {
                 this.Id = je.GetProperty("@id").ToString();
+
+                if (!this.Id.Contains(":"))
+                    this.ExpandedId = this.Id;
+            }
         }
 
         public string Id { get; set; }
+
+        public string ExpandedId { get; set; }
     }
 }

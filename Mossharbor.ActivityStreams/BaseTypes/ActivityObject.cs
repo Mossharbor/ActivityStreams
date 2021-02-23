@@ -132,7 +132,7 @@ namespace Mossharbor.ActivityStreams
         ///}
         /// </example>
         [JsonIgnore]
-        public IEnumerable<string> ExtendedTypes { get; set; }
+        public IList<string> ExtendedTypes { get; set; }
 
         /// <summary>
         /// Identifies the Object or Link type. Multiple values may be specified.
@@ -587,7 +587,7 @@ namespace Mossharbor.ActivityStreams
         /// <inheritdoc/>
         public virtual void PerformCustomParsing(JsonElement el)
         {
-            IEnumerable<string> extendedTypes = new string[0];
+            IList<string> extendedTypes = new string[0];
             string typeString = el.TryGetProperty("type", out JsonElement typeProperty) ? ActivityStreamsParser.GetActivityType(typeProperty, out extendedTypes) : null;
             var idElement = el.GetUriOrDefault("id");
             var summary = el.GetStringOrDefault("summary");
@@ -682,7 +682,7 @@ namespace Mossharbor.ActivityStreams
                     }
                     else
                     {
-                        this.ExtendedContexts.Add(subEl.Name.ToLower(), subEl.Value.ToString());
+                        this.ExtendedContexts.Add(subEl.Name, subEl.Value.ToString());
                     }
                 }
             }

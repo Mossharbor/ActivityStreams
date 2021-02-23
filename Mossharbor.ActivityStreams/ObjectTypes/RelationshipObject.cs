@@ -40,7 +40,7 @@ namespace Mossharbor.ActivityStreams
         /// 	On a Relationship object, the subject property identifies one of the connected individuals. For instance, for a Relationship object describing "John is related to Sally", subject would refer to John.
         /// </summary>
         [JsonPropertyName("subject")]
-        public IActivityObjectOrLink[] Subject { get; set; } //TODO this can be an object or a link
+        public IActivityObjectOrLink[] Subject { get; set; }
 
         /// <summary>
         /// On a Relationship object, the relationship property identifies the kind of relationship that exists between subject and object.
