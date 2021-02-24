@@ -1,0 +1,7 @@
+{
+  "@context": "https://w3id.org/security/v1",
+  "@id": "https://payswarm.example.com/i/bob/keys/1",
+  "@type": "Key",
+  "owner": "https://payswarm.example.com/i/bob",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMII8YbF3s8q3c...j8Fk88FsRa3K\n-----END PUBLIC KEY-----\n"
+}

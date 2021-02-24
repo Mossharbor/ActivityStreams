@@ -1,0 +1,15 @@
+{
+  "@context": [
+    "https://w3id.org/security/v1",
+    { "ex": "http://example.org/vocab#" }
+  ],
+  "@graph": {
+    "ex:request": "DELETE /private/2840-credit-card-log"
+  },
+  "signature": {
+    "@type": "GraphSignature2012",
+    "creator": "http://example.com/people/john-doe#key-5",
+    "nonce": "8495723045.84957",
+    "signatureValue": "Q3ODIyOGQzNGVkMzVm4NTIyZ43OWM32NjITkZDYMmMzQzNmExMgoYzI="
+  }
+}

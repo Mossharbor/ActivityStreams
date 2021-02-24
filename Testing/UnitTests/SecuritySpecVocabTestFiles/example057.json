@@ -1,0 +1,8 @@
+{
+  "@context": "https://w3id.org/security/v1",
+  "@id": "https://w3id.org/security#GraphSignature2012",
+  "@type": "Signature",
+  "canonicalizationAlgorithm": "https://w3id.org/jsonld#UGNA2012",
+  "digestAlgorithm": "http://example.com/digests#sha512",
+  "signatureAlgorithm": "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+}

@@ -1,0 +1,12 @@
+{
+  "@context": [ "https://w3id.org/security/v1", "http://json-ld.org/contexts/person.jsonld" ],
+  "@type": "Person",
+  "name": "Dave Longley",
+  "homepage": "https://w3id.org/people/dave",
+  "signature": {
+    "@type": "LinkedDataSignature2016",
+    "creator": "https://w3id.org/people/dave/keys/2",
+    "created": "2016-11-05T03:12:54Z",
+    "signatureValue": "OGQzNGVkMzVmMmQ3ODIyOWM32MzQzNmExMgoYzI4ZDY3NjI4NTIyZTk="
+  }
+}

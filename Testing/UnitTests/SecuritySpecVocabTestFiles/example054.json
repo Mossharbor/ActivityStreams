@@ -1,0 +1,10 @@
+{
+  "proof": {
+    "type": "MerkleProof2019",
+    "creator": "did:example:abcdefghij0123456789",
+    "created": "2017-09-23T20:21:34Z",
+    "domain": "example.org",
+    "nonce": "2bbgh3dgjg2302d-d2b3gi423d42",
+    "proofValue": "z76WGJzY2rXtSiZ8BDwU4VgcLqcMEm2dXdgVVS1QCZQUptZ5P8n5YCcnbuMUASYhVNihae7m8VeYvfViYf2KqTMVEH1BKNF6Xc5S2kPpBwsNos6egnrmDMxhtQppZjb47Mi2xG89jZm654uZUatDvfTCoDWuethfRHPSk81qn6od9zGxBxxAYyUPnY9Fs9QEQETm53AN9uk6erSAhJ2R3K8rosrBkSZbVhbzUJTPg22wpddVY8Xu3vhRVNpzyUvCEedg5EM6i7wE4G1CYsz7tbaApEF9aFRB92v4DoiY5GXGjwH5PhhGstJB9ySh9FyDfSYN8qRVVR7i5No2eBi3AjQ7cqaBiWkoSrCoQK7jJ4PyFsu3ZaAuUx8LAtkhaChmwfxH8E25LcTENJhFxqVnPd7f7Q3cUrFciYRqmg8eJsy1AahqbzJQ63n9RtekmwzqnMYrTwft6cLJJGeTSSxCCJ6HKnRtwE7jjDh6sB2ZeVj494VppdAVJBz2AAiZY9BBnCD8wUVgwqH3qchGRCuC2RugA4eQ9fUrR4Yuycac3caiaaay"
+  }
+}

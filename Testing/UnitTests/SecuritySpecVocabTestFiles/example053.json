@@ -1,0 +1,15 @@
+{
+  "@context": "https://www.w3.org/2018/credentials/v1",
+  "type": "VerifiablePresentation",
+  "holder": "did:key:z6MkjRagNiMu91DduvCvgEsqLZDVzrJzFrwahc4tXLt9DoHd",
+  "proof": {
+    "type": "Ed25519Signature2018",
+    "created": "2020-04-02T18:21:44Z",
+    "verificationMethod": "did:key:z6MkjRagNiMu91DduvCvgEsqLZDVzrJzFrwahc4tXLt9DoHd#z6MkjRagNiMu91DduvCvgEsqLZDVzrJzFrwahc4tXLt9DoHd",
+    "proofPurpose": "authentication",
+    "challenge": "99612b24-63d9-11ea-b99f-4f66f3e4f81a",
+    "expirationDate": "2020-05-02T18:21:44Z",
+    "domain": "issuer.interop.transmute.world",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..2xjpkHW6EY-cKD8DrMIkkiB2Q_k6kHynTbR7XGgtYR92blQWpL6Q-2nTdQi1rNhJtmHw1wWWssKMO0EdIEnsCw"
+  }
+}

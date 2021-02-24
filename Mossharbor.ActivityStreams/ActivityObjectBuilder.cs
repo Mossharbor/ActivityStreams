@@ -17,7 +17,7 @@ namespace Mossharbor.ActivityStreams
     {
         public enum BuildValidationLevel { Off, Basic, Strict };
 
-        internal static JsonDocumentOptions options = new JsonDocumentOptions
+        public static JsonDocumentOptions JsonparsingOptions = new JsonDocumentOptions
         {
             AllowTrailingCommas = true
         };
@@ -52,7 +52,7 @@ namespace Mossharbor.ActivityStreams
             {
                 ActivityObject activity = null;
 
-                using (JsonDocument document = JsonDocument.Parse(jsonStream, options))
+                using (JsonDocument document = JsonDocument.Parse(jsonStream, JsonparsingOptions))
                 {
                     if (ActivityLinkBuilder.IsLinkElment(document.RootElement))
                         throw new NotSupportedException("We dont support links being the root.  the root must be an activity");
@@ -79,7 +79,7 @@ namespace Mossharbor.ActivityStreams
             {
                 ActivityObject activity = null;
 
-                using (JsonDocument document = JsonDocument.Parse(json, options))
+                using (JsonDocument document = JsonDocument.Parse(json, JsonparsingOptions))
                 {
                     if (ActivityLinkBuilder.IsLinkElment(document.RootElement))
                         throw new NotSupportedException("We dont support links being the root.  the root must be an activity");

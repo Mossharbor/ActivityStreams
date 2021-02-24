@@ -1,0 +1,5 @@
+{
+  "@context": "https://w3id.org/security/v1",
+  "@id": "https://payswarm.example.com/.well-known/services",
+  "publicKeyService": "https://payswarm.example.com/public-keys"
+}

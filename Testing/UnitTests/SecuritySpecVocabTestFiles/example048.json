@@ -1,0 +1,19 @@
+{
+  "@context": [
+    "https://w3id.org/security/v1",
+    { "foaf": "http://xmlns.com/foaf/0.1/" }
+  ],
+  "@graph": {
+    "@id": "http://example.com/people#jane",
+    "@type": "foaf:Person",
+    "foaf:name": "Jane Doe",
+    "foaf:homepage": "http://example.org/jane"
+  },
+  "proof": {
+    "type": "Ed25519Signature2018",
+    "created": "2020-04-03T18:03:33Z",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..ktzmVCTovhKWKxnMwDtMnmpUAUF1n7sqbdNmOV0TkxCTb2eHATO6iP7wqjyl_CMehHKnqgW6t9SW4q9TdbCxAg",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "did:key:z6MkkUNcUWxAbxamK2Spp92mKWoXddS3tTqBKe8VTGExzX2Y#z6MkkUNcUWxAbxamK2Spp92mKWoXddS3tTqBKe8VTGExzX2Y"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "@context": [ "https://w3id.org/security/v1", "http://json-ld.org/contexts/person.jsonld" ],
+  "@type": "Person",
+  "name": "Manu Sporny",
+  "homepage": "http://manu.sporny.org/",
+  "signature": {
+    "@type": "GraphSignature2012",
+    "creator": "http://manu.sporny.org/keys/5",
+    "signatureValue": "OGQzNGVkMzVmMmQ3ODIyOWM32MzQzNmExMgoYzI4ZDY3NjI4NTIyZTk="
+  }
+}

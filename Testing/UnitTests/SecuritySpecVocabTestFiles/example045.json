@@ -1,0 +1,6 @@
+{
+  "id": "did:example:123#hexKey",
+  "controller": "did:example:123",
+  "type": "EcdsaSecp256k1RecoveryMethod2020",
+  "publicKeyHex": "027560AF3387D375E3342A6968179EF3C6D04F5D33B2B611CF326D4708BADD7770"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "did:example:123#z6MkkQBvgvqb6zGvS4cydworpUaRDzpszSFixq49ahbDeUTG",
+  "type": "Ed25519VerificationKey2018",
+  "controller": "did:example:123",
+  "publicKeyBase58": "6wvt6gb9mSnTKZnGxNr1yP2RQRZ2aZ1NGp9DkRdCjFft"
+}

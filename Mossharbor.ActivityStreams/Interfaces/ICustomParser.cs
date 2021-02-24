@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Mossharbor.ActivityStreams
 {
-    interface ICustomParser
+    public interface ICustomParser
     {
         /// <summary>
         /// Parses out the details specific to the Place Object

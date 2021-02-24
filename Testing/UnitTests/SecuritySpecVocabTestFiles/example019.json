@@ -1,0 +1,15 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/security/v1"
+  ],
+  "id": "https://mastodon.social/users/Gargron",
+  "type": "Person",
+  "publicKey": {
+    "@id": "https://payswarm.example.com/i/bob/keys/1",
+    "@type": "Key",
+    "owner": "https://payswarm.example.com/i/bob",
+    "privateKeyPem": "-----BEGIN PRIVATE KEY-----\nMIIBG0BA...OClDQAB\n-----END PRIVATE KEY-----\n",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMII8YbF3s8q3c...j8Fk88FsRa3K\n-----END PUBLIC KEY-----\n"
+  }
+}

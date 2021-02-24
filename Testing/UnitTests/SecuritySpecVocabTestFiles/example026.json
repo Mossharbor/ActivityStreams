@@ -1,0 +1,5 @@
+{
+  "id": "did:example:123#blockchainAccountId",
+  "type": "EcdsaSecp256k1RecoverySignature2020",
+  "blockchainAccountId": "128Lkh3S7CkDTBZ8W7BbpsN3YYizJMp8p6@bip122:000000000019d6689c085ae165831e93"
+}

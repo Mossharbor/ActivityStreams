@@ -1,0 +1,5 @@
+{
+  "id": "did:example:123#blockchainAccountId",
+  "type": "EcdsaSecp256k1RecoverySignature2020",
+  "blockchainAccountId": "cosmos1t2uflqwqe0fsj0shcfkrvpukewcw40yjj6hdc0@cosmos:cosmoshub-3"
+}

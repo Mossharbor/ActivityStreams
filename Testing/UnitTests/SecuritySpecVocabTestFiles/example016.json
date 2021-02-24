@@ -1,0 +1,13 @@
+{
+  "@context": [ "https://w3id.org/security/v1", "http://json-ld.org/contexts/person.jsonld" ],
+  "@type": "Person",
+  "name": "Dave Longley",
+  "homepage": "https://w3id.org/people/dave",
+  "proof": {
+    "type": "BbsBlsSignature2020",
+    "verificationMethod": "https://w3id.org/people/dave/keys/2",
+    "created": "2016-11-05T03:12:54Z",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "AAoD/4XIHpCb/4necmgnauMPaGKoQiTfDmB3Gk+oX99V8qe/Os3X21NNnPrr5QusW1eizom+c5zIMi8uIprRuumLCpN/HpzbTYaYrts+R6wIoB9GtUOcBR3Pwp6avuPK1sO84YStE91pLu5zO64/OsHz2XsqMb3Qo3AL9drfwlhCOh+gzVuEkHtS38TxLvhru/I7BwAAAHSFWEOFEHY4bXwZZf8710RdkN2phd0A3DIi4fq+NMh0Bxx9vmBevt7LnaVln5so20UAAAACOkUnNGzLNxtWPYhS4hiVFf2D3mkQ2LaxaYsjz7Dvc8gz6ucnMMMYFGEsN4DwgrAk3BekfAb40RrzXPRWRWni3LXi4kbGx6BNlWB28L7LKrBBsgi64xALHEWXedU9mxCrz5fENJ3G45cx6Yh7ixHxMQAAAAJhQb1RFEBF0X1bggECt4ipbWwvKLuSECtJ5LmTcDDF4DinW96UfoR3ZZ3F3BR2km+uDWOi1dCT8t/aCmnIPUkM"
+  }
+}

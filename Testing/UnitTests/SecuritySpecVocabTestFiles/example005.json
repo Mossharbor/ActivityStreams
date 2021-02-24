@@ -1,0 +1,9 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/security/v1"
+  ],
+  "type": "Digest",
+  "digestAlgorithm": "http://www.w3.org/2000/09/xmldsig#sha1",
+  "digestValue": "981ec496092bf6ee18d6255d96069b528633268b"
+}
