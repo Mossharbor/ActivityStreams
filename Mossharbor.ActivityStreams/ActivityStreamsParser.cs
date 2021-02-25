@@ -134,7 +134,7 @@ namespace Mossharbor.ActivityStreams
         }
 
 
-        internal static ActivityObject CreateNewActivity(JsonElement el, Dictionary<string, Func<ActivityObject>> TypeToObjectMap)
+        internal static IActivityObject CreateNewActivity(JsonElement el, Dictionary<string, Func<ActivityObject>> TypeToObjectMap, Func<IActivityObject> defaultActivityCreationFunc)
         {
             if (el.ValueKind == JsonValueKind.String)
             {
@@ -142,7 +142,7 @@ namespace Mossharbor.ActivityStreams
                 return new ActivityObject() { Url = ParseOutActivityLinks(el), Type = ActivityLink.ActivityLinkType, TypeToObjectMap = TypeToObjectMap };
             }
 
-            ActivityObject activity = CreateCorrectActivityFrom(el, null, TypeToObjectMap, null, null);
+            IActivityObject activity = CreateCorrectActivityFrom(el, null, TypeToObjectMap, null, null, defaultActivityCreationFunc);
 
             if (activity is ICustomParser)
             {
@@ -177,7 +177,7 @@ namespace Mossharbor.ActivityStreams
             return activity;
         }
 
-        internal static ActivityObject ParseActivityObject(JsonElement el, IActivityObject parent)
+        internal static IActivityObject ParseActivityObject(JsonElement el, IActivityObject parent)
         {
             if (el.ValueKind == JsonValueKind.String)
             {
@@ -185,7 +185,7 @@ namespace Mossharbor.ActivityStreams
                 return new ActivityObject() { Url = ParseOutActivityLinks(el), Type = ActivityLink.ActivityLinkType, TypeToObjectMap = (parent as ActivityObject).TypeToObjectMap };
             }
 
-            ActivityObject activity = CreateCorrectActivityFrom(el, parent?.Context, (parent as ActivityObject).TypeToObjectMap, parent?.ExtendedContexts, parent?.ExtendedIds);
+            IActivityObject activity = CreateCorrectActivityFrom(el, parent?.Context, (parent as ActivityObject).TypeToObjectMap, parent?.ExtendedContexts, parent?.ExtendedIds, null);
 
             if (activity is ICustomParser)
             {
@@ -268,11 +268,16 @@ namespace Mossharbor.ActivityStreams
             throw new InvalidTypeDefinitionException(typeProperty.GetString());
         }
 
-        private static ActivityObject CreateCorrectActivityFrom(JsonElement el, Uri context, Dictionary<string, Func<ActivityObject>> TypeToObjectMap, IDictionary<string, string> extendedContexts, IDictionary<string, CompactIriID> extendedIds)
+        private static IActivityObject CreateCorrectActivityFrom(JsonElement el, Uri context, Dictionary<string, Func<ActivityObject>> TypeToObjectMap, IDictionary<string, string> extendedContexts, IDictionary<string, CompactIriID> extendedIds, Func<IActivityObject> defaultActivityCreationFunc)
         {
             string typeString = el.ContainsElement("type") ? GetActivityType(el.GetProperty("type"), TypeToObjectMap, out _) : null;
 
-            ActivityObject activity = null;
+            if (String.IsNullOrEmpty(typeString))
+            {
+                typeString = el.ContainsElement("@type") ? GetActivityType(el.GetProperty("@type"), TypeToObjectMap, out _) : null;
+            }
+
+            IActivityObject activity = null;
 
             if (typeString != null && typeString.Equals(Collection.CollectionType))
             {
@@ -298,6 +303,10 @@ namespace Mossharbor.ActivityStreams
             {
                 activity = TypeToObjectMap[typeString]();
             }
+            else if (defaultActivityCreationFunc != null)
+            {
+                activity = defaultActivityCreationFunc();
+            }
             else if (activity == null)
             {
                 bool isActivity = el.ContainsElement("actor");
@@ -320,7 +329,8 @@ namespace Mossharbor.ActivityStreams
             activity.Context = context;
             activity.ExtendedContexts = extendedContexts;
             activity.ExtendedIds = extendedIds;
-            activity.TypeToObjectMap = TypeToObjectMap;
+            if (activity is ActivityObject)
+                (activity as ActivityObject).TypeToObjectMap = TypeToObjectMap;
             return activity;
         }
     }

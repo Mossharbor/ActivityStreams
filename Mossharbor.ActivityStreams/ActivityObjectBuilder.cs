@@ -73,6 +73,8 @@ namespace Mossharbor.ActivityStreams
             {CollectionPage.OrderedCollectionPageType, () => new CollectionPage()}
         };
 
+        private Func<IActivityObject> defaultActivityCreationFunc;
+
         public bool TryRegisterType(string typeName, Func<ActivityObject> activityInstantiator)
         {
             if (this.TypeToObjectMap.ContainsKey(typeName))
@@ -114,7 +116,7 @@ namespace Mossharbor.ActivityStreams
 
             this.fn = (ignored) =>
             {
-                IActivityObject activity = ActivityStreamsParser.CreateNewActivity(je.RootElement, this.TypeToObjectMap);
+                IActivityObject activity = ActivityStreamsParser.CreateNewActivity(je.RootElement, this.TypeToObjectMap, this.defaultActivityCreationFunc);
                 return activity;
             };
 
@@ -153,13 +155,7 @@ namespace Mossharbor.ActivityStreams
 
         public ActivityObjectBuilder DefaultType(Func<IActivityObject> defaultActivityCreation)
         {
-            this.fn = (activity) =>
-            {
-                if (activity == null)
-                    activity = defaultActivityCreation();
-                return activity;
-            };
-
+            this.defaultActivityCreationFunc = defaultActivityCreation;
             return this;
         }
 
@@ -176,14 +172,14 @@ namespace Mossharbor.ActivityStreams
 
             this.fn = (ignored) =>
             {
-                ActivityObject activity = null;
+                IActivityObject activity = null;
 
                 using (JsonDocument document = JsonDocument.Parse(jsonStream, JsonparsingOptions))
                 {
                     if (ActivityLinkBuilder.IsLinkElment(document.RootElement))
                         throw new NotSupportedException("We dont support links being the root.  the root must be an activity");
 
-                    activity = ActivityStreamsParser.CreateNewActivity(document.RootElement, this.TypeToObjectMap);
+                    activity = ActivityStreamsParser.CreateNewActivity(document.RootElement, this.TypeToObjectMap, this.defaultActivityCreationFunc);
                 }
 
                 return activity;
@@ -206,14 +202,14 @@ namespace Mossharbor.ActivityStreams
 
             this.fn = (ignored) =>
             {
-                ActivityObject activity = null;
+                IActivityObject activity = null;
 
                 using (JsonDocument document = JsonDocument.Parse(json, JsonparsingOptions))
                 {
                     if (ActivityLinkBuilder.IsLinkElment(document.RootElement))
                         throw new NotSupportedException("We dont support links being the root.  the root must be an activity");
 
-                    activity = ActivityStreamsParser.CreateNewActivity(document.RootElement, this.TypeToObjectMap);
+                    activity = ActivityStreamsParser.CreateNewActivity(document.RootElement, this.TypeToObjectMap, this.defaultActivityCreationFunc);
                 }
 
                 return activity;
@@ -234,7 +230,7 @@ namespace Mossharbor.ActivityStreams
 
             this.fn = (ignored) =>
             {
-                ActivityObject activity = ActivityStreamsParser.CreateNewActivity(je, this.TypeToObjectMap);
+                IActivityObject activity = ActivityStreamsParser.CreateNewActivity(je, this.TypeToObjectMap, this.defaultActivityCreationFunc);
 
                 return activity;
             };
