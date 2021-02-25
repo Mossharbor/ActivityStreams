@@ -23,7 +23,7 @@ namespace Mossharbor.ActivityStreams.Security
 
             using (JsonDocument document = JsonDocument.Parse(sigJson, ActivityObjectBuilder.JsonparsingOptions))
             {
-                var signature = new ActivityObjectBuilder().FromJDocument(document, activity).DefaultType(() => new SignatureBase()).Build();
+                var signature = new ActivityObjectBuilder().FromJsonDocument(document, activity).DefaultType(() => new SignatureBase()).Build();
                 if (signature is ICustomParser)
                     (signature as ICustomParser).PerformCustomParsing(document.RootElement);
 
@@ -45,7 +45,7 @@ namespace Mossharbor.ActivityStreams.Security
 
             using (JsonDocument document = JsonDocument.Parse(proofJson, ActivityObjectBuilder.JsonparsingOptions))
             {
-                var proof = new ActivityObjectBuilder().FromJDocument(document, activity).DefaultType(() => new ProofBase()).Build();
+                var proof = new ActivityObjectBuilder().FromJsonDocument(document, activity).DefaultType(() => new ProofBase()).Build();
                 if (proof is ICustomParser)
                     (proof as ICustomParser).PerformCustomParsing(document.RootElement);
 
@@ -67,7 +67,7 @@ namespace Mossharbor.ActivityStreams.Security
 
             using (JsonDocument document = JsonDocument.Parse(proofJson, ActivityObjectBuilder.JsonparsingOptions))
             {
-                var key = new ActivityObjectBuilder().FromJDocument(document, activity).DefaultType(() => new KeyBase()).Build();
+                var key = new ActivityObjectBuilder().FromJsonDocument(document, activity).DefaultType(() => new KeyBase()).Build();
                 if (key is ICustomParser)
                     (key as ICustomParser).PerformCustomParsing(document.RootElement);
 

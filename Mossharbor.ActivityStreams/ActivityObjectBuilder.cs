@@ -107,7 +107,7 @@ namespace Mossharbor.ActivityStreams
             };
         }
 
-        public ActivityObjectBuilder FromJDocument(JsonDocument je, IActivityObject parentActivity = null)
+        public ActivityObjectBuilder FromJsonDocument(JsonDocument je, IActivityObject parentActivity = null)
         {
             if (null != parentActivity && parentActivity is ActivityObject)
                 this.TypeToObjectMap = (parentActivity as ActivityObject).TypeToObjectMap;
@@ -169,8 +169,11 @@ namespace Mossharbor.ActivityStreams
         /// <param name="jsonStream">the json stream </param>
         /// <returns>the activity builder</returns>
         /// <remarks> you must call Build to get and actual activity back</remarks>
-        public ActivityObjectBuilder FromJson(System.IO.Stream jsonStream)
+        public ActivityObjectBuilder FromJson(System.IO.Stream jsonStream, IActivityObject parentActivity = null)
         {
+            if (null != parentActivity && parentActivity is ActivityObject)
+                this.TypeToObjectMap = (parentActivity as ActivityObject).TypeToObjectMap;
+
             this.fn = (ignored) =>
             {
                 ActivityObject activity = null;
@@ -196,8 +199,11 @@ namespace Mossharbor.ActivityStreams
         /// <param name="json">the json string</param>
         /// <returns>the activity builder</returns>
         /// <remarks> you must call Build to get and actual activity back</remarks>
-        public ActivityObjectBuilder FromJson(string json)
+        public ActivityObjectBuilder FromJson(string json, IActivityObject parentActivity = null)
         {
+            if (null != parentActivity && parentActivity is ActivityObject)
+                this.TypeToObjectMap = (parentActivity as ActivityObject).TypeToObjectMap;
+
             this.fn = (ignored) =>
             {
                 ActivityObject activity = null;
@@ -221,8 +227,11 @@ namespace Mossharbor.ActivityStreams
         /// </summary>
         /// <param name="je">the json element</param>
         /// <returns>an ActivityBuilder</returns>
-        public ActivityObjectBuilder FromJsonElement(JsonElement je)
+        public ActivityObjectBuilder FromJsonElement(JsonElement je, IActivityObject parentActivity = null)
         {
+            if (null != parentActivity && parentActivity is ActivityObject)
+                this.TypeToObjectMap = (parentActivity as ActivityObject).TypeToObjectMap;
+
             this.fn = (ignored) =>
             {
                 ActivityObject activity = ActivityStreamsParser.CreateNewActivity(je, this.TypeToObjectMap);
