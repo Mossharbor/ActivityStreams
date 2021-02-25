@@ -21,7 +21,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecTestFiles\example002.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -52,7 +52,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecTestFiles\example003.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -79,7 +79,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecTestFiles\example008.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -111,7 +111,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             CreateActivity activity = (CreateActivity)builder.FromJson(System.IO.File.OpenRead(@".\SpecTestFiles\example015.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -150,7 +150,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecTestFiles\example028.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsNotNull(activity.Context, "the activity stream context was null");
@@ -168,7 +168,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             // support compact URI's
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\SpecTestFiles\example029.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsTrue(activity.ExtendedContexts.ContainsKey("ex"), "ex is missing");
@@ -186,7 +186,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             // support compact URI's
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\JsonLDSpecExamples\example032.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsTrue(activity.ExtendedContexts.ContainsKey("@version"), "version is missing");
@@ -218,7 +218,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             // support compact URI's
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             NoteObject activity = (NoteObject)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\blurhash.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsTrue(activity.ExtendedContexts.ContainsKey("toot"), "toot is missing");
@@ -235,7 +235,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             // support compact URI's
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             NoteObject activity = (NoteObject)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\customemoji.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsTrue(activity.ExtendedContexts.ContainsKey("toot"), "toot is missing");
@@ -252,7 +252,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             // support compact URI's
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             PersonActor activity = (PersonActor)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\discoverability.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsTrue(activity.ExtendedContexts.ContainsKey("toot"), "toot is missing");
@@ -269,7 +269,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             // support compact URI's
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             PersonActor activity = (PersonActor)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\featured.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsTrue(activity.ExtendedContexts.ContainsKey("toot"), "toot is missing");
@@ -288,7 +288,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             // support compact URI's
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             PersonActor activity = (PersonActor)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\featuredtags.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsTrue(activity.ExtendedContexts.ContainsKey("toot"), "toot is missing");
@@ -307,7 +307,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             // support compact URI's
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             PersonActor activity = (PersonActor)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\identityproofs.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsTrue(activity.ExtendedContexts.ContainsKey("toot"), "toot is missing");
@@ -324,7 +324,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             // support compact URI's
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             PersonActor activity = (PersonActor)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\publickey.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsTrue(activity.ExtendedContexts.ContainsKey("https://w3id.org/security/v1"), "https://w3id.org/security/v1 is missing");
@@ -341,7 +341,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
             // support compact URI's
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             PersonActor activity = (PersonActor)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\suspended.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsTrue(activity.ExtendedContexts.ContainsKey("toot"), "toot is missing");

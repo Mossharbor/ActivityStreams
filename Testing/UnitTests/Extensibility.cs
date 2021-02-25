@@ -21,7 +21,7 @@ namespace Mossharbor.ActivityStreams.UnitTests
 
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             NoteObject activity = (NoteObject)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\customemoji.json"))
-                            .ExpandExtentionContexts()
+                            .ExpandJsonLD()
                             .Build();
 
             Assert.IsNotNull(activity.Tag[0] is EmojiExtension);
