@@ -9,11 +9,13 @@ using System.Text.Json.Serialization;
 #pragma warning disable CS1658 // Warning is overriding an error
 namespace Mossharbor.ActivityStreams
 {
-    public class ActivityObject : IActivityObject, ICustomParser, IParsesChildObjectOrLinks, IParsesChildLinks, IParsesChildObject, IParsesChildObjectExtensions
+    public class ActivityObject : IActivityObject, ICustomParser, IParsesChildObjectOrLinks, IParsesChildLinks, IParsesChildObject, IParsesChildObjectExtensions, IActivityStreamsObjectTypeCreator
     {
         internal ActivityObject() { }
 
         protected ActivityObject(string type) { this.Type = type; }
+
+        internal Dictionary<string, Func<ActivityObject>> TypeToObjectMap { get; set; }
 
         /// <summary>
         /// Provides the globally unique identifier for an Object or Link.
@@ -588,7 +590,7 @@ namespace Mossharbor.ActivityStreams
         public virtual void PerformCustomParsing(JsonElement el)
         {
             IList<string> extendedTypes = new string[0];
-            string typeString = el.TryGetProperty("type", out JsonElement typeProperty) ? ActivityStreamsParser.GetActivityType(typeProperty, out extendedTypes) : null;
+            string typeString = el.TryGetProperty("type", out JsonElement typeProperty) ? ActivityStreamsParser.GetActivityType(typeProperty, this.TypeToObjectMap, out extendedTypes) : null;
             var idElement = el.GetUriOrDefault("id");
             var summary = el.GetStringOrDefault("summary");
             var name = el.GetStringOrDefault("name");
@@ -826,5 +828,19 @@ namespace Mossharbor.ActivityStreams
                 this.Location = activtyObjectParser(localEl, this) as PlaceObject;
             }
         }
+
+
+        public IActivityObject CreateType(string type)
+        {
+            var t = this.TypeToObjectMap[type]();
+            t.TypeToObjectMap = this.TypeToObjectMap;
+            return t;
+        }
+
+        public bool CanCreateType(string type)
+        {
+            return this.TypeToObjectMap.ContainsKey(type);
+        }
+
     }
 }

@@ -13,18 +13,21 @@ namespace Mossharbor.ActivityStreams
         private int answerCount = 0;
         private int addedCount = 0;
 
-        public QuestionBuilder(AnswerType answerType, IActivityObject activity)
+        private readonly Dictionary<string, Func<ActivityObject>> TypeToObjectMap;
+
+        public QuestionBuilder(Dictionary<string, Func<ActivityObject>> TypeToObjectMap, AnswerType answerType, IActivityObject activity)
             :base (activity)
         {
+            this.TypeToObjectMap = TypeToObjectMap;
             this.answerType = answerType;
         }
 
         public QuestionBuilder AddAnswer(string answer, string type = Mossharbor.ActivityStreams.Activity.ActivityType)
         {
-            if (!ActivityStreamsParser.TypeToObjectMap.ContainsKey(type))
+            if (!this.TypeToObjectMap.ContainsKey(type))
                 throw new UnknownActivityTypeException(type);
 
-            var answerActivity = ActivityStreamsParser.TypeToObjectMap[type]();
+            var answerActivity = this.TypeToObjectMap[type]();
 
             ++answerCount;
             this.fn = Compose(this.fn, (activity) =>

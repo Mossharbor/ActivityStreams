@@ -438,8 +438,6 @@ namespace Mossharbor.ActivityStreams.Security.UnitTests
         {
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
             builder.AddSecurityTypes();
-
-            builder.AddSecurityTypes();
             var activity = builder.FromJson(System.IO.File.OpenRead(@".\SecuritySpecVocabTestFiles\example022.json"))
                             .Build();
 

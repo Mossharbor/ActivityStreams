@@ -17,9 +17,9 @@ namespace Mossharbor.ActivityStreams.UnitTests
         [TestMethod]
         public void AddingCustomEmojiTypes()
         {
-            ActivityStreamsParser.TypeToObjectMap.Add(EmojiExtension.EmojiType, () => new EmojiExtension());
-
             ActivityObjectBuilder builder = new ActivityObjectBuilder();
+            builder.TryRegisterType(EmojiExtension.EmojiType, () => new EmojiExtension());
+
             NoteObject activity = (NoteObject)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\customemoji.json"))
                             .ExpandJsonLD()
                             .Build();

@@ -27,20 +27,12 @@ namespace Mossharbor.ActivityStreams.Security
                 if (null == type)
                     type = document.RootElement.GetStringOrDefault("@type");
 
-                if (ActivityStreamsParser.TypeToObjectMap.ContainsKey(type))
-                {
-                    var t = ActivityStreamsParser.TypeToObjectMap[type]();
-                    t.PerformCustomParsing(document.RootElement);
-                    return t as SignatureBase;
+                var signature = new ActivityObjectBuilder(type, activity, () => new SignatureBase()).Build();
+                if (signature is ICustomParser)
+                    (signature as ICustomParser).PerformCustomParsing(document.RootElement);
 
-                }
-
-                SignatureBase signature = new SignatureBase();
-                signature.PerformCustomParsing(document.RootElement);
-
-                return signature;
+                return signature as SignatureBase;
             }
-
         }
 
         /// <summary>
@@ -61,20 +53,12 @@ namespace Mossharbor.ActivityStreams.Security
                 if (null == type)
                     type = document.RootElement.GetStringOrDefault("@type");
 
-                if (ActivityStreamsParser.TypeToObjectMap.ContainsKey(type))
-                {
-                    var t = ActivityStreamsParser.TypeToObjectMap[type]();
-                    t.PerformCustomParsing(document.RootElement);
-                    return t as ProofBase;
+                var proof = new ActivityObjectBuilder(type, activity, () => new ProofBase()).Build();
+                if (proof is ICustomParser)
+                    (proof as ICustomParser).PerformCustomParsing(document.RootElement);
 
-                }
-
-                ProofBase proof = new ProofBase();
-                proof.PerformCustomParsing(document.RootElement);
-
-                return proof;
+                return proof as ProofBase;
             }
-
         }
 
         /// <summary>
@@ -95,18 +79,11 @@ namespace Mossharbor.ActivityStreams.Security
                 if (null == type)
                     type = document.RootElement.GetStringOrDefault("@type");
 
-                if (ActivityStreamsParser.TypeToObjectMap.ContainsKey(type))
-                {
-                    var t = ActivityStreamsParser.TypeToObjectMap[type]();
-                    t.PerformCustomParsing(document.RootElement);
-                    return t as KeyBase;
+                var key = new ActivityObjectBuilder(type, activity, () => new KeyBase()).Build();
+                if (key is ICustomParser)
+                    (key as ICustomParser).PerformCustomParsing(document.RootElement);
 
-                }
-
-                KeyBase proof = new KeyBase();
-                proof.PerformCustomParsing(document.RootElement);
-
-                return proof;
+                return key as KeyBase;
             }
 
         }

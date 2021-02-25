@@ -15,6 +15,73 @@ namespace Mossharbor.ActivityStreams
     /// </summary>
     public class ActivityObjectBuilder : BuilderBase
     {
+        /// <summary>
+        /// this is the mapping from a type to an implementation
+        /// </summary>
+        private Dictionary<string, Func<ActivityObject>> TypeToObjectMap = new Dictionary<string, Func<ActivityObject>>()
+        {
+            {Mossharbor.ActivityStreams.Activity.ActivityType, () => new Activity() },
+            {ServiceActor.ServiceActorType, () => new ServiceActor() },
+            {ApplicationActor.ApplicationActorType, () => new ApplicationActor()},
+            {GroupActor.GroupActorType, () => new GroupActor()},
+            {OrganizationActor.OrganizationActorType, () => new OrganizationActor()},
+            {PersonActor.PersonActorType, () => new PersonActor()},
+            {Mossharbor.ActivityStreams.Collection.OrderedCollectionType, () => new Collection()},
+            {Mossharbor.ActivityStreams.Collection.CollectionType, () => new Collection()},
+            {ArticleObject.ArticleType, () => new ArticleObject()},
+            {AudioObject.AudioType, () => new AudioObject()},
+            {DocumentObject.DocumentType, () => new DocumentObject()},
+            {EventObject.EventType, () => new EventObject()},
+            {Icon.IconType, () => new Icon()},
+            {ImageObject.ImageType, () => new ImageObject()},
+            {NoteObject.NoteType, () => new NoteObject()},
+            {PageObject.PageType, () => new PageObject()},
+            {PlaceObject.PlaceType, () => new PlaceObject()},
+            {ProfileObject.ProfileType, () => new ProfileObject()},
+            {RelationshipObject.RelationshipType, () => new RelationshipObject()},
+            {TombstoneObject.TombstoneType, () => new TombstoneObject()},
+            {VideoObject.VideoType, () => new VideoObject()},
+            {AcceptActivity.AcceptActivtyTypeString, () => new AcceptActivity()},
+            {AddActivity.TypeString, () => new AddActivity()},
+            {AnnounceActivity.TypeString, () => new AnnounceActivity()},
+            {ArriveActivity.TypeString, () => new ArriveActivity()},
+            {BlockActivity.TypeString, () => new BlockActivity()},
+            {CreateActivity.TypeString, () => new CreateActivity()},
+            {DeleteActivity.TypeString, () => new DeleteActivity()},
+            {DislikeActivity.TypeString, () => new DislikeActivity()},
+            {FlagActivity.TypeString, () => new FlagActivity()},
+            {FollowActivity.TypeString, () => new FollowActivity()},
+            {IgnoreActivity.TypeString, () => new IgnoreActivity()},
+            {InviteActivity.TypeString, () => new InviteActivity()},
+            {JoinActivity.TypeString, () => new JoinActivity()},
+            {LeaveActivity.TypeString, () => new LeaveActivity()},
+            {LikeActivity.TypeString, () => new LikeActivity()},
+            {ListenActivity.TypeString, () => new ListenActivity()},
+            {MoveActivity.TypeString, () => new MoveActivity()},
+            {OfferActivity.TypeString, () => new OfferActivity()},
+            {QuestionActivity.TypeString, () => new QuestionActivity()},
+            {ReadActivity.TypeString, () => new ReadActivity()},
+            {RejectActivity.RejectActivityTypeString, () => new RejectActivity()},
+            {RemoveActivity.TypeString, () => new RemoveActivity()},
+            {TentativeRejectActivity.TypeString, () => new TentativeRejectActivity()},
+            {TentativeAcceptActivity.TypeString, () => new TentativeAcceptActivity()},
+            {TravelActivity.TypeString, () => new TravelActivity()},
+            {UndoActivity.TypeString, () => new UndoActivity()},
+            {UpdateActivity.TypeString, () => new UpdateActivity()},
+            {ViewActivity.TypeString, () => new ViewActivity()},
+            {CollectionPage.CollectionPageType, () => new CollectionPage()},
+            {CollectionPage.OrderedCollectionPageType, () => new CollectionPage()}
+        };
+
+        public bool TryRegisterType(string typeName, Func<ActivityObject> activityInstantiator)
+        {
+            if (this.TypeToObjectMap.ContainsKey(typeName))
+                return false;
+
+            this.TypeToObjectMap.Add(typeName, activityInstantiator);
+            return true;
+        }
+
         public enum BuildValidationLevel { Off, Basic, Strict };
 
         public static JsonDocumentOptions JsonparsingOptions = new JsonDocumentOptions
@@ -40,6 +107,31 @@ namespace Mossharbor.ActivityStreams
             };
         }
 
+        public ActivityObjectBuilder(string type, IActivityObject parentActivity, Func<IActivityObject> defaultActivityCreation)
+        {
+            this.TypeToObjectMap = (parentActivity as ActivityObject).TypeToObjectMap;
+
+            this.fn = (ignored) =>
+            {
+                IActivityObject activity = null;
+
+                if (parentActivity is IActivityStreamsObjectTypeCreator && (parentActivity as IActivityStreamsObjectTypeCreator).CanCreateType(type))
+                    activity = TypeToObjectMap[type]();
+                else
+                    activity = defaultActivityCreation();
+
+                activity.Context = parentActivity.Context;
+                activity.ExtendedContexts = parentActivity.ExtendedContexts;
+                activity.ExtendedIds = parentActivity.ExtendedIds;
+                if (activity is ActivityObject && parentActivity is ActivityObject)
+                {
+                    (activity as ActivityObject).TypeToObjectMap = (parentActivity as ActivityObject).TypeToObjectMap;
+                }
+
+                return activity;
+            };
+        }
+
         /// <summary>
         /// this function builds an activity from the json text read from the stream provided
         /// </summary>
@@ -57,7 +149,7 @@ namespace Mossharbor.ActivityStreams
                     if (ActivityLinkBuilder.IsLinkElment(document.RootElement))
                         throw new NotSupportedException("We dont support links being the root.  the root must be an activity");
 
-                    activity = ActivityStreamsParser.ParseActivityObject(document.RootElement, null);
+                    activity = ActivityStreamsParser.CreateNewActivity(document.RootElement, this.TypeToObjectMap);
                 }
 
                 return activity;
@@ -84,7 +176,7 @@ namespace Mossharbor.ActivityStreams
                     if (ActivityLinkBuilder.IsLinkElment(document.RootElement))
                         throw new NotSupportedException("We dont support links being the root.  the root must be an activity");
 
-                    activity = ActivityStreamsParser.ParseActivityObject(document.RootElement, null);
+                    activity = ActivityStreamsParser.CreateNewActivity(document.RootElement, this.TypeToObjectMap);
                 }
 
                 return activity;
@@ -102,7 +194,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                ActivityObject activity = ActivityStreamsParser.ParseActivityObject(je, null);
+                ActivityObject activity = ActivityStreamsParser.CreateNewActivity(je, this.TypeToObjectMap);
 
                 return activity;
             };
@@ -115,7 +207,7 @@ namespace Mossharbor.ActivityStreams
             this.fn = (ignored) =>
             {
                 QuestionActivity activity = new QuestionActivity();
-                QuestionBuilder qBuilder = new QuestionBuilder(answerType, activity);
+                QuestionBuilder qBuilder = new QuestionBuilder(this.TypeToObjectMap, answerType, activity);
                 qBuilder.Name(question);
                 if (modifier != null)
                     modifier(qBuilder);
@@ -129,7 +221,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                ArticleObject activity = (ArticleObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[ArticleObject.ArticleType]);
+                ArticleObject activity = (ArticleObject)CreateStreamsType(modifier, this.TypeToObjectMap[ArticleObject.ArticleType]);
                 activity.Content = content;
                 return activity;
             };
@@ -140,7 +232,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                ArticleObject activity = (ArticleObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[ArticleObject.ArticleType]);
+                ArticleObject activity = (ArticleObject)CreateStreamsType(modifier, this.TypeToObjectMap[ArticleObject.ArticleType]);
                 return activity;
             };
 
@@ -151,7 +243,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                AudioObject activity = (AudioObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[AudioObject.AudioType]);
+                AudioObject activity = (AudioObject)CreateStreamsType(modifier, this.TypeToObjectMap[AudioObject.AudioType]);
                 return activity;
             };
 
@@ -162,7 +254,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                DocumentObject activity = (DocumentObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[DocumentObject.DocumentType]);
+                DocumentObject activity = (DocumentObject)CreateStreamsType(modifier, this.TypeToObjectMap[DocumentObject.DocumentType]);
                 activity.Content = content;
                 return activity;
             };
@@ -174,7 +266,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                DocumentObject activity = (DocumentObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[DocumentObject.DocumentType]);
+                DocumentObject activity = (DocumentObject)CreateStreamsType(modifier, this.TypeToObjectMap[DocumentObject.DocumentType]);
                 return activity;
             };
 
@@ -185,7 +277,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                EventObject activity = (EventObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[EventObject.EventType]);
+                EventObject activity = (EventObject)CreateStreamsType(modifier, this.TypeToObjectMap[EventObject.EventType]);
                 activity.Content = content;
                 return activity;
             };
@@ -197,7 +289,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                EventObject activity = (EventObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[EventObject.EventType]);
+                EventObject activity = (EventObject)CreateStreamsType(modifier, this.TypeToObjectMap[EventObject.EventType]);
                 return activity;
             };
 
@@ -208,7 +300,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                ImageObject activity = (ImageObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[ImageObject.ImageType]);
+                ImageObject activity = (ImageObject)CreateStreamsType(modifier, this.TypeToObjectMap[ImageObject.ImageType]);
                 return activity;
             };
 
@@ -219,7 +311,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                NoteObject activity = (NoteObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[NoteObject.NoteType]);
+                NoteObject activity = (NoteObject)CreateStreamsType(modifier, this.TypeToObjectMap[NoteObject.NoteType]);
                 activity.Content = content;
                 return activity;
             };
@@ -231,7 +323,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                PageObject activity = (PageObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[PageObject.PageType]);
+                PageObject activity = (PageObject)CreateStreamsType(modifier, this.TypeToObjectMap[PageObject.PageType]);
                 activity.Content = content;
                 return activity;
             };
@@ -243,7 +335,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                PageObject activity = (PageObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[PageObject.PageType]);
+                PageObject activity = (PageObject)CreateStreamsType(modifier, this.TypeToObjectMap[PageObject.PageType]);
                 return activity;
             };
 
@@ -253,7 +345,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                PlaceObject activity = (PlaceObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[PlaceObject.PlaceType]);
+                PlaceObject activity = (PlaceObject)CreateStreamsType(modifier, this.TypeToObjectMap[PlaceObject.PlaceType]);
 
                 if (latitude != null)
                     activity.Latitude = latitude.Value;
@@ -277,7 +369,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                PlaceObject activity = (PlaceObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[PlaceObject.PlaceType]);
+                PlaceObject activity = (PlaceObject)CreateStreamsType(modifier, this.TypeToObjectMap[PlaceObject.PlaceType]);
                 activity.Name = name;
 
                 return activity;
@@ -319,7 +411,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                TombstoneObject activity = (TombstoneObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[TombstoneObject.TombstoneType]);
+                TombstoneObject activity = (TombstoneObject)CreateStreamsType(modifier, this.TypeToObjectMap[TombstoneObject.TombstoneType]);
                 activity.Deleted = deleted;
                 activity.FormerType = formerType;
                 return activity;
@@ -332,7 +424,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                VideoObject activity = (VideoObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[VideoObject.VideoType]);
+                VideoObject activity = (VideoObject)CreateStreamsType(modifier, this.TypeToObjectMap[VideoObject.VideoType]);
                 activity.Name = title;
                 activity.Url = ExpandArray(activity.Url, out int index);
                 activity.Url[index] = new ActivityLink();
@@ -347,7 +439,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                VideoObject activity = (VideoObject)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[VideoObject.VideoType]);
+                VideoObject activity = (VideoObject)CreateStreamsType(modifier, this.TypeToObjectMap[VideoObject.VideoType]);
                 return activity;
             };
 
@@ -358,7 +450,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                ApplicationActor activity = (ApplicationActor)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[ApplicationActor.ApplicationActorType]);
+                ApplicationActor activity = (ApplicationActor)CreateStreamsType(modifier, this.TypeToObjectMap[ApplicationActor.ApplicationActorType]);
                 return activity;
             };
 
@@ -369,7 +461,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                GroupActor activity = (GroupActor)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[GroupActor.GroupActorType]);
+                GroupActor activity = (GroupActor)CreateStreamsType(modifier, this.TypeToObjectMap[GroupActor.GroupActorType]);
                 return activity;
             };
 
@@ -380,7 +472,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                OrganizationActor activity = (OrganizationActor)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[OrganizationActor.OrganizationActorType]);
+                OrganizationActor activity = (OrganizationActor)CreateStreamsType(modifier, this.TypeToObjectMap[OrganizationActor.OrganizationActorType]);
                 return activity;
             };
 
@@ -391,7 +483,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                PersonActor activity = (PersonActor)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[PersonActor.PersonActorType]);
+                PersonActor activity = (PersonActor)CreateStreamsType(modifier, this.TypeToObjectMap[PersonActor.PersonActorType]);
                 activity.Name = name;
                 return activity;
             };
@@ -403,7 +495,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                PersonActor activity = (PersonActor)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[PersonActor.PersonActorType]);
+                PersonActor activity = (PersonActor)CreateStreamsType(modifier, this.TypeToObjectMap[PersonActor.PersonActorType]);
                 return activity;
             };
 
@@ -414,7 +506,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                ServiceActor activity = (ServiceActor)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[ServiceActor.ServiceActorType]);
+                ServiceActor activity = (ServiceActor)CreateStreamsType(modifier, this.TypeToObjectMap[ServiceActor.ServiceActorType]);
                 return activity;
             };
 
@@ -439,7 +531,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                AcceptActivity activity = (AcceptActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[AcceptActivity.AcceptActivtyTypeString]);
+                AcceptActivity activity = (AcceptActivity)CreateStreamsType(modifier, this.TypeToObjectMap[AcceptActivity.AcceptActivtyTypeString]);
                 return activity;
             };
 
@@ -450,7 +542,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                AddActivity activity = (AddActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[AddActivity.TypeString]);
+                AddActivity activity = (AddActivity)CreateStreamsType(modifier, this.TypeToObjectMap[AddActivity.TypeString]);
                 return activity;
             };
 
@@ -461,7 +553,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                AnnounceActivity activity = (AnnounceActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[AnnounceActivity.TypeString]);
+                AnnounceActivity activity = (AnnounceActivity)CreateStreamsType(modifier, this.TypeToObjectMap[AnnounceActivity.TypeString]);
                 return activity;
             };
 
@@ -472,7 +564,7 @@ namespace Mossharbor.ActivityStreams
         {
             this.fn = (ignored) =>
             {
-                ArriveActivity activity = (ArriveActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[ArriveActivity.TypeString]);
+                ArriveActivity activity = (ArriveActivity)CreateStreamsType(modifier, this.TypeToObjectMap[ArriveActivity.TypeString]);
                 return activity;
             };
 
@@ -481,139 +573,139 @@ namespace Mossharbor.ActivityStreams
 
         public ActivityObjectBuilder Block(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => (BlockActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[BlockActivity.TypeString]);
+            this.fn = (ignored) => (BlockActivity)CreateStreamsType(modifier, this.TypeToObjectMap[BlockActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Create(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => (CreateActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[CreateActivity.TypeString]);
+            this.fn = (ignored) => (CreateActivity)CreateStreamsType(modifier, this.TypeToObjectMap[CreateActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Delete(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => (DeleteActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[DeleteActivity.TypeString]);
+            this.fn = (ignored) => (DeleteActivity)CreateStreamsType(modifier, this.TypeToObjectMap[DeleteActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Dislike(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => (DislikeActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[DislikeActivity.TypeString]);
+            this.fn = (ignored) => (DislikeActivity)CreateStreamsType(modifier, this.TypeToObjectMap[DislikeActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Flag(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => (FlagActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[FlagActivity.TypeString]);
+            this.fn = (ignored) => (FlagActivity)CreateStreamsType(modifier, this.TypeToObjectMap[FlagActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Follow(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => (FollowActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[FollowActivity.TypeString]);
+            this.fn = (ignored) => (FollowActivity)CreateStreamsType(modifier, this.TypeToObjectMap[FollowActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Ignore(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => (IgnoreActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[IgnoreActivity.TypeString]);
+            this.fn = (ignored) => (IgnoreActivity)CreateStreamsType(modifier, this.TypeToObjectMap[IgnoreActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Invite(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => (InviteActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[InviteActivity.TypeString]);
+            this.fn = (ignored) => (InviteActivity)CreateStreamsType(modifier, this.TypeToObjectMap[InviteActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Join(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => (JoinActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[JoinActivity.TypeString]);
+            this.fn = (ignored) => (JoinActivity)CreateStreamsType(modifier, this.TypeToObjectMap[JoinActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Leave(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => (LeaveActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[LeaveActivity.TypeString]);
+            this.fn = (ignored) => (LeaveActivity)CreateStreamsType(modifier, this.TypeToObjectMap[LeaveActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Like(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => (LikeActivity)CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[LikeActivity.TypeString]);
+            this.fn = (ignored) => (LikeActivity)CreateStreamsType(modifier, this.TypeToObjectMap[LikeActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Listen(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[ListenActivity.TypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[ListenActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Move(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[MoveActivity.TypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[MoveActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Offer(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[OfferActivity.TypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[OfferActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Read(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[ReadActivity.TypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[ReadActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Reject(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[RejectActivity.RejectActivityTypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[RejectActivity.RejectActivityTypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Remove(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[RemoveActivity.TypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[RemoveActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder TentativeAccept(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[TentativeAcceptActivity.TypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[TentativeAcceptActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder TentativeReject(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[TentativeRejectActivity.TypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[TentativeRejectActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Travel(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[TravelActivity.TypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[TravelActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Undo(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[UndoActivity.TypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[UndoActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder Update(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[UpdateActivity.TypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[UpdateActivity.TypeString]);
             return this;
         }
 
         public ActivityObjectBuilder View(Action<ActivityBuilder> modifier = null)
         {
-            this.fn = (ignored) => CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[ViewActivity.TypeString]);
+            this.fn = (ignored) => CreateStreamsType(modifier, this.TypeToObjectMap[ViewActivity.TypeString]);
             return this;
         }
 
@@ -622,7 +714,7 @@ namespace Mossharbor.ActivityStreams
 
             this.fn = (ignored) =>
             {
-                var collection = CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[Mossharbor.ActivityStreams.Collection.CollectionType]);
+                var collection = CreateStreamsType(modifier, this.TypeToObjectMap[Mossharbor.ActivityStreams.Collection.CollectionType]);
                 collection.Type = Mossharbor.ActivityStreams.Collection.CollectionType;
                 return collection;
             };
@@ -635,7 +727,7 @@ namespace Mossharbor.ActivityStreams
 
             this.fn = (ignored) =>
             {
-                var collection = CreateStreamsType(modifier, ActivityStreamsParser.TypeToObjectMap[Mossharbor.ActivityStreams.Collection.OrderedCollectionType]);
+                var collection = CreateStreamsType(modifier, this.TypeToObjectMap[Mossharbor.ActivityStreams.Collection.OrderedCollectionType]);
                 collection.Type = Mossharbor.ActivityStreams.Collection.OrderedCollectionType;
                 return collection;
             };

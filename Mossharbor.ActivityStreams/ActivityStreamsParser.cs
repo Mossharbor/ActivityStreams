@@ -7,66 +7,8 @@ using System.Text.Json.Serialization;
 
 namespace Mossharbor.ActivityStreams
 {
-    public class ActivityStreamsParser
+    internal class ActivityStreamsParser
     {
-        /// <summary>
-        /// this is the mapping from a type to an implementation
-        /// </summary>
-        public static Dictionary<string, Func<ActivityObject>> TypeToObjectMap = new Dictionary<string, Func<ActivityObject>>()
-        {
-            {Activity.ActivityType, () => new Activity() },
-            {ServiceActor.ServiceActorType, () => new ServiceActor() },
-            {ApplicationActor.ApplicationActorType, () => new ApplicationActor()},
-            {GroupActor.GroupActorType, () => new GroupActor()},
-            {OrganizationActor.OrganizationActorType, () => new OrganizationActor()},
-            {PersonActor.PersonActorType, () => new PersonActor()},
-            {Collection.OrderedCollectionType, () => new Collection()},
-            {Collection.CollectionType, () => new Collection()},
-            {ArticleObject.ArticleType, () => new ArticleObject()},
-            {AudioObject.AudioType, () => new AudioObject()},
-            {DocumentObject.DocumentType, () => new DocumentObject()},
-            {EventObject.EventType, () => new EventObject()},
-            {Icon.IconType, () => new Icon()},
-            {ImageObject.ImageType, () => new ImageObject()},
-            {NoteObject.NoteType, () => new NoteObject()},
-            {PageObject.PageType, () => new PageObject()},
-            {PlaceObject.PlaceType, () => new PlaceObject()},
-            {ProfileObject.ProfileType, () => new ProfileObject()},
-            {RelationshipObject.RelationshipType, () => new RelationshipObject()},
-            {TombstoneObject.TombstoneType, () => new TombstoneObject()},
-            {VideoObject.VideoType, () => new VideoObject()},
-            {AcceptActivity.AcceptActivtyTypeString, () => new AcceptActivity()},
-            {AddActivity.TypeString, () => new AddActivity()},
-            {AnnounceActivity.TypeString, () => new AnnounceActivity()},
-            {ArriveActivity.TypeString, () => new ArriveActivity()},
-            {BlockActivity.TypeString, () => new BlockActivity()},
-            {CreateActivity.TypeString, () => new CreateActivity()},
-            {DeleteActivity.TypeString, () => new DeleteActivity()},
-            {DislikeActivity.TypeString, () => new DislikeActivity()},
-            {FlagActivity.TypeString, () => new FlagActivity()},
-            {FollowActivity.TypeString, () => new FollowActivity()},
-            {IgnoreActivity.TypeString, () => new IgnoreActivity()},
-            {InviteActivity.TypeString, () => new InviteActivity()},
-            {JoinActivity.TypeString, () => new JoinActivity()},
-            {LeaveActivity.TypeString, () => new LeaveActivity()},
-            {LikeActivity.TypeString, () => new LikeActivity()},
-            {ListenActivity.TypeString, () => new ListenActivity()},
-            {MoveActivity.TypeString, () => new MoveActivity()},
-            {OfferActivity.TypeString, () => new OfferActivity()},
-            {QuestionActivity.TypeString, () => new QuestionActivity()},
-            {ReadActivity.TypeString, () => new ReadActivity()},
-            {RejectActivity.RejectActivityTypeString, () => new RejectActivity()},
-            {RemoveActivity.TypeString, () => new RemoveActivity()},
-            {TentativeRejectActivity.TypeString, () => new TentativeRejectActivity()},
-            {TentativeAcceptActivity.TypeString, () => new TentativeAcceptActivity()},
-            {TravelActivity.TypeString, () => new TravelActivity()},
-            {UndoActivity.TypeString, () => new UndoActivity()},
-            {UpdateActivity.TypeString, () => new UpdateActivity()},
-            {ViewActivity.TypeString, () => new ViewActivity()},
-            {CollectionPage.CollectionPageType, () => new CollectionPage()},
-            {CollectionPage.OrderedCollectionPageType, () => new CollectionPage()}
-        };
-
         private static IActivityObjectOrLink[] ParseActivityObjectOrLink(JsonElement el, IActivityObject parent)
         {
             if (el.ValueKind == JsonValueKind.Undefined || el.ValueKind == JsonValueKind.Null)
@@ -191,15 +133,16 @@ namespace Mossharbor.ActivityStreams
             }
         }
 
-        internal static ActivityObject ParseActivityObject(JsonElement el, IActivityObject parent)
+
+        internal static ActivityObject CreateNewActivity(JsonElement el, Dictionary<string, Func<ActivityObject>> TypeToObjectMap)
         {
             if (el.ValueKind == JsonValueKind.String)
             {
                 // TODO this should be a reference link
-                return new ActivityObject() { Url = ParseOutActivityLinks(el), Type = ActivityLink.ActivityLinkType };
+                return new ActivityObject() { Url = ParseOutActivityLinks(el), Type = ActivityLink.ActivityLinkType, TypeToObjectMap = TypeToObjectMap };
             }
 
-            ActivityObject activity = CreateCorrectActivityFrom(el, parent?.Context, parent?.ExtendedContexts, parent?.ExtendedIds);
+            ActivityObject activity = CreateCorrectActivityFrom(el, null, TypeToObjectMap, null, null);
 
             if (activity is ICustomParser)
             {
@@ -234,7 +177,51 @@ namespace Mossharbor.ActivityStreams
             return activity;
         }
 
-        internal static string GetActivityType(JsonElement typeProperty, out IList<string> extendedTypes)
+        internal static ActivityObject ParseActivityObject(JsonElement el, IActivityObject parent)
+        {
+            if (el.ValueKind == JsonValueKind.String)
+            {
+                // TODO this should be a reference link
+                return new ActivityObject() { Url = ParseOutActivityLinks(el), Type = ActivityLink.ActivityLinkType, TypeToObjectMap = (parent as ActivityObject).TypeToObjectMap };
+            }
+
+            ActivityObject activity = CreateCorrectActivityFrom(el, parent?.Context, (parent as ActivityObject).TypeToObjectMap, parent?.ExtendedContexts, parent?.ExtendedIds);
+
+            if (activity is ICustomParser)
+            {
+                (activity as ICustomParser).PerformCustomParsing(el);
+            }
+
+            if (activity is IParsesChildObject)
+            {
+                (activity as IParsesChildObject).PerformCustomObjectParsing(el, ParseActivityObject);
+            }
+
+            if (activity is IParsesChildObjects)
+            {
+                (activity as IParsesChildObjects).PerformCustomObjectParsing(el, ParseActivityObjects);
+            }
+
+            if (activity is IParsesChildObjectOrLinks)
+            {
+                (activity as IParsesChildObjectOrLinks).PerformCustomObjectOrLinkParsing(el, ParseActivityObjectOrLink);
+            }
+
+            if (activity is IParsesChildLinks)
+            {
+                (activity as IParsesChildLinks).PerformCustomLinkParsing(el, ParseOutActivityLinks);
+            }
+
+            if (activity is IParsesChildObjectExtensions)
+            {
+                (activity as IParsesChildObjectExtensions).PerformCustomExtendedObjectParsing(el, ParseOutExtensions);
+            }
+
+            return activity;
+        }
+
+
+        internal static string GetActivityType(JsonElement typeProperty, Dictionary<string, Func<ActivityObject>> TypeToObjectMap, out IList<string> extendedTypes)
         {
             extendedTypes = new List<string>();
             if (typeProperty.ValueKind == JsonValueKind.Undefined || typeProperty.ValueKind == JsonValueKind.Null)
@@ -281,9 +268,9 @@ namespace Mossharbor.ActivityStreams
             throw new InvalidTypeDefinitionException(typeProperty.GetString());
         }
 
-        private static ActivityObject CreateCorrectActivityFrom(JsonElement el, Uri context, IDictionary<string, string> extendedContexts, IDictionary<string, CompactIriID> extendedIds)
+        private static ActivityObject CreateCorrectActivityFrom(JsonElement el, Uri context, Dictionary<string, Func<ActivityObject>> TypeToObjectMap, IDictionary<string, string> extendedContexts, IDictionary<string, CompactIriID> extendedIds)
         {
-            string typeString = el.ContainsElement("type") ? GetActivityType(el.GetProperty("type"), out _) : null;
+            string typeString = el.ContainsElement("type") ? GetActivityType(el.GetProperty("type"), TypeToObjectMap, out _) : null;
 
             ActivityObject activity = null;
 
@@ -291,43 +278,27 @@ namespace Mossharbor.ActivityStreams
             {
                 if (el.ContainsElement("partOf") || el.ContainsElement("next") || el.ContainsElement("prev"))
                 {
-                    var ac = TypeToObjectMap[CollectionPage.CollectionPageType]();
-                    ac.Context = context;
-                    ac.ExtendedContexts = extendedContexts;
-                    ac.ExtendedIds = extendedIds;
-                    return ac;
+                    activity = TypeToObjectMap[CollectionPage.CollectionPageType]();
                 }
             }
             else if (typeString != null && typeString.Equals(Collection.OrderedCollectionType))
             {
                 if (el.ContainsElement("partOf") || el.ContainsElement("next") || el.ContainsElement("prev"))
                 {
-                    var ac = TypeToObjectMap[CollectionPage.OrderedCollectionPageType]();
-                    ac.Context = context;
-                    ac.ExtendedContexts = extendedContexts;
-                    ac.ExtendedIds = extendedIds;
-                    return ac;
+                    activity = TypeToObjectMap[CollectionPage.OrderedCollectionPageType]();
                 }
             }
 
-            if (typeString == ImageObject.ImageType && el.ContainsElement("width") || el.ContainsElement("height"))
+            if (activity == null && typeString == ImageObject.ImageType && el.ContainsElement("width") || el.ContainsElement("height"))
             {
-                var ac = TypeToObjectMap[Icon.IconType]();
-                ac.Context = context;
-                ac.ExtendedContexts = extendedContexts;
-                ac.ExtendedIds = extendedIds;
-                return ac;
+                activity = TypeToObjectMap[Icon.IconType]();
             }
 
-            if (!String.IsNullOrEmpty(typeString) && TypeToObjectMap.ContainsKey(typeString))
+            if (activity == null && !String.IsNullOrEmpty(typeString) && TypeToObjectMap.ContainsKey(typeString))
             {
-                var ac = TypeToObjectMap[typeString]();
-                ac.Context = context;
-                ac.ExtendedContexts = extendedContexts;
-                ac.ExtendedIds = extendedIds;
-                return ac;
+                activity = TypeToObjectMap[typeString]();
             }
-            else
+            else if (activity == null)
             {
                 bool isActivity = el.ContainsElement("actor");
                 bool isIntransitiveActivity = isActivity ? el.ContainsElement("object") : false;
@@ -349,6 +320,7 @@ namespace Mossharbor.ActivityStreams
             activity.Context = context;
             activity.ExtendedContexts = extendedContexts;
             activity.ExtendedIds = extendedIds;
+            activity.TypeToObjectMap = TypeToObjectMap;
             return activity;
         }
     }
