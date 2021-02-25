@@ -13,6 +13,47 @@ namespace Mossharbor.ActivityStreams.Security.UnitTests
     [TestClass]
     public class ParsingSecuritySpecVocabExamples
     {
+
+        /// <summary>
+        /// Testing Spec example 1
+        /// </summary>
+        [TestMethod]
+        public void ParseSecurityStreamIdentityProof()
+        {
+            // support compact URI's
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
+            builder.AddSecurityTypes();
+            PersonActor activity = (PersonActor)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\identityproofs.json"))
+                            .ExpandJsonLD()
+                            .Build();
+
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("toot"), "toot is missing");
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("IdentityProof"), "IdentityProof is missing");
+            // Assert.IsTrue(activity.Attachment[0].Obj.ExtendedTypes.Contains("http://joinmastodon.org/ns#IdentityProof"), "extendedTypes expansion is missing");
+            Assert.IsInstanceOfType(activity.Attachment[0].Obj, typeof(IdentityProof));
+            Assert.AreEqual((activity.Attachment[0].Obj as IdentityProof).SignatureAlgorithm, "keybase");
+            Assert.AreEqual((activity.Attachment[0].Obj as IdentityProof).SignatureValue, "5cfc20c7018f2beefb42a68836da59a792e55daa4d118498c9b1898de7e845690f");
+        }
+
+        /// <summary>
+        /// Testing Spec example 1
+        /// </summary>
+        [TestMethod]
+        public void ParseSecurityStreamIdentityProofWithOutExpansion()
+        {
+            // support compact URI's
+            ActivityObjectBuilder builder = new ActivityObjectBuilder();
+            builder.AddSecurityTypes();
+            PersonActor activity = (PersonActor)builder.FromJson(System.IO.File.OpenRead(@".\Extensions\identityproofs.json"))
+                            .Build();
+
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("toot"), "toot is missing");
+            Assert.IsTrue(activity.ExtendedContexts.ContainsKey("IdentityProof"), "IdentityProof is missing");
+            Assert.IsInstanceOfType(activity.Attachment[0].Obj, typeof(IdentityProof));
+            Assert.AreEqual((activity.Attachment[0].Obj as IdentityProof).SignatureAlgorithm, "keybase");
+            Assert.AreEqual((activity.Attachment[0].Obj as IdentityProof).SignatureValue, "5cfc20c7018f2beefb42a68836da59a792e55daa4d118498c9b1898de7e845690f");
+        }
+
         /// <summary>
         /// Testing Spec example 1
         /// </summary>

@@ -18,7 +18,7 @@ namespace Mossharbor.ActivityStreams.Security
             //ActivityStreamsParser.TypeToObjectMap.Add("EcdsaSecp256r1Signature2019", () => new EcdsaSecp256r1Signature2019());
             //ActivityStreamsParser.TypeToObjectMap.Add("EcdsaSecp256k1VerificationKey2019", () => new EcdsaSecp256k1VerificationKey2019());
             //ActivityStreamsParser.TypeToObjectMap.Add("EcdsaSecp256r1VerificationKey2019", () => new EcdsaSecp256r1VerificationKey2019());
-            //ActivityStreamsParser.TypeToObjectMap.Add("Ed25519Signature2018", () => new Ed25519Signature2018());
+            ActivityStreamsParser.TypeToObjectMap.Add("Ed25519Signature2018", () => new Ed25519Signature2018());
             //ActivityStreamsParser.TypeToObjectMap.Add("Ed25519VerificationKey2018", () => new Ed25519VerificationKey2018());
             //ActivityStreamsParser.TypeToObjectMap.Add("EquihashProof2018", () => new EquihashProof2018());
             //ActivityStreamsParser.TypeToObjectMap.Add("ExportKeyOperation", () => new ExportKeyOperation());
@@ -39,6 +39,7 @@ namespace Mossharbor.ActivityStreams.Security
             ActivityStreamsParser.TypeToObjectMap.Add("GraphSignature2012", () => new GraphSignature2012());
             ActivityStreamsParser.TypeToObjectMap.Add("LinkedDataSignature2015", () => new LinkedDataSignature2015());
             ActivityStreamsParser.TypeToObjectMap.Add("LinkedDataSignature2016", () => new LinkedDataSignature2016());
+            ActivityStreamsParser.TypeToObjectMap.Add("IdentityProof", () => new IdentityProof());
         }
     }
 }
