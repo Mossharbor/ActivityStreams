@@ -107,9 +107,24 @@ namespace Mossharbor.ActivityStreams
             };
         }
 
-        public ActivityObjectBuilder(string type, IActivityObject parentActivity, Func<IActivityObject> defaultActivityCreation)
+        public ActivityObjectBuilder FromJDocument(JsonDocument je, IActivityObject parentActivity = null)
         {
-            this.TypeToObjectMap = (parentActivity as ActivityObject).TypeToObjectMap;
+            if (null != parentActivity && parentActivity is ActivityObject)
+                this.TypeToObjectMap = (parentActivity as ActivityObject).TypeToObjectMap;
+
+            this.fn = (ignored) =>
+            {
+                IActivityObject activity = ActivityStreamsParser.CreateNewActivity(je.RootElement, this.TypeToObjectMap);
+                return activity;
+            };
+
+            return this;
+        }
+
+        public ActivityObjectBuilder FromTypeString(string type, IActivityObject parentActivity = null)
+        {
+            if (null != parentActivity && parentActivity is ActivityObject)
+                this.TypeToObjectMap = (parentActivity as ActivityObject).TypeToObjectMap;
 
             this.fn = (ignored) =>
             {
@@ -118,7 +133,7 @@ namespace Mossharbor.ActivityStreams
                 if (parentActivity is IActivityStreamsObjectTypeCreator && (parentActivity as IActivityStreamsObjectTypeCreator).CanCreateType(type))
                     activity = TypeToObjectMap[type]();
                 else
-                    activity = defaultActivityCreation();
+                    return null;
 
                 activity.Context = parentActivity.Context;
                 activity.ExtendedContexts = parentActivity.ExtendedContexts;
@@ -130,6 +145,20 @@ namespace Mossharbor.ActivityStreams
 
                 return activity;
             };
+
+            return this;
+        }
+
+        public ActivityObjectBuilder DefaultType(Func<IActivityObject> defaultActivityCreation)
+        {
+            this.fn = (activity) =>
+            {
+                if (activity == null)
+                    activity = defaultActivityCreation();
+                return activity;
+            };
+
+            return this;
         }
 
         /// <summary>

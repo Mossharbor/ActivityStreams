@@ -23,11 +23,7 @@ namespace Mossharbor.ActivityStreams.Security
 
             using (JsonDocument document = JsonDocument.Parse(sigJson, ActivityObjectBuilder.JsonparsingOptions))
             {
-                var type = document.RootElement.GetStringOrDefault("type");
-                if (null == type)
-                    type = document.RootElement.GetStringOrDefault("@type");
-
-                var signature = new ActivityObjectBuilder(type, activity, () => new SignatureBase()).Build();
+                var signature = new ActivityObjectBuilder().FromJDocument(document, activity).DefaultType(() => new SignatureBase()).Build();
                 if (signature is ICustomParser)
                     (signature as ICustomParser).PerformCustomParsing(document.RootElement);
 
@@ -49,11 +45,7 @@ namespace Mossharbor.ActivityStreams.Security
 
             using (JsonDocument document = JsonDocument.Parse(proofJson, ActivityObjectBuilder.JsonparsingOptions))
             {
-                var type = document.RootElement.GetStringOrDefault("type");
-                if (null == type)
-                    type = document.RootElement.GetStringOrDefault("@type");
-
-                var proof = new ActivityObjectBuilder(type, activity, () => new ProofBase()).Build();
+                var proof = new ActivityObjectBuilder().FromJDocument(document, activity).DefaultType(() => new ProofBase()).Build();
                 if (proof is ICustomParser)
                     (proof as ICustomParser).PerformCustomParsing(document.RootElement);
 
@@ -74,12 +66,8 @@ namespace Mossharbor.ActivityStreams.Security
             string proofJson = activity.Extensions.ContainsKey("publicKey") ? activity.Extensions["publicKey"] : activity.ExtensionsOutOfContext["publicKey"];
 
             using (JsonDocument document = JsonDocument.Parse(proofJson, ActivityObjectBuilder.JsonparsingOptions))
-            {
-                var type = document.RootElement.GetStringOrDefault("type");
-                if (null == type)
-                    type = document.RootElement.GetStringOrDefault("@type");
-
-                var key = new ActivityObjectBuilder(type, activity, () => new KeyBase()).Build();
+            {\
+                var key = new ActivityObjectBuilder().FromJDocument(document, activity).DefaultType(() => new KeyBase()).Build();
                 if (key is ICustomParser)
                     (key as ICustomParser).PerformCustomParsing(document.RootElement);
 
