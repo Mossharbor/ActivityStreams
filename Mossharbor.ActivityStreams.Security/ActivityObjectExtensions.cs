@@ -66,7 +66,7 @@ namespace Mossharbor.ActivityStreams.Security
             string proofJson = activity.Extensions.ContainsKey("publicKey") ? activity.Extensions["publicKey"] : activity.ExtensionsOutOfContext["publicKey"];
 
             using (JsonDocument document = JsonDocument.Parse(proofJson, ActivityObjectBuilder.JsonparsingOptions))
-            {\
+            {
                 var key = new ActivityObjectBuilder().FromJDocument(document, activity).DefaultType(() => new KeyBase()).Build();
                 if (key is ICustomParser)
                     (key as ICustomParser).PerformCustomParsing(document.RootElement);

@@ -130,8 +130,10 @@ namespace Mossharbor.ActivityStreams
             {
                 IActivityObject activity = null;
 
-                if (parentActivity is IActivityStreamsObjectTypeCreator && (parentActivity as IActivityStreamsObjectTypeCreator).CanCreateType(type))
+                if (parentActivity != null && parentActivity is IActivityStreamsObjectTypeCreator && (parentActivity as IActivityStreamsObjectTypeCreator).CanCreateType(type))
                     activity = TypeToObjectMap[type]();
+                else if (this.TypeToObjectMap.ContainsKey(type))
+                    activity = this.TypeToObjectMap[type]();
                 else
                     return null;
 
